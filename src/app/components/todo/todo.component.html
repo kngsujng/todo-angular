@@ -1,5 +1,4 @@
 <li>
-
     <button (click)="toggleItem(todo.id)">
         @if (todo.isCompleted) {
             <span>✔️</span> 
@@ -7,6 +6,17 @@
             <span> </span>
         }
     </button>
-    <span>{{todo.todo}}</span>
+    @if (!isEditing) {
+        <span>{{todo.todo}}</span>
+    } @else {
+        <input type="text" value={{todo.todo}} [(ngModel)]="editedInputVal"/>
+    }
+    <button type="button" (click)="editItem()">
+        @if (!isEditing) {
+            <span>수정</span> 
+        } @else {
+            <span>완료</span>
+        }
+    </button>
     <button type='button' (click)="removeItem(todo.id)">X</button>
 </li>

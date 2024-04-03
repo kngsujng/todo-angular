@@ -1,2 +1,2 @@
 <app-add-todo (newItemEvent)="onAddTodo($event)"/>
-<app-todos [todos]="todoList" (deleteItemEvent)="onRemoveTodo($event)" (toggleItemEvent)="onToggleTodo($event)"/>
+<app-todos [todos]="todoList" (deleteItemEvent)="onRemoveTodo($event)" (toggleItemEvent)="onToggleTodo($event)" (editItemEvent)="onEditTodo($event.id, $event.todo)"/>

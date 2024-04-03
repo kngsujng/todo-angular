@@ -36,4 +36,12 @@ export class AppComponent {
     }
     console.table(this.todoList);
   }
+  onEditTodo(id: string, updatedTodo: string){
+    for(let todoItem of this.todoList){
+      if(todoItem.id === id){
+        todoItem.todo = updatedTodo;
+        break;
+      }
+    }
+  }
 }
