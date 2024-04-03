@@ -14,10 +14,6 @@ export class AddTodoComponent {
   // 1. 자식 컴포넌트에서 부모 컴포넌트로 상태 전달 (Output)
   // 2. Output을 위한 EventEmitter 사용
 
-  // onAdd() {
-  //   console.log(this.inputVal) 
-  // }
-
   addNewItem(){
     this.newItemEvent.emit(this.inputVal);
     this.inputVal='';

@@ -1,8 +1,13 @@
 <ul>
     @for (todoItem of todos; track $index) {
         <li>
-            <span>{{todoItem}}</span>
-            <button type='button' (click)="removeItem(todoItem)">X</button>
+            @if (todoItem.isCompleted) {
+                <button>✔️</button>
+            } @else {
+                <button></button>
+            }
+            <span>{{todoItem.todo}}</span>
+            <button type='button' (click)="removeItem(todoItem.todo)">X</button>
         </li>
     }
 </ul>

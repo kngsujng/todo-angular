@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AddTodoComponent } from './components/add-todo/add-todo.component';
 import { TodosComponent } from './components/todos/todos.component';
+import { TodoItem } from './model/todo';
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +13,18 @@ import { TodosComponent } from './components/todos/todos.component';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  todoList: string[] = [];
+  todoList: TodoItem[] = [];
 
   onAddTodo(todo: string){
-    this.todoList.push(todo);
+    this.todoList.push({
+      id: uuid(),
+      todo: todo,
+      isCompleted: false
+    });
     console.table(this.todoList);
   }
   onRemoveTodo(todo: string){
-    this.todoList = this.todoList.filter(item => item !== todo)
+    this.todoList = this.todoList.filter(item => item.todo !== todo)
     console.table(this.todoList);
   }
 }
