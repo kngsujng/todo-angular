@@ -1,5 +1,5 @@
 <ul>
-    @for (todoItem of todoList; track $index) {
+    @for (todoItem of todos; track $index) {
         <li>
             <span>{{todoItem}}</span>
             <button type='button' (click)="removeItem(todoItem)">X</button>
