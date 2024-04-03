@@ -12,8 +12,13 @@ import { TodosComponent } from './components/todos/todos.component';
 })
 export class AppComponent {
   todoList: string[] = [];
+
   onAddTodo(todo: string){
-    this.todoList.push(todo)
-    console.table(this.todoList)
+    this.todoList.push(todo);
+    console.table(this.todoList);
+  }
+  onRemoveTodo(todo: string){
+    this.todoList = this.todoList.filter(item => item !== todo)
+    console.table(this.todoList);
   }
 }

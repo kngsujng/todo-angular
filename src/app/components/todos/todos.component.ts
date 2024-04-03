@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-todos',
@@ -8,5 +8,11 @@ import { Component, Input } from '@angular/core';
   styleUrl: './todos.component.scss'
 })
 export class TodosComponent {
-  @Input() todoList : string[] = []
+  @Input() todoList : string[] = [];
+  @Output() deleteItemEvent = new EventEmitter<string>(); 
+  // 삭제 기능 - 부모에게 지워야 할 Todo 전달 -> Output과 EventEmitter 활용 
+
+  removeItem(todo: string){
+    this.deleteItemEvent.emit(todo);
+  }
 }
