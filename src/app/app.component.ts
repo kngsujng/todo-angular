@@ -23,8 +23,8 @@ export class AppComponent {
     });
     console.table(this.todoList);
   }
-  onRemoveTodo(todo: string){
-    this.todoList = this.todoList.filter(item => item.todo !== todo)
+  onRemoveTodo(id: string){
+    this.todoList = this.todoList.filter(item => item.id !== id)
     console.table(this.todoList);
   }
 }

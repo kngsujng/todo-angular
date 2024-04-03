@@ -12,7 +12,7 @@ export class TodoComponent {
   @Input() todo:TodoItem = {id: '', todo: '', isCompleted: false};
   @Output() deleteItemEvent = new EventEmitter<string>(); 
 
-  removeItem(todo: string){
-    this.deleteItemEvent.emit(todo);
+  removeItem(id: string){
+    this.deleteItemEvent.emit(id);
   }
 }

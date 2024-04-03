@@ -14,7 +14,7 @@ export class TodosComponent {
   @Output() deleteItemEvent = new EventEmitter<string>(); 
   // 삭제 기능 - 부모에게 지워야 할 Todo 전달 -> Output과 EventEmitter 활용 
 
-  removeItem(todo: string){
-    this.deleteItemEvent.emit(todo);
+  removeItem(id: string){
+    this.deleteItemEvent.emit(id);
   }
 }
