@@ -1,9 +1,8 @@
 @if (todos && todos.length > 0) {
     <ul>
         @for (todoItem of todos; track $index) {
-           <app-todo [todo]="todoItem" (deleteItemEvent)="removeItem(todoItem.id)"/>
+           <app-todo [todo]="todoItem" (deleteItemEvent)="removeItem(todoItem.id)" (toggleItemEvent)="toggleItem(todoItem.id)" />
         }
     </ul>
 
 }
-

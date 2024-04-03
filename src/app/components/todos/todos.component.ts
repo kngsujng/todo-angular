@@ -12,9 +12,13 @@ import { TodoComponent } from "../todo/todo.component";
 export class TodosComponent {
   @Input() todos : TodoItem[] = [];
   @Output() deleteItemEvent = new EventEmitter<string>(); 
+  @Output() toggleItemEvent = new EventEmitter<string>(); 
   // 삭제 기능 - 부모에게 지워야 할 Todo 전달 -> Output과 EventEmitter 활용 
 
   removeItem(id: string){
     this.deleteItemEvent.emit(id);
+  }
+  toggleItem(id: string){
+    this.toggleItemEvent.emit(id);
   }
 }

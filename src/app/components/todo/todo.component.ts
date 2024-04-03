@@ -11,8 +11,13 @@ import { TodoItem } from '../../model/todo';
 export class TodoComponent {
   @Input() todo:TodoItem = {id: '', todo: '', isCompleted: false};
   @Output() deleteItemEvent = new EventEmitter<string>(); 
+  @Output() toggleItemEvent = new EventEmitter<string>(); 
+
 
   removeItem(id: string){
     this.deleteItemEvent.emit(id);
+  }
+  toggleItem(id: string){
+    this.toggleItemEvent.emit(id);
   }
 }

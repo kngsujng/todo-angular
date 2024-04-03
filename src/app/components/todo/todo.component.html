@@ -1,9 +1,12 @@
 <li>
-    @if (todo.isCompleted) {
-    <button>✔️</button>
-    } @else {
-    <button></button>
-    }
+
+    <button (click)="toggleItem(todo.id)">
+        @if (todo.isCompleted) {
+            <span>✔️</span> 
+        } @else {
+            <span> </span>
+        }
+    </button>
     <span>{{todo.todo}}</span>
     <button type='button' (click)="removeItem(todo.id)">X</button>
 </li>
