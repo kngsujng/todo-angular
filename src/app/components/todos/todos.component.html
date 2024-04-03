@@ -1,13 +1,9 @@
-<ul>
-    @for (todoItem of todos; track $index) {
-        <li>
-            @if (todoItem.isCompleted) {
-                <button>✔️</button>
-            } @else {
-                <button></button>
-            }
-            <span>{{todoItem.todo}}</span>
-            <button type='button' (click)="removeItem(todoItem.todo)">X</button>
-        </li>
-    }
-</ul>
+@if (todos && todos.length > 0) {
+    <ul>
+        @for (todoItem of todos; track $index) {
+           <app-todo [todo]="todoItem" (deleteItemEvent)="removeItem(todoItem.todo)"/>
+        }
+    </ul>
+
+}
+
