@@ -1,12 +1,16 @@
-<header class="flex items-center h-16 p-5 bg-red-200">
+<header class="flex items-center justify-between h-16 gap-4 p-5 bg-[#F8F9FA] shadow-md">
+    <p class="text-2xl font-semibold">{{today | date: 'M월 d일'}}</p>
     <nav>
-        <ul class="flex gap-4 bg-yellow-400">
+        <ul class="flex gap-4">
             <li>
-                <a routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page" class="uppercase">list</a>
+                <a routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page"
+                    class="font-bold uppercase hover:text-[#00C471]">list</a>
             </li>
             <li>
-                <a routerLink="/canban" routerLinkActive="active" ariaCurrentWhenActive="page" class="uppercase">canban</a>
+                <a routerLink="/canban" routerLinkActive="active" ariaCurrentWhenActive="page"
+                    class="font-bold uppercase hover:text-[#00C471]">canban</a>
             </li>
         </ul>
     </nav>
 </header>
+<div class='h-1 bg-[#00C471]' [style.width.%]="getCompletionRate()"></div>
