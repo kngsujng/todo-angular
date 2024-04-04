@@ -1,2 +1,4 @@
-<input type="text" placeholder="todo를 입력하세요" [(ngModel)]="inputVal">
-<button type="button" (click)="addNewItem()">추가</button>
+<section class="flex items-center max-w-screen-md mx-auto my-6">
+    <input type="text" placeholder="todo를 입력하세요" [(ngModel)]="inputVal" class="outline-none flex-1 mr-4 p-4 bg-[#F6F6F6] rounded-lg">
+    <button type="button" (click)="addNewItem()" class="bg-[#00C471] w-12 h-12 text-4xl text-white rounded-full pb-1.5">+</button>
+</section>
