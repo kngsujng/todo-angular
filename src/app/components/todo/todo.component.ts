@@ -11,8 +11,7 @@ import { FormsModule } from '@angular/forms'
 })
 export class TodoComponent {
   editedInputVal: string = ''
-  isEditing: boolean = false
-  @Input() todo: TodoItem = { id: '', todo: '', isCompleted: false }
+  @Input() todo: TodoItem = { id: '', todo: '', isCompleted: false, isEditing: false }
   @Output() deleteItemEvent = new EventEmitter<string>()
   @Output() toggleItemEvent = new EventEmitter<string>()
   @Output() editItemEvent = new EventEmitter<string>()
@@ -26,7 +25,6 @@ export class TodoComponent {
   }
 
   editItem() {
-    this.isEditing = !this.isEditing
     this.editItemEvent.emit(this.editedInputVal)
   }
 }

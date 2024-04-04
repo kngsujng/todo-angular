@@ -1,26 +1,27 @@
 <li class="flex items-center gap-3 px-4 py-4 mb-3 border-2 border-[#00C471] text-md rounded-3xl shadow-md bg-white">
-    <button (click)="toggleItem(todo.id)" class="w-8 h-8 border-2 border-gray-400 border-dotted rounded-full hover:border-[#00C471]">
+    <button (click)="toggleItem(todo.id)"
+        class="w-8 h-8 border-2 border-gray-400 border-dotted rounded-full hover:border-[#00C471]">
         @if (todo.isCompleted) {
-            <span>⭕</span> 
+        <span>⭕</span>
         } @else {
-            <span></span>
+        <span></span>
         }
     </button>
-    @if (!isEditing) {
-        @if(todo.isCompleted){
-            <span class="flex-1 p-2 text-gray-400 line-through">{{todo.todo}}</span>
-        } @else{
-            <span class="flex-1 p-2">{{todo.todo}}</span>
-        }
+    @if (!todo.isEditing) {
+    @if(todo.isCompleted){
+    <span class="flex-1 p-2 text-gray-400 line-through">{{todo.todo}}</span>
+    } @else{
+    <span class="flex-1 p-2">{{todo.todo}}</span>
+    }
     } @else {
-        <input type="text" value={{todo.todo}} [(ngModel)]="editedInputVal" class="flex-1 p-2 border-b outline-none"/>
+    <input type="text" value={{todo.todo}} [(ngModel)]="editedInputVal" class="flex-1 p-2 border-b outline-none" />
     }
     <button type="button" (click)="editItem()">
-        @if (!isEditing) {
-            <span>✏️</span> 
+        @if (!todo.isEditing) {
+        <span>✏️</span>
         } @else {
-            <span>✔️</span>
+        <span>✔️</span>
         }
     </button>
     <button type='button' (click)="removeItem(todo.id)">🗑️</button>
-</li> 
+</li>
