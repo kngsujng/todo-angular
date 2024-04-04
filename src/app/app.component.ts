@@ -9,7 +9,7 @@ import { v4 as uuid } from 'uuid';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AddTodoComponent, TodosComponent, TodoHeadComponent],
+  imports: [RouterOutlet, AddTodoComponent, TodoHeadComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

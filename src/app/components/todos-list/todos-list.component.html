@@ -1,1 +1,1 @@
-<p>todos-list works!</p>
+<app-todos [todos]="todoList" (deleteItemEvent)="onRemoveTodo($event)" (toggleItemEvent)="onToggleTodo($event)" (editItemEvent)="onEditTodo($event.id, $event.todo)" class="flex-1 h-5/6"/>
