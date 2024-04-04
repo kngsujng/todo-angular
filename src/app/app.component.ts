@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AddTodoComponent } from './components/add-todo/add-todo.component';
 import { TodosComponent } from './components/todos/todos.component';
+import { TodoHeadComponent } from './components/todo-head/todo-head.component';
 import { TodoItem } from './model/todo';
 import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AddTodoComponent, TodosComponent],
+  imports: [RouterOutlet, AddTodoComponent, TodosComponent, TodoHeadComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
