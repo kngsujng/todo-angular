@@ -29,11 +29,11 @@ export class AppComponent {
   ];  
 
   onAddTodo(todo: string) {
-    this.todoList.push({
+    this.todoList = [{
       id: uuid(),
       todo: todo,
       isCompleted: false
-    });
+    }, ...this.todoList]
     console.table(this.todoList);
   }
   onRemoveTodo(id: string) {
