@@ -10,17 +10,17 @@ import { TodoListService } from '../../share/todo-list.service';
   styleUrl: './todos-list.component.scss'
 })
 export class TodosListComponent {
-  constructor(public todoList: TodoListService) {}
-  
+  constructor(public todos: TodoListService) { }
+
   onRemoveTodo(id: string) {
-    this.todoList.onRemoveTodo(id)
-    console.table(this.todoList);
+    this.todos.onRemoveTodo(id)
+    console.table(this.todos);
   }
   onToggleTodo(id: string) {
-    this.todoList.onToggleTodo(id)
-    console.table(this.todoList);
+    this.todos.onToggleTodo(id)
+    console.table(this.todos);
   }
-  onEditTodo(id: string, updatedTodo: string){
-    this.todoList.onEditTodo(id, updatedTodo)
+  onEditTodo(id: string, updatedTodo: string) {
+    this.todos.onEditTodo(id, updatedTodo)
   }
 }

@@ -1,28 +1,29 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TodoItem } from '../../model/todo';
 import { TodoComponent } from "../todo/todo.component";
+import { TodoListService } from '../../share/todo-list.service';
 
 @Component({
-    selector: 'app-todos',
-    standalone: true,
-    templateUrl: './todos.component.html',
-    styleUrl: './todos.component.scss',
-    imports: [TodoComponent]
+  selector: 'app-todos',
+  standalone: true,
+  templateUrl: './todos.component.html',
+  styleUrl: './todos.component.scss',
+  imports: [TodoComponent]
 })
 export class TodosComponent {
-  @Input() todos : TodoItem[] = [];
-  @Output() deleteItemEvent = new EventEmitter<string>(); 
-  @Output() toggleItemEvent = new EventEmitter<string>(); 
-  // 삭제 기능 - 부모에게 지워야 할 Todo 전달 -> Output과 EventEmitter 활용 
-  @Output() editItemEvent = new EventEmitter<{id: string, todo: string}>(); 
+  constructor(public todos: TodoListService) { }
 
-  removeItem(id: string){
+  @Output() deleteItemEvent = new EventEmitter<string>();
+  @Output() toggleItemEvent = new EventEmitter<string>();
+  // 삭제 기능 - 부모에게 지워야 할 Todo 전달 -> Output과 EventEmitter 활용 
+  @Output() editItemEvent = new EventEmitter<{ id: string, todo: string }>();
+
+  removeItem(id: string) {
     this.deleteItemEvent.emit(id);
   }
-  toggleItem(id: string){
+  toggleItem(id: string) {
     this.toggleItemEvent.emit(id);
   }
-  editItem({id, todo} : {id: string, todo: string}){
-    this.editItemEvent.emit({id, todo});
+  editItem({ id, todo }: { id: string, todo: string }) {
+    this.editItemEvent.emit({ id, todo });
   }
 }
