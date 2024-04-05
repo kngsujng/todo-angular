@@ -10,18 +10,16 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './todo.component.scss',
 })
 export class TodoComponent {
+  isEditing = false;
   editedInputVal: string = '';
-  @Input() todo: TodoItem = {
-    id: '',
-    todo: '',
-    isCompleted: false,
-  };
-  @Output() deleteItemEvent = new EventEmitter<string>();
+
+  @Input() todo!: TodoItem;
+  @Output() removeItemEvent = new EventEmitter<string>();
   @Output() toggleItemEvent = new EventEmitter<string>();
   @Output() editItemEvent = new EventEmitter<string>();
 
   removeItem(id: string) {
-    this.deleteItemEvent.emit(id);
+    this.removeItemEvent.emit(id);
   }
 
   toggleItem(id: string) {
@@ -30,5 +28,12 @@ export class TodoComponent {
 
   editItem() {
     this.editItemEvent.emit(this.editedInputVal);
+    this.isEditing = false;
+    this.editedInputVal = '';
+  }
+
+  changeEditMode() {
+    this.isEditing = true;
+    this.editedInputVal = this.todo.todo;
   }
 }

@@ -2,7 +2,7 @@
   <input
     type="text"
     placeholder="todo를 입력하세요"
-    [(ngModel)]="inputVal"
+    [(ngModel)]="newTodoVal"
     class="outline-none flex-1 mr-4 p-4 bg-[#F6F6F6] rounded-lg"
     autofocus
   />
@@ -10,7 +10,7 @@
     type="button"
     (click)="addNewItem()"
     class="bg-[#00C471] w-12 h-12 text-4xl text-white rounded-full pb-1.5 disabled:opacity-30"
-    [disabled]="inputVal.trim().length <= 0"
+    [disabled]="newTodoVal.trim().length <= 0"
   >
     +
   </button>

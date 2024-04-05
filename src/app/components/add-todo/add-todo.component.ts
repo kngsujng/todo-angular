@@ -9,13 +9,13 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './add-todo.component.scss',
 })
 export class AddTodoComponent {
-  inputVal: string = '';
+  newTodoVal: string = '';
   @Output() newItemEvent = new EventEmitter<string>();
   // 1. 자식 컴포넌트에서 부모 컴포넌트로 상태 전달 (Output)
   // 2. Output을 위한 EventEmitter 사용
 
   addNewItem(): void {
-    this.newItemEvent.emit(this.inputVal);
-    this.inputVal = '';
+    this.newItemEvent.emit(this.newTodoVal);
+    this.newTodoVal = '';
   }
 }

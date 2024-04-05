@@ -65,5 +65,9 @@ export class TodoListService {
     }
     console.table(this.todoList);
   }
-  onEditTodo(id: string, updatedTodo: string) {}
+  onEditTodo(id: string, updatedTodo: string) {
+    const todoIndex = this.todoList.findIndex((item) => item.id === id);
+    this.todoList[todoIndex].todo = updatedTodo;
+    console.table(this.todoList);
+  }
 }

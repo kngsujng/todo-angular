@@ -1,6 +1,14 @@
-<app-todos
-  (deleteItemEvent)="onRemoveTodo($event)"
-  (toggleItemEvent)="onToggleTodo($event)"
-  (editItemEvent)="onEditTodo($event.id, $event.todo)"
-  class="flex-1 h-5/6"
-/>
+@if (todos.todoList && todos.todoList.length > 0) {
+  <ul
+    class="flex-1 h-5/6 max-w-screen-md mx-auto bg-[#F9F9F9] p-5 overflow-y-scroll"
+  >
+    @for (todoItem of todos.todoList; track $index) {
+      <app-todo
+        [todo]="todoItem"
+        (removeItemEvent)="todos.onRemoveTodo($event)"
+        (toggleItemEvent)="todos.onToggleTodo($event)"
+        (editItemEvent)="todos.onEditTodo(todoItem.id, $event)"
+      />
+    }
+  </ul>
+}
