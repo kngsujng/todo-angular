@@ -15,7 +15,6 @@ export class TodoComponent {
     id: '',
     todo: '',
     isCompleted: false,
-    isEditing: false,
   };
   @Output() deleteItemEvent = new EventEmitter<string>();
   @Output() toggleItemEvent = new EventEmitter<string>();

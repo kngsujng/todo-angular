@@ -11,26 +11,20 @@
       <span></span>
     }
   </button>
-  @if (!todo.isEditing) {
-    @if (todo.isCompleted) {
-      <span class="flex-1 p-2 text-gray-400 line-through">{{ todo.todo }}</span>
-    } @else {
-      <span class="flex-1 p-2">{{ todo.todo }}</span>
-    }
+  @if (todo.isCompleted) {
+    <span class="flex-1 p-2 text-gray-400 line-through">{{ todo.todo }}</span>
   } @else {
-    <input
+    <span class="flex-1 p-2">{{ todo.todo }}</span>
+  }
+  <!-- <input
       type="text"
       value="{{ todo.todo }}"
       [(ngModel)]="editedInputVal"
       class="flex-1 p-2 border-b outline-none"
-    />
-  }
+    /> -->
   <button type="button" (click)="editItem()">
-    @if (!todo.isEditing) {
-      <span>✏️</span>
-    } @else {
-      <span>✔️</span>
-    }
+    <span>✏️</span>
+    <!-- <span>✔️</span> -->
   </button>
   <button type="button" (click)="removeItem(todo.id)">🗑️</button>
 </li>
