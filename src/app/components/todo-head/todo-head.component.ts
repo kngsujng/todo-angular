@@ -12,10 +12,12 @@ import { TodoListService } from '../../share/todo-list.service';
 })
 export class TodoHeadComponent {
   today: Date = new Date();
-  constructor(public todos: TodoListService) { }
+  constructor(public todos: TodoListService) {}
 
   getCompletionRate(): number {
-    const completionRate = this.todos.todoList.filter(item => item.isCompleted).length / this.todos.todoList.length;
-    return Math.round(completionRate * 100)
+    const completionRate =
+      this.todos.todoList.filter((item) => item.isCompleted).length /
+      this.todos.todoList.length;
+    return Math.round(completionRate * 100);
   }
 }

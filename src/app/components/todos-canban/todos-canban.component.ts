@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './todos-canban.component.html',
-  styleUrl: './todos-canban.component.scss'
+  styleUrl: './todos-canban.component.scss',
 })
-export class TodosCanbanComponent {
-
-}
+export class TodosCanbanComponent {}

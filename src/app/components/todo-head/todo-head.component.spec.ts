@@ -8,10 +8,9 @@ describe('TodoHeadComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TodoHeadComponent]
-    })
-    .compileComponents();
-    
+      imports: [TodoHeadComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(TodoHeadComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

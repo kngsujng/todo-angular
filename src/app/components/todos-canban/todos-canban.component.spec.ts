@@ -8,10 +8,9 @@ describe('TodosCanbanComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TodosCanbanComponent]
-    })
-    .compileComponents();
-    
+      imports: [TodosCanbanComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(TodosCanbanComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

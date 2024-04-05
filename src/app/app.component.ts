@@ -9,12 +9,12 @@ import { TodoListService } from './share/todo-list.service';
   standalone: true,
   imports: [RouterOutlet, AddTodoComponent, TodoHeadComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   constructor(private todoList: TodoListService) {}
 
-  onAddTodo(todo: string){
-    this.todoList.onAddTodo(todo)
+  onAddTodo(todo: string) {
+    this.todoList.onAddTodo(todo);
   }
 }
