@@ -1,27 +1,41 @@
-<li class="flex items-center gap-3 px-4 py-4 mb-3 border-2 border-[#00C471] text-md rounded-3xl shadow-md bg-white">
-    <button (click)="toggleItem(todo.id)"
-        class="w-8 h-8 border-2 border-gray-400 border-dotted rounded-full hover:border-[#00C471]">
-        @if (todo.isCompleted) {
-        <span>⭕</span>
-        } @else {
-        <span></span>
-        }
-    </button>
-    @if (!todo.isEditing) {
-    @if(todo.isCompleted){
-    <span class="flex-1 p-2 text-gray-400 line-through">{{todo.todo}}</span>
-    } @else{
-    <span class="flex-1 p-2">{{todo.todo}}</span>
-    }
+<li
+  class="flex items-center gap-3 px-4 py-4 mb-3 border-2 border-[#00C471] text-md rounded-3xl shadow-md bg-white"
+>
+  <button
+    (click)="toggleItem(todo.id)"
+    class="w-8 h-8 border-2 border-gray-400 border-dotted rounded-full hover:border-[#00C471]"
+  >
+    @if (todo.isCompleted) {
+      <span>⭕</span>
     } @else {
-    <input type="text" value={{todo.todo}} [(ngModel)]="editedInputVal" class="flex-1 p-2 border-b outline-none" />
+      <span></span>
     }
-    <button type="button" (click)="editItem()">
-        @if (!todo.isEditing) {
-        <span>✏️</span>
-        } @else {
-        <span>✔️</span>
-        }
+  </button>
+  @if (!isEditing) {
+    @if (todo.isCompleted) {
+      <p class="flex-1 p-2 text-gray-400 line-through">{{ todo.todo }}</p>
+    } @else {
+      <p class="flex-1 p-2">{{ todo.todo }}</p>
+    }
+  } @else {
+    <input
+      type="text"
+      [(ngModel)]="editedInputVal"
+      class="flex-1 p-2 border-b outline-none"
+    />
+  }
+  @if (!isEditing) {
+    <button type="button" (click)="changeEditMode()">✏️</button>
+    <button type="button" (click)="removeItem(todo.id)">🗑️</button>
+  } @else {
+    <button
+      type="button"
+      (click)="editItem()"
+      [disabled]="editedInputVal.trim().length <= 0"
+      class="disabled:opacity-20"
+    >
+      ✔️
     </button>
-    <button type='button' (click)="removeItem(todo.id)">🗑️</button>
+    <button type="button" (click)="isEditing = false">🔁</button>
+  }
 </li>

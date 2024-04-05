@@ -1,9 +1,0 @@
-@if (todos.todoList && todos.todoList.length > 0) {
-<ul class="h-5/6 max-w-screen-md mx-auto bg-[#F9F9F9] p-5 overflow-y-scroll">
-    @for (todoItem of todos.todoList; track $index) {
-    <app-todo [todo]="todoItem" (deleteItemEvent)="removeItem(todoItem.id)" (toggleItemEvent)="toggleItem(todoItem.id)"
-        (editItemEvent)="editItem({id: todoItem.id, todo: $event})" />
-    }
-</ul>
-
-}
