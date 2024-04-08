@@ -1,5 +1,5 @@
 <section class="flex flex-col h-full pb-6 bg-white">
   <app-todo-head />
-  <app-add-todo />
+  <app-add-todo (newItemEvent)="todos.onAddTodo($event)" />
   <router-outlet />
 </section>
