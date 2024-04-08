@@ -1,6 +1,6 @@
 @if (todos.todoList && todos.todoList.length > 0) {
   <ul
-    class="flex-1 h-5/6 max-w-screen-md mx-auto bg-[#F9F9F9] p-5 overflow-y-scroll"
+    class="flex-1 h-1/2 max-w-screen-md mx-auto bg-[#F9F9F9] p-5 overflow-y-scroll"
   >
     @for (todoItem of todos.todoList; track $index) {
       <app-todo
@@ -11,4 +11,10 @@
       />
     }
   </ul>
+} @else {
+  <div
+    class="flex flex-col items-center justify-center flex-1 max-w-screen-md mx-auto h-[600px] border-dotted border-2"
+  >
+    <p class="text-gray-500">등록된 투두 아이템이 없습니다.</p>
+  </div>
 }

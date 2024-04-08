@@ -12,13 +12,13 @@ export class TodoListService {
     {
       id: '1',
       todo: '밥먹기',
-      isCompleted: false,
+      isCompleted: true,
       createdAt: new Date('December 18, 1995 03:24:00'),
     },
     {
       id: '2',
       todo: '운동가기',
-      isCompleted: false,
+      isCompleted: true,
       createdAt: new Date('December 21, 1995 03:24:00'),
     },
     {
