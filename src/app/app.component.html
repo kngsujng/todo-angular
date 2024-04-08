@@ -1,5 +1,6 @@
 <section class="flex flex-col h-full pb-6 bg-white">
   <app-todo-head />
   <app-add-todo (newItemEvent)="todos.onAddTodo($event)" />
+  <app-sort-todo />
   <router-outlet />
 </section>
