@@ -4,6 +4,7 @@ import { AddTodoComponent } from './components/add-todo/add-todo.component';
 import { TodoHeadComponent } from './components/todo-head/todo-head.component';
 import { TodoListService } from './share/todo-list.service';
 import { SortTodoComponent } from './components/sort-todo/sort-todo.component';
+import { TodosCanbanService } from './share/todos-canban.service';
 
 @Component({
   selector: 'app-root',
@@ -18,5 +19,8 @@ import { SortTodoComponent } from './components/sort-todo/sort-todo.component';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  constructor(public todos: TodoListService) {}
+  constructor(
+    public listTodos: TodoListService,
+    public canbanTodos: TodosCanbanService,
+  ) {}
 }

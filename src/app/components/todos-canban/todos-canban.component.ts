@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { TodosListComponent } from '../todos-list/todos-list.component';
 import { TodosCanbanService } from '../../share/todos-canban.service';
 import { TodoComponent } from '../todo/todo.component';
-import { TodoListService } from '../../share/todo-list.service';
 
 @Component({
   selector: 'app-todos-canban',
@@ -12,8 +11,5 @@ import { TodoListService } from '../../share/todo-list.service';
   styleUrl: './todos-canban.component.scss',
 })
 export class TodosCanbanComponent {
-  constructor(
-    public canbanTodos: TodosCanbanService,
-    public listTodos: TodoListService,
-  ) {}
+  constructor(public canbanTodos: TodosCanbanService) {}
 }

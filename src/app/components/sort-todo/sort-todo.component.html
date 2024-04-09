@@ -9,7 +9,8 @@
           name="sortBy"
           #todoSortCriteria
           [value]="criteria"
-          (change)="todos.onSortTodo(todoSortCriteria.value)"
+          (change)="listTodos.onSortTodo(todoSortCriteria.value)"
+          (change)="canbanTodos.onSortTodo(todoSortCriteria.value)"
           class="accent-[#00C471]"
         />
         {{ criteria }}
