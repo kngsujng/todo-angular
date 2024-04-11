@@ -12,7 +12,7 @@ export class TodosCanbanService {
   canbanToDoArr = this.listTodos.todoList.filter(
     (todoItem) => !todoItem.isCompleted,
   );
-  // canbanInProgress: TodoItem[] = [];
+  canbanInProgress: TodoItem[] = [];
   canbanCompletedArr = this.listTodos.todoList.filter(
     (todoItem) => todoItem.isCompleted,
   );

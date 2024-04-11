@@ -1,59 +1,65 @@
-<div class="flex gap-6 mx-14 h-5/6">
+<div class="flex gap-6 mx-14 h-5/6" cdkDropListGroup>
   <section>
     <h2 class="mb-4 text-2xl font-bold text-center">To-Do</h2>
-    @if (canbanTodos.canbanToDoArr && canbanTodos.canbanToDoArr.length > 0) {
-      <ul
-        class="flex-1 h-1/2 max-w-screen-md min-w-[420px] mx-auto bg-[#F9F9F9] p-5 overflow-y-scroll"
-      >
-        @for (todoItem of canbanTodos.canbanToDoArr; track $index) {
-          <app-todo
-            [todo]="todoItem"
-            (toggleItemEvent)="canbanTodos.onToggleTodo($event, 'to-do')"
-            (editItemEvent)="canbanTodos.onEditTodo(todoItem.id, $event)"
-            (removeItemEvent)="canbanTodos.onRemoveTodo($event)"
-          />
-        }
-      </ul>
-    } @else {
-      <div
-        class="flex flex-col items-center justify-center flex-1 min-w-[420px] max-w-screen-md mx-auto h-[600px] border-dotted border-2"
-      >
-        <p class="text-gray-500">등록된 투두 아이템이 없습니다.</p>
-      </div>
-    }
+    <ul
+      class="flex-1 h-[600px] max-w-screen-md min-w-[420px] mx-auto bg-[#F9F9F9] p-5 overflow-y-auto"
+      cdkDropList
+      id="todo"
+      [cdkDropListData]="canbanTodos.canbanToDoArr"
+      (cdkDropListDropped)="drop($event)"
+    >
+      @for (todoItem of canbanTodos.canbanToDoArr; track $index) {
+        <app-todo
+          cdkDrag
+          [cdkDragData]="todoItem"
+          [todo]="todoItem"
+          (toggleItemEvent)="canbanTodos.onToggleTodo($event, 'to-do')"
+          (editItemEvent)="canbanTodos.onEditTodo(todoItem.id, $event)"
+          (removeItemEvent)="canbanTodos.onRemoveTodo($event)"
+        />
+      }
+    </ul>
   </section>
   <section>
     <h2 class="mb-4 text-2xl font-bold text-center">In-Progress</h2>
-    <div
-      class="flex flex-col items-center justify-center flex-1 min-w-[420px] max-w-screen-md mx-auto h-[600px] border-dotted border-2"
+    <ul
+      class="flex-1 h-[600px] max-w-screen-md min-w-[420px] mx-auto bg-[#F9F9F9] p-5 overflow-y-auto"
+      cdkDropList
+      id="inProgress"
+      [cdkDropListData]="canbanTodos.canbanInProgress"
+      (cdkDropListDropped)="drop($event)"
     >
-      <p class="text-gray-500">등록된 투두 아이템이 없습니다.</p>
-    </div>
+      @for (todoItem of canbanTodos.canbanInProgress; track $index) {
+        <app-todo
+          cdkDrag
+          [cdkDragData]="todoItem"
+          [todo]="todoItem"
+          (toggleItemEvent)="canbanTodos.onToggleTodo($event, 'to-do')"
+          (editItemEvent)="canbanTodos.onEditTodo(todoItem.id, $event)"
+          (removeItemEvent)="canbanTodos.onRemoveTodo($event)"
+        />
+      }
+    </ul>
   </section>
   <section>
     <h2 class="mb-4 text-2xl font-bold text-center">Completed</h2>
-    @if (
-      canbanTodos.canbanCompletedArr &&
-      canbanTodos.canbanCompletedArr.length > 0
-    ) {
-      <ul
-        class="flex-1 h-1/2 max-w-screen-md min-w-[420px] mx-auto bg-[#F9F9F9] p-5 overflow-y-scroll"
-      >
-        @for (todoItem of canbanTodos.canbanCompletedArr; track $index) {
-          <app-todo
-            [todo]="todoItem"
-            (toggleItemEvent)="canbanTodos.onToggleTodo($event, 'completed')"
-            (editItemEvent)="canbanTodos.onEditTodo(todoItem.id, $event)"
-            (removeItemEvent)="canbanTodos.onRemoveTodo($event)"
-          />
-        }
-      </ul>
-    } @else {
-      <div
-        class="flex flex-col items-center justify-center flex-1 min-w-[420px] max-w-screen-md mx-auto h-[600px] border-dotted border-2"
-      >
-        <p class="text-gray-500">등록된 투두 아이템이 없습니다.</p>
-      </div>
-    }
+    <ul
+      class="flex-1 h-[600px] max-w-screen-md min-w-[420px] mx-auto bg-[#F9F9F9] p-5 overflow-y-auto"
+      cdkDropList
+      id="completed"
+      [cdkDropListData]="canbanTodos.canbanCompletedArr"
+      (cdkDropListDropped)="drop($event)"
+    >
+      @for (todoItem of canbanTodos.canbanCompletedArr; track $index) {
+        <app-todo
+          cdkDrag
+          [cdkDragData]="todoItem"
+          [todo]="todoItem"
+          (toggleItemEvent)="canbanTodos.onToggleTodo($event, 'completed')"
+          (editItemEvent)="canbanTodos.onEditTodo(todoItem.id, $event)"
+          (removeItemEvent)="canbanTodos.onRemoveTodo($event)"
+        />
+      }
+    </ul>
   </section>
 </div>
