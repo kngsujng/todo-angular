@@ -97,19 +97,20 @@ export class TodoListService {
       console.table(this.todoList);
     }
   }
+
   onRemoveTodo(id: string) {
     this.todoList = this.todoList.filter((item) => item.id !== id);
     console.table(this.todoList);
   }
-  onToggleTodo(id: string) {
+
+  onToggleStatus(id: string, isCompleted: boolean) {
     for (let todoItem of this.todoList) {
       if (todoItem.id === id) {
-        todoItem.isCompleted = !todoItem.isCompleted;
-        break;
+        todoItem.isCompleted = !isCompleted;
       }
     }
-    console.table(this.todoList);
   }
+
   onEditTodo(id: string, updatedTodo: string) {
     const todoIndex = this.todoList.findIndex((item) => item.id === id);
     this.todoList[todoIndex].todo = updatedTodo;

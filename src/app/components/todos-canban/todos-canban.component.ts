@@ -29,7 +29,6 @@ export class TodosCanbanComponent {
   constructor(public canbanTodos: TodosCanbanService) {}
 
   drop(event: CdkDragDrop<TodoItem[]>) {
-    console.log(event.previousContainer.id);
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,

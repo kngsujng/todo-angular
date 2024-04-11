@@ -15,15 +15,15 @@ export class TodoComponent {
 
   @Input() todo!: TodoItem;
   @Output() removeItemEvent = new EventEmitter<string>();
-  @Output() toggleItemEvent = new EventEmitter<string>();
+  @Output() toggleItemEvent = new EventEmitter<boolean>();
   @Output() editItemEvent = new EventEmitter<string>();
 
   removeItem(id: string) {
     this.removeItemEvent.emit(id);
   }
 
-  toggleItem(id: string) {
-    this.toggleItemEvent.emit(id);
+  toggleItem(isCompleted: boolean) {
+    this.toggleItemEvent.emit(isCompleted);
   }
 
   editItem() {

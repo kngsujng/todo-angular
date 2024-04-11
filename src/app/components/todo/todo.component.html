@@ -2,7 +2,7 @@
   class="flex items-center gap-3 px-4 py-4 mb-3 border-2 border-[#00C471] text-md rounded-3xl shadow-md bg-white"
 >
   <button
-    (click)="toggleItem(todo.id)"
+    (click)="toggleItem(todo.isCompleted)"
     class="w-8 h-8 border-2 border-gray-400 border-dotted rounded-full hover:border-[#00C471]"
   >
     @if (todo.isCompleted) {

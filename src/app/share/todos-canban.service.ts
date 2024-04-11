@@ -12,7 +12,7 @@ export class TodosCanbanService {
   canbanToDoArr = this.listTodos.todoList.filter(
     (todoItem) => !todoItem.isCompleted,
   );
-  canbanInProgress: TodoItem[] = [];
+  canbanInProgressArr: TodoItem[] = [];
   canbanCompletedArr = this.listTodos.todoList.filter(
     (todoItem) => todoItem.isCompleted,
   );
@@ -28,6 +28,7 @@ export class TodosCanbanService {
         },
         ...this.canbanToDoArr,
       ];
+      console.log(this.listTodos.todoList);
     }
   }
 
@@ -37,27 +38,33 @@ export class TodosCanbanService {
       (item) => item.id !== id,
     );
     this.canbanToDoArr = this.canbanToDoArr.filter((item) => item.id !== id);
-    console.table(this.canbanToDoArr);
+    this.canbanInProgressArr = this.canbanInProgressArr.filter(
+      (item) => item.id !== id,
+    );
     this.canbanCompletedArr = this.canbanCompletedArr.filter(
       (item) => item.id !== id,
     );
   }
 
-  onToggleTodo(id: string, status: 'to-do' | 'completed') {
-    const targetArr =
-      status === 'to-do' ? this.canbanToDoArr : this.canbanCompletedArr;
-    const oppositeArr =
-      targetArr === this.canbanToDoArr
-        ? this.canbanCompletedArr
-        : this.canbanToDoArr;
-    const targetItemIndex = targetArr.findIndex((item) => item.id === id);
-
-    if (targetItemIndex !== -1) {
-      const targetItem = targetArr[targetItemIndex];
-      targetItem.isCompleted = !targetItem.isCompleted;
-      oppositeArr.push(targetItem);
-
-      targetArr.splice(targetItemIndex, 1);
+  onToggleStatus(id: string, isCompleted: boolean) {
+    for (let todoItem of this.listTodos.todoList) {
+      if (todoItem.id === id) {
+        todoItem.isCompleted = !isCompleted;
+        if (todoItem.isCompleted) {
+          this.canbanCompletedArr = [todoItem, ...this.canbanCompletedArr];
+          this.canbanToDoArr = this.canbanToDoArr.filter(
+            (item) => item.id !== id,
+          );
+          this.canbanInProgressArr = this.canbanInProgressArr.filter(
+            (item) => item.id !== id,
+          );
+        } else {
+          this.canbanToDoArr = [todoItem, ...this.canbanToDoArr];
+          this.canbanCompletedArr = this.canbanCompletedArr.filter(
+            (item) => item.id !== id,
+          );
+        }
+      }
     }
   }
 
@@ -69,7 +76,6 @@ export class TodosCanbanService {
   }
 
   onSortTodo(criteria: string) {
-    console.log(criteria);
     if (criteria === '최신순') {
       this.canbanToDoArr.sort(
         (a, b) =>

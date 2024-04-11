@@ -6,7 +6,7 @@
       <app-todo
         [todo]="todoItem"
         (removeItemEvent)="todos.onRemoveTodo($event)"
-        (toggleItemEvent)="todos.onToggleTodo($event)"
+        (toggleItemEvent)="todos.onToggleStatus(todoItem.id, $event)"
         (editItemEvent)="todos.onEditTodo(todoItem.id, $event)"
       />
     }

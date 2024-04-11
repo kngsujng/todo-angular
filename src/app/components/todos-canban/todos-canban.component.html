@@ -13,7 +13,7 @@
           cdkDrag
           [cdkDragData]="todoItem"
           [todo]="todoItem"
-          (toggleItemEvent)="canbanTodos.onToggleTodo($event, 'to-do')"
+          (toggleItemEvent)="canbanTodos.onToggleStatus(todoItem.id, $event)"
           (editItemEvent)="canbanTodos.onEditTodo(todoItem.id, $event)"
           (removeItemEvent)="canbanTodos.onRemoveTodo($event)"
         />
@@ -26,15 +26,15 @@
       class="flex-1 h-[600px] max-w-screen-md min-w-[420px] mx-auto bg-[#F9F9F9] p-5 overflow-y-auto"
       cdkDropList
       id="inProgress"
-      [cdkDropListData]="canbanTodos.canbanInProgress"
+      [cdkDropListData]="canbanTodos.canbanInProgressArr"
       (cdkDropListDropped)="drop($event)"
     >
-      @for (todoItem of canbanTodos.canbanInProgress; track $index) {
+      @for (todoItem of canbanTodos.canbanInProgressArr; track $index) {
         <app-todo
           cdkDrag
           [cdkDragData]="todoItem"
           [todo]="todoItem"
-          (toggleItemEvent)="canbanTodos.onToggleTodo($event, 'to-do')"
+          (toggleItemEvent)="canbanTodos.onToggleStatus(todoItem.id, $event)"
           (editItemEvent)="canbanTodos.onEditTodo(todoItem.id, $event)"
           (removeItemEvent)="canbanTodos.onRemoveTodo($event)"
         />
@@ -55,7 +55,7 @@
           cdkDrag
           [cdkDragData]="todoItem"
           [todo]="todoItem"
-          (toggleItemEvent)="canbanTodos.onToggleTodo($event, 'completed')"
+          (toggleItemEvent)="canbanTodos.onToggleStatus(todoItem.id, $event)"
           (editItemEvent)="canbanTodos.onEditTodo(todoItem.id, $event)"
           (removeItemEvent)="canbanTodos.onRemoveTodo($event)"
         />
