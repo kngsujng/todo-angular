@@ -136,9 +136,5 @@ export class TodoListService {
       this.todoList.sort((a, b) => a.todo.localeCompare(b.todo));
       console.table(this.todoList);
     }
-    if (criteria === '완료순') {
-      this.todoList.sort((a, b) => +b.isCompleted - +a.isCompleted);
-      console.table(this.todoList);
-    }
   }
 }

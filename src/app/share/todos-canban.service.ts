@@ -31,7 +31,7 @@ export class TodosCanbanService {
     }
   }
 
-  // todoList와 canbanToDoArr, canbanCompletedArr 동시에 지우는 작업 수정해야 함
+  // TODO todoList와 canbanToDoArr, canbanCompletedArr 동시에 지우는 작업 수정해야 함
   onRemoveTodo(id: string) {
     this.listTodos.todoList = this.listTodos.todoList.filter(
       (item) => item.id !== id,
@@ -93,10 +93,6 @@ export class TodosCanbanService {
     if (criteria === '가나다순') {
       this.canbanToDoArr.sort((a, b) => a.todo.localeCompare(b.todo));
       this.canbanCompletedArr.sort((a, b) => a.todo.localeCompare(b.todo));
-    }
-    if (criteria === '완료순') {
-      this.canbanToDoArr.sort((a, b) => +b.isCompleted - +a.isCompleted);
-      this.canbanCompletedArr.sort((a, b) => +b.isCompleted - +a.isCompleted);
     }
   }
 }

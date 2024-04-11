@@ -10,8 +10,7 @@ import { TodosCanbanService } from '../../share/todos-canban.service';
   styleUrl: './sort-todo.component.scss',
 })
 export class SortTodoComponent {
-  sortCriteria: '최신순' | '등록순' | '가나다순' | '완료순' = '최신순';
-  sortByArr = ['최신순', '등록순', '가나다순', '완료순'];
+  sortByArr = ['최신순', '등록순', '가나다순'];
 
   constructor(
     public listTodos: TodoListService,
