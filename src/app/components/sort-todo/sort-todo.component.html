@@ -7,6 +7,7 @@
         <input
           type="radio"
           name="sortBy"
+          [defaultChecked]="criteria === '최신순'"
           #todoSortCriteria
           [value]="criteria"
           (change)="listTodos.onSortTodo(todoSortCriteria.value)"
