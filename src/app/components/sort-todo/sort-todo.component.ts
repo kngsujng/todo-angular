@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { TodoListService } from '../../share/todo-list.service';
-import { TodosCanbanService } from '../../share/todos-canban.service';
+import { TodoService } from '../../services/todo.service';
+import { OrderBy } from '../../model/todo';
 
 @Component({
   selector: 'app-sort-todo',
@@ -10,10 +10,11 @@ import { TodosCanbanService } from '../../share/todos-canban.service';
   styleUrl: './sort-todo.component.scss',
 })
 export class SortTodoComponent {
-  sortByArr = ['최신순', '등록순', '가나다순'];
+  sortByArr: OrderBy[] = ['최신순', '등록순', '가나다순'];
 
-  constructor(
-    public listTodos: TodoListService,
-    public canbanTodos: TodosCanbanService,
-  ) {}
+  constructor(private readonly todoService: TodoService) {}
+
+  onSortTodo(sortType: string) {
+    this.todoService.onSortTodo(sortType);
+  }
 }

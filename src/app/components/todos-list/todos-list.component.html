@@ -1,13 +1,13 @@
-@if (todos.todoList && todos.todoList.length > 0) {
+@if (allTodoList$) {
   <ul
     class="flex-1 h-1/2 max-w-screen-md mx-auto bg-[#F9F9F9] p-5 overflow-y-scroll"
   >
-    @for (todoItem of todos.todoList; track $index) {
+    @for (todoItem of allTodoList$ | async; track todoItem.id) {
       <app-todo
         [todo]="todoItem"
-        (removeItemEvent)="todos.onRemoveTodo($event)"
-        (toggleItemEvent)="todos.onToggleStatus(todoItem.id, $event)"
-        (editItemEvent)="todos.onEditTodo(todoItem.id, $event)"
+        (removeItemEvent)="onRemoveTodo($event)"
+        (toggleItemEvent)="onChangeStatus(todoItem.id, $event)"
+        (editItemEvent)="onEditTodo(todoItem.id, $event)"
       />
     }
   </ul>

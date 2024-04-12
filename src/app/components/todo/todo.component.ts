@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { type TodoItem } from '../../model/todo';
+import { TodoStatus, type TodoItem } from '../../model/todo';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -15,15 +15,15 @@ export class TodoComponent {
 
   @Input() todo!: TodoItem;
   @Output() removeItemEvent = new EventEmitter<string>();
-  @Output() toggleItemEvent = new EventEmitter<boolean>();
+  @Output() toggleItemEvent = new EventEmitter<TodoStatus>();
   @Output() editItemEvent = new EventEmitter<string>();
 
   removeItem(id: string) {
     this.removeItemEvent.emit(id);
   }
 
-  toggleItem(isCompleted: boolean) {
-    this.toggleItemEvent.emit(isCompleted);
+  toggleItem(status: TodoStatus) {
+    this.toggleItemEvent.emit(status);
   }
 
   editItem() {

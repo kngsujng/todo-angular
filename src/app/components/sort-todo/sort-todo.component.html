@@ -10,8 +10,7 @@
           [defaultChecked]="criteria === '최신순'"
           #todoSortCriteria
           [value]="criteria"
-          (change)="listTodos.onSortTodo(todoSortCriteria.value)"
-          (change)="canbanTodos.onSortTodo(todoSortCriteria.value)"
+          (change)="onSortTodo(todoSortCriteria.value)"
           class="accent-[#00C471]"
         />
         {{ criteria }}

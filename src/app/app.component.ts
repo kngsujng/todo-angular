@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AddTodoComponent } from './components/add-todo/add-todo.component';
 import { TodoHeadComponent } from './components/todo-head/todo-head.component';
-import { TodoListService } from './share/todo-list.service';
 import { SortTodoComponent } from './components/sort-todo/sort-todo.component';
-import { TodosCanbanService } from './share/todos-canban.service';
+import { TodoService } from './services/todo.service';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +18,9 @@ import { TodosCanbanService } from './share/todos-canban.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  constructor(
-    public listTodos: TodoListService,
-    public canbanTodos: TodosCanbanService,
-  ) {}
+  constructor(private todoService: TodoService) {}
+
+  onAddTodo(newTodo: string) {
+    this.todoService.onAddTodo(newTodo);
+  }
 }
