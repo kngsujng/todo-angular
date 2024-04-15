@@ -5,17 +5,17 @@
       class="flex-1 h-[600px] max-w-screen-md min-w-[420px] mx-auto bg-[#F9F9F9] p-5 overflow-y-auto"
       cdkDropList
       id="todo"
-      [cdkDropListData]="canbanTodos.canbanToDoArr"
+      [cdkDropListData]="todoTodoList"
       (cdkDropListDropped)="drop($event)"
     >
-      @for (todoItem of canbanTodos.canbanToDoArr; track $index) {
+      @for (todoItem of todoTodoList; track $index) {
         <app-todo
           cdkDrag
           [cdkDragData]="todoItem"
           [todo]="todoItem"
-          (toggleItemEvent)="canbanTodos.onToggleStatus(todoItem.id, $event)"
-          (editItemEvent)="canbanTodos.onEditTodo(todoItem.id, $event)"
-          (removeItemEvent)="canbanTodos.onRemoveTodo($event)"
+          (removeItemEvent)="onRemoveTodo($event)"
+          (toggleItemEvent)="onChangeStatus(todoItem.id, $event)"
+          (editItemEvent)="onEditTodo(todoItem.id, $event)"
         />
       }
     </ul>
@@ -26,17 +26,17 @@
       class="flex-1 h-[600px] max-w-screen-md min-w-[420px] mx-auto bg-[#F9F9F9] p-5 overflow-y-auto"
       cdkDropList
       id="inProgress"
-      [cdkDropListData]="canbanTodos.canbanInProgressArr"
+      [cdkDropListData]="inProgressTodoList"
       (cdkDropListDropped)="drop($event)"
     >
-      @for (todoItem of canbanTodos.canbanInProgressArr; track $index) {
+      @for (todoItem of inProgressTodoList; track $index) {
         <app-todo
           cdkDrag
           [cdkDragData]="todoItem"
           [todo]="todoItem"
-          (toggleItemEvent)="canbanTodos.onToggleStatus(todoItem.id, $event)"
-          (editItemEvent)="canbanTodos.onEditTodo(todoItem.id, $event)"
-          (removeItemEvent)="canbanTodos.onRemoveTodo($event)"
+          (removeItemEvent)="onRemoveTodo($event)"
+          (toggleItemEvent)="onChangeStatus(todoItem.id, $event)"
+          (editItemEvent)="onEditTodo(todoItem.id, $event)"
         />
       }
     </ul>
@@ -47,17 +47,17 @@
       class="flex-1 h-[600px] max-w-screen-md min-w-[420px] mx-auto bg-[#F9F9F9] p-5 overflow-y-auto"
       cdkDropList
       id="completed"
-      [cdkDropListData]="canbanTodos.canbanCompletedArr"
+      [cdkDropListData]="completedTodoList"
       (cdkDropListDropped)="drop($event)"
     >
-      @for (todoItem of canbanTodos.canbanCompletedArr; track $index) {
+      @for (todoItem of completedTodoList; track $index) {
         <app-todo
           cdkDrag
           [cdkDragData]="todoItem"
           [todo]="todoItem"
-          (toggleItemEvent)="canbanTodos.onToggleStatus(todoItem.id, $event)"
-          (editItemEvent)="canbanTodos.onEditTodo(todoItem.id, $event)"
-          (removeItemEvent)="canbanTodos.onRemoveTodo($event)"
+          (removeItemEvent)="onRemoveTodo($event)"
+          (toggleItemEvent)="onChangeStatus(todoItem.id, $event)"
+          (editItemEvent)="onEditTodo(todoItem.id, $event)"
         />
       }
     </ul>
