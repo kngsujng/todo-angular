@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, tap } from 'rxjs';
-import { OrderBy, TodoItem, TodoStatus } from '../model/todo';
+import { TodoItem, TodoStatus } from '../model/todo';
 import { v4 as uuid } from 'uuid';
 
 @Injectable({
@@ -157,20 +157,25 @@ export class TodoService {
   }
 
   onSortTodo(criteria: string) {
-    // if (criteria === '최신순') {
-    //   this.todoList.sort(
-    //     (a, b) =>
-    //       new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-    //   );
-    // }
-    // if (criteria === '등록순') {
-    //   this.todoList.sort(
-    //     (a, b) =>
-    //       new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-    //   );
-    // }
-    // if (criteria === '가나다순') {
-    //   this.todoList.sort((a, b) => a.todo.localeCompare(b.todo));
-    // }
+    if (criteria === '최신순') {
+      const sortedTodos = this.todoListState.value.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      );
+      this.todoListState.next(sortedTodos);
+    }
+    if (criteria === '등록순') {
+      const sortedTodos = this.todoListState.value.sort(
+        (a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+      );
+      this.todoListState.next(sortedTodos);
+    }
+    if (criteria === '가나다순') {
+      const sortedTodos = this.todoListState.value.sort((a, b) =>
+        a.todo.localeCompare(b.todo),
+      );
+      this.todoListState.next(sortedTodos);
+    }
   }
 }
