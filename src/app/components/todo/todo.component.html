@@ -24,6 +24,7 @@
       class="flex-1 p-2 border-b outline-none"
     />
   }
+  <button type="button" (click)="copyTodoText(todo.todo)">🔗</button>
   @if (!isEditing) {
     <button type="button" (click)="changeEditMode()">✏️</button>
     <button type="button" (click)="removeItem(todo.id)">🗑️</button>
