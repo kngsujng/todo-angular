@@ -10,6 +10,7 @@
           routerLinkActive="active"
           ariaCurrentWhenActive="page"
           class="font-bold uppercase hover:text-[#00C471]"
+          [ngClass]="{ 'text-[#00C471]': location.path() === '' }"
           >list</a
         >
       </li>
@@ -19,10 +20,36 @@
           routerLinkActive="active"
           ariaCurrentWhenActive="page"
           class="font-bold uppercase hover:text-[#00C471]"
+          [ngClass]="{ 'text-[#00C471]': location.path() === '/canban' }"
           >canban</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/calendar"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          class="font-bold uppercase hover:text-[#00C471]"
+          [ngClass]="{ 'text-[#00C471]': location.path() === '/calendar' }"
+          >calendar</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/map"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          class="font-bold uppercase hover:text-[#00C471]"
+          [ngClass]="{ 'text-[#00C471]': location.path() === '/map' }"
+          >map</a
         >
       </li>
     </ul>
   </nav>
 </header>
-<div class="h-1 bg-[#00C471]" [style.width.%]="getCompletionRate()"></div>
+@if (allTodoList$) {
+  <div
+    class="h-1 bg-[#00C471]"
+    [style.width.%]="getCompletionRate() | async"
+  ></div>
+}

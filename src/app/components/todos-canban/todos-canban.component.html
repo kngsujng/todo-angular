@@ -1,1 +1,65 @@
-<p>todos-canban works!</p>
+<div class="flex gap-6 mx-14 h-5/6" cdkDropListGroup>
+  <section>
+    <h2 class="mb-4 text-2xl font-bold text-center">To-Do</h2>
+    <ul
+      class="flex-1 h-[600px] max-w-screen-md min-w-[420px] mx-auto bg-[#F9F9F9] p-5 overflow-y-auto"
+      cdkDropList
+      id="todo"
+      [cdkDropListData]="todoTodoList"
+      (cdkDropListDropped)="drop($event)"
+    >
+      @for (todoItem of todoTodoList; track $index) {
+        <app-todo
+          cdkDrag
+          [cdkDragData]="todoItem"
+          [todo]="todoItem"
+          (removeItemEvent)="onRemoveTodo($event)"
+          (toggleItemEvent)="onChangeStatus(todoItem.id, $event)"
+          (editItemEvent)="onEditTodo(todoItem.id, $event)"
+        />
+      }
+    </ul>
+  </section>
+  <section>
+    <h2 class="mb-4 text-2xl font-bold text-center">In-Progress</h2>
+    <ul
+      class="flex-1 h-[600px] max-w-screen-md min-w-[420px] mx-auto bg-[#F9F9F9] p-5 overflow-y-auto"
+      cdkDropList
+      id="inProgress"
+      [cdkDropListData]="inProgressTodoList"
+      (cdkDropListDropped)="drop($event)"
+    >
+      @for (todoItem of inProgressTodoList; track $index) {
+        <app-todo
+          cdkDrag
+          [cdkDragData]="todoItem"
+          [todo]="todoItem"
+          (removeItemEvent)="onRemoveTodo($event)"
+          (toggleItemEvent)="onChangeStatus(todoItem.id, $event)"
+          (editItemEvent)="onEditTodo(todoItem.id, $event)"
+        />
+      }
+    </ul>
+  </section>
+  <section>
+    <h2 class="mb-4 text-2xl font-bold text-center">Completed</h2>
+    <ul
+      class="flex-1 h-[600px] max-w-screen-md min-w-[420px] mx-auto bg-[#F9F9F9] p-5 overflow-y-auto"
+      cdkDropList
+      id="completed"
+      [cdkDropListData]="completedTodoList"
+      (cdkDropListDropped)="drop($event)"
+    >
+      @for (todoItem of completedTodoList; track $index) {
+        <app-todo
+          cdkDrag
+          [cdkDragData]="todoItem"
+          [todo]="todoItem"
+          (removeItemEvent)="onRemoveTodo($event)"
+          (toggleItemEvent)="onChangeStatus(todoItem.id, $event)"
+          (editItemEvent)="onEditTodo(todoItem.id, $event)"
+        />
+      }
+    </ul>
+  </section>
+</div>
