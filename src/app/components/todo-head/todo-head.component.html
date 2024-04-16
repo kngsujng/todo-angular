@@ -34,6 +34,16 @@
           >calendar</a
         >
       </li>
+      <li>
+        <a
+          routerLink="/map"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          class="font-bold uppercase hover:text-[#00C471]"
+          [ngClass]="{ 'text-[#00C471]': location.path() === '/map' }"
+          >map</a
+        >
+      </li>
     </ul>
   </nav>
 </header>
