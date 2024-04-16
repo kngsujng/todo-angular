@@ -10,73 +10,80 @@ export class TodoService {
   private readonly todoListState = new BehaviorSubject<TodoItem[]>([
     {
       id: '1',
-      todo: '밥먹기',
+      content: '밥먹기',
       status: 'COMPLETED',
       createdAt: new Date('December 18, 1995 03:24:00'),
+      location: '문화전당역',
     },
     {
       id: '2',
-      todo: '운동가기',
+      content: '운동가기',
       status: 'COMPLETED',
       createdAt: new Date('December 21, 1995 03:24:00'),
+      location: '광주광역시 북구 용봉로 77',
     },
     {
       id: '3',
-      todo: '일하러 가기',
+      content: '일하러 가기',
       status: 'TODO',
       createdAt: new Date('November 17, 1995 03:24:00'),
+      location: '광주역',
     },
     {
       id: '4',
-      todo: '동해물과 백두산이 마르고 닳도록 하나님이 보우하사 우리 나라 만세',
+      content:
+        '동해물과 백두산이 마르고 닳도록 하나님이 보우하사 우리 나라 만세',
       status: 'INPROGRESS',
       createdAt: new Date('March 17, 1995 03:24:00'),
     },
     {
       id: '5',
-      todo: '123',
+      content: '123',
       status: 'TODO',
       createdAt: new Date('March 17, 2000 03:24:00'),
     },
     {
       id: '6',
-      todo: '동해물과 백두산이 마르고 닳도록 하나님이 보우하사 우리 나라 만세 동해물과 백두산이 마르고 닳도록 하나님이 보우하사 우리 나라 만세',
+      content:
+        '동해물과 백두산이 마르고 닳도록 하나님이 보우하사 우리 나라 만세 동해물과 백두산이 마르고 닳도록 하나님이 보우하사 우리 나라 만세',
       status: 'INPROGRESS',
       createdAt: new Date('March 12, 2000 03:24:00'),
     },
     {
       id: '7',
-      todo: '밥먹기',
+      content: '밥먹기',
       status: 'TODO',
       createdAt: new Date('February 17, 2000 03:24:00'),
     },
     {
       id: '8',
-      todo: '운동가기',
+      content: '운동가기',
       status: 'INPROGRESS',
       createdAt: new Date('February 17, 2001 03:24:00'),
     },
     {
       id: '9',
-      todo: '일하러 가기',
+      content: '일하러 가기',
       status: 'TODO',
       createdAt: new Date('April 17, 2000 03:24:00'),
     },
     {
       id: '10',
-      todo: '동해물과 백두산이 마르고 닳도록 하나님이 보우하사 우리 나라 만세',
+      content:
+        '동해물과 백두산이 마르고 닳도록 하나님이 보우하사 우리 나라 만세',
       status: 'TODO',
       createdAt: new Date('April 21, 2020 03:24:00'),
     },
     {
       id: '11',
-      todo: '123',
+      content: '123',
       status: 'INPROGRESS',
       createdAt: new Date('April 24, 2020 03:24:00'),
     },
     {
       id: '12',
-      todo: '동해물과 백두산이 마르고 닳도록 하나님이 보우하사 우리 나라 만세 동해물과 백두산이 마르고 닳도록 하나님이 보우하사 우리 나라 만세',
+      content:
+        '동해물과 백두산이 마르고 닳도록 하나님이 보우하사 우리 나라 만세 동해물과 백두산이 마르고 닳도록 하나님이 보우하사 우리 나라 만세',
       status: 'TODO',
       createdAt: new Date('April 8, 2024 03:24:00'),
     },
@@ -118,7 +125,7 @@ export class TodoService {
       this.todoListState.next([
         {
           id: uuid(),
-          todo: todo,
+          content: todo,
           status: 'TODO',
           createdAt: new Date(),
         },
@@ -173,7 +180,7 @@ export class TodoService {
     }
     if (criteria === '가나다순') {
       const sortedTodos = this.todoListState.value.sort((a, b) =>
-        a.todo.localeCompare(b.todo),
+        a.content.localeCompare(b.content),
       );
       this.todoListState.next(sortedTodos);
     }

@@ -34,7 +34,7 @@ export class TodoComponent {
 
   changeEditMode() {
     this.isEditing = true;
-    this.editedInputVal = this.todo.todo;
+    this.editedInputVal = this.todo.content;
   }
 
   async copyTodoText(todoText: string) {

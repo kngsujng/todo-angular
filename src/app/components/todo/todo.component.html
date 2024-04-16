@@ -13,9 +13,9 @@
   </button>
   @if (!isEditing) {
     @if (todo.status === 'COMPLETED') {
-      <p class="flex-1 p-2 text-gray-400 line-through">{{ todo.todo }}</p>
+      <p class="flex-1 p-2 text-gray-400 line-through">{{ todo.content }}</p>
     } @else {
-      <p class="flex-1 p-2">{{ todo.todo }}</p>
+      <p class="flex-1 p-2">{{ todo.content }}</p>
     }
   } @else {
     <input
@@ -24,7 +24,7 @@
       class="flex-1 p-2 border-b outline-none"
     />
   }
-  <button type="button" (click)="copyTodoText(todo.todo)">🔗</button>
+  <button type="button" (click)="copyTodoText(todo.content)">🔗</button>
   @if (!isEditing) {
     <button type="button" (click)="changeEditMode()">✏️</button>
     <button type="button" (click)="removeItem(todo.id)">🗑️</button>

@@ -1,6 +1,7 @@
 export type TodoItem = {
   id: string;
-  todo: string;
+  content: string;
+  location?: string;
   status: TodoStatus;
   createdAt: Date;
 };
