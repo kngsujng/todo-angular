@@ -10,6 +10,7 @@
           routerLinkActive="active"
           ariaCurrentWhenActive="page"
           class="font-bold uppercase hover:text-[#00C471]"
+          [ngClass]="{ 'text-[#00C471]': location.path() === '' }"
           >list</a
         >
       </li>
@@ -19,6 +20,7 @@
           routerLinkActive="active"
           ariaCurrentWhenActive="page"
           class="font-bold uppercase hover:text-[#00C471]"
+          [ngClass]="{ 'text-[#00C471]': location.path() === '/canban' }"
           >canban</a
         >
       </li>
@@ -28,6 +30,7 @@
           routerLinkActive="active"
           ariaCurrentWhenActive="page"
           class="font-bold uppercase hover:text-[#00C471]"
+          [ngClass]="{ 'text-[#00C471]': location.path() === '/calendar' }"
           >calendar</a
         >
       </li>
