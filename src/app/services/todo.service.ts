@@ -13,7 +13,7 @@ export class TodoService {
       content: '밥먹기',
       status: 'COMPLETED',
       createdAt: new Date('December 18, 1995 03:24:00'),
-      location: '문화전당역',
+      location: '광주 동구 문화전당로26번길 7',
     },
     {
       id: '2',
@@ -27,7 +27,7 @@ export class TodoService {
       content: '일하러 가기',
       status: 'TODO',
       createdAt: new Date('November 17, 1995 03:24:00'),
-      location: '광주역',
+      location: '광주 북구 무등로 235',
     },
     {
       id: '4',
@@ -35,12 +35,14 @@ export class TodoService {
         '동해물과 백두산이 마르고 닳도록 하나님이 보우하사 우리 나라 만세',
       status: 'INPROGRESS',
       createdAt: new Date('March 17, 1995 03:24:00'),
+      location: '광주 동구 증심사길30번길 15',
     },
     {
       id: '5',
       content: '123',
       status: 'TODO',
       createdAt: new Date('March 17, 2000 03:24:00'),
+      location: '전남 나주시 상야4길 16-16',
     },
     {
       id: '6',
