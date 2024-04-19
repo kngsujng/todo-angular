@@ -122,7 +122,7 @@ export class TodoService {
     );
   }
 
-  onAddTodo(todo: string) {
+  onAddTodo(todo: string, location: string) {
     if (todo.trim().length > 0) {
       this.todoListState.next([
         {
@@ -130,6 +130,7 @@ export class TodoService {
           content: todo,
           status: 'TODO',
           createdAt: new Date(),
+          location,
         },
         ...this.todoListState.value,
       ]);

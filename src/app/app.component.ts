@@ -20,7 +20,7 @@ import { TodoService } from './services/todo.service';
 export class AppComponent {
   constructor(private todoService: TodoService) {}
 
-  onAddTodo(newTodo: string) {
-    this.todoService.onAddTodo(newTodo);
+  onAddTodo(newTodo: string, location: string) {
+    this.todoService.onAddTodo(newTodo, location);
   }
 }
