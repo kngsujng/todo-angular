@@ -1,6 +1,6 @@
 @if (allTodoList$) {
   <ul
-    class="flex-1 h-1/2 max-w-screen-md mx-auto bg-[#F9F9F9] p-5 overflow-y-scroll"
+    class="flex-1 h-[650px] max-w-screen-md mx-auto bg-[#F9F9F9] p-5 overflow-y-scroll"
   >
     @for (todoItem of allTodoList$ | async; track todoItem.id) {
       <app-todo
