@@ -12,14 +12,14 @@ export class TodoService {
       id: '1',
       content: '밥먹기',
       status: 'COMPLETED',
-      createdAt: new Date('December 18, 1995 03:24:00'),
+      createdAt: new Date('March 5, 2024 03:24:00'),
       location: '광주 동구 문화전당로26번길 7',
     },
     {
       id: '2',
       content: '운동가기',
       status: 'COMPLETED',
-      createdAt: new Date('December 21, 1995 03:24:00'),
+      createdAt: new Date('December 21, 2023 03:24:00'),
       location: '광주광역시 북구 용봉로 77',
     },
     {
