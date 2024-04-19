@@ -1,17 +1,44 @@
-<section class="flex items-center max-w-screen-md mx-auto my-6">
+<section class="flex items-center max-w-screen-md gap-4 mx-auto my-6">
   <input
     type="text"
     placeholder="todo를 입력하세요"
-    [(ngModel)]="newTodoVal"
-    class="outline-none flex-1 mr-4 p-4 bg-[#F6F6F6] rounded-lg"
+    [(ngModel)]="newTodoContentVal"
+    class="outline-none flex-1 p-4 bg-[#F6F6F6] rounded-lg"
     autofocus
   />
   <button
     type="button"
     (click)="addNewItem()"
     class="bg-[#00C471] w-12 h-12 text-4xl text-white rounded-full pb-1.5 disabled:opacity-30"
-    [disabled]="newTodoVal.trim().length <= 0"
+    [disabled]="isShow || newTodoContentVal.trim().length <= 0"
   >
     +
   </button>
+  <button type="button" (click)="showLocationInput()">
+    {{ isShow ? '🔼' : '🔽' }}
+  </button>
 </section>
+
+<p class="flex max-w-screen-md gap-4 mx-auto">
+  @if (newTodoLocationVal) {
+    {{ isShow ? '' : '📍 등록 예정 장소: ' + newTodoLocationVal }}
+  }
+</p>
+@if (isShow) {
+  <div class="flex max-w-screen-md gap-4 mx-auto">
+    <input
+      type="text"
+      placeholder="도로명 주소 또는 지번 주소를 입력하세요 (선택)"
+      [(ngModel)]="newTodoLocationVal"
+      class="outline-none flex-1 p-2 border-b-2 border-[#F6F6F6]"
+    />
+    <button
+      type="button"
+      (click)="addNewItemLocation()"
+      class="disabled:opacity-30"
+      [disabled]="newTodoLocationVal.trim().length <= 0"
+    >
+      ✔️
+    </button>
+  </div>
+}

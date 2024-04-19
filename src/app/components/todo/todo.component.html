@@ -11,19 +11,25 @@
       <span></span>
     }
   </button>
-  @if (!isEditing) {
-    @if (todo.status === 'COMPLETED') {
-      <p class="flex-1 p-2 text-gray-400 line-through">{{ todo.content }}</p>
+  <div class="flex-1 p-2">
+    @if (!isEditing) {
+      @if (todo.status === 'COMPLETED') {
+        <p class="flex-1 text-gray-400 line-through">{{ todo.content }}</p>
+      } @else {
+        <p class="flex-1">{{ todo.content }}</p>
+      }
     } @else {
-      <p class="flex-1 p-2">{{ todo.content }}</p>
+      <input
+        type="text"
+        [(ngModel)]="editedInputVal"
+        class="flex-1 p-2 border-b outline-none"
+      />
     }
-  } @else {
-    <input
-      type="text"
-      [(ngModel)]="editedInputVal"
-      class="flex-1 p-2 border-b outline-none"
-    />
-  }
+    @if (todo.location) {
+      <p class="text-xs text-gray-600">📍 {{ todo.location }}</p>
+    }
+  </div>
+
   <button type="button" (click)="copyTodoText(todo.content)">🔗</button>
   @if (!isEditing) {
     <button type="button" (click)="changeEditMode()">✏️</button>
