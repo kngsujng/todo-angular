@@ -1,6 +1,6 @@
 @if (allTodoList$) {
   <ul
-    class="flex-1 h-[650px] max-w-screen-md mx-auto bg-[#F9F9F9] p-5 overflow-y-scroll"
+    class="mx-auto h-[650px] max-w-screen-md flex-1 overflow-y-scroll bg-[#F9F9F9] p-5"
   >
     @for (todoItem of allTodoList$ | async; track todoItem.id) {
       <app-todo
@@ -13,7 +13,7 @@
   </ul>
 } @else {
   <div
-    class="flex flex-col items-center justify-center flex-1 max-w-screen-md mx-auto h-[600px] border-dotted border-2"
+    class="mx-auto flex h-[600px] max-w-screen-md flex-1 flex-col items-center justify-center border-2 border-dotted"
   >
     <p class="text-gray-500">등록된 투두 아이템이 없습니다.</p>
   </div>

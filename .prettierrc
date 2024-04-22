@@ -8,12 +8,6 @@
   "bracketSpacing": true,
   "arrowParens": "always",
   "endOfLine": "auto",
-  "overrides": [
-    {
-      "files": "*.html",
-      "options": {
-        "parser": "angular"
-      }
-    }
-  ]
+  "parser": "angular",
+  "plugins": ["prettier-plugin-tailwindcss"]
 }
