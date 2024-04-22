@@ -4,6 +4,8 @@ import { AddTodoComponent } from './components/add-todo/add-todo.component';
 import { TodoHeadComponent } from './components/todo-head/todo-head.component';
 import { SortTodoComponent } from './components/sort-todo/sort-todo.component';
 import { TodoService } from './services/todo.service';
+import { TodoModalComponent } from './components/todo-modal/todo-modal.component';
+import { ModalService } from './services/modal.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +15,7 @@ import { TodoService } from './services/todo.service';
     AddTodoComponent,
     TodoHeadComponent,
     SortTodoComponent,
+    TodoModalComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -21,6 +24,7 @@ export class AppComponent {
   constructor(
     private todoService: TodoService,
     public router: Router,
+    public modalService: ModalService,
   ) {}
 
   onAddTodo(newTodo: string, location: string) {

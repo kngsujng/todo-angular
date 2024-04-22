@@ -4,6 +4,7 @@ import { CalendarService } from '../../services/calendar.service';
 import { TodoService } from 'src/app/services/todo.service';
 import { TodoItem } from 'src/app/model/todo';
 import { Observable, map } from 'rxjs';
+import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-todos-calendar',
@@ -21,6 +22,7 @@ export class TodosCalendarComponent implements OnInit {
   constructor(
     private CalendarService: CalendarService,
     private todoService: TodoService,
+    public modalService: ModalService,
   ) {}
 
   ngOnInit(): void {

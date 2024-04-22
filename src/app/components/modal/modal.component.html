@@ -1,0 +1,17 @@
+<div
+  #container
+  [ngClass]="{ hidden: !modalService.getIsOpen() }"
+  class="absolute top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-60"
+>
+  <div #box class="relative w-[500px] h-[400px] bg-white z-20 rounded-xl p-10">
+    <ng-content select="[heading]"></ng-content>
+    <button
+      (click)="modalService.toggleModal()"
+      class="absolute p-1 px-2.5 top-5 right-5 hover:rounded-full hover:bg-gray-200"
+    >
+      X
+    </button>
+    <ng-content></ng-content>
+  </div>
+  <!-- <div #shade (click)="modalService.toggleModal()" class="bg-yellow-200"></div> -->
+</div>

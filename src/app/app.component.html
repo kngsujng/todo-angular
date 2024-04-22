@@ -1,8 +1,11 @@
-<section class="flex flex-col h-full pb-6 overflow-y-hidden bg-white">
+<section class="relative flex flex-col h-full pb-6 overflow-y-hidden bg-white">
   <app-todo-head />
   <app-add-todo (newItemEvent)="onAddTodo($event.content, $event.location)" />
   @if (this.router.url !== '/calendar') {
     <app-sort-todo />
   }
   <router-outlet />
+  @if (modalService.getIsOpen()) {
+    <app-todo-modal></app-todo-modal>
+  }
 </section>

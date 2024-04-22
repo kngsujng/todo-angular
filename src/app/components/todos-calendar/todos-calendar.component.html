@@ -39,7 +39,8 @@
           'font-extrabold text-[#00C471]':
             date.inCurrentMonth && isToday(date.date)
         }"
-        class="relative p-2"
+        class="relative p-2 cursor-pointer hover:rounded-full hover:bg-gray-100"
+        (click)="modalService.toggleModal()"
       >
         {{ date.date }}
         @for (calendarTodo of calendarTodos$ | async; track $index) {
