@@ -10,6 +10,7 @@
           class="accent-[#00C471]"
           [defaultChecked]="criteria === '최신순'"
           [value]="criteria"
+          (change)="onSortTodo(criteria)"
         />
         {{ criteria }}
       </label>

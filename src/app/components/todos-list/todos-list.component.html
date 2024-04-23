@@ -1,4 +1,5 @@
 @if (allTodoList$) {
+  <app-sort-todo [todoList]="allTodoList$ | async" />
   <ul
     class="mx-auto h-[650px] max-w-screen-md flex-1 overflow-y-scroll bg-[#F9F9F9] p-5"
   >
