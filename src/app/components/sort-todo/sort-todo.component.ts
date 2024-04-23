@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
 import { OrderBy } from '../../model/todo';
 
@@ -11,10 +11,9 @@ import { OrderBy } from '../../model/todo';
 })
 export class SortTodoComponent {
   sortByArr: OrderBy[] = ['최신순', '등록순', '가나다순'];
+  @Output() sortEv = new EventEmitter<string>()
 
-  constructor(private readonly todoService: TodoService) {}
-
-  onSortTodo(sortType : string) {
-    this.todoService.onSortTodo(sortType);
+  onSortItem(criteria: string) {
+    this.sortEv.emit(criteria)
   }
 }

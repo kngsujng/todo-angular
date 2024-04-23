@@ -1,8 +1,5 @@
-<section class="relative flex h-full flex-col overflow-y-hidden bg-white pb-6">
+<section class="relative flex flex-col h-full pb-6 overflow-y-hidden bg-white">
   <app-todo-head />
-  <app-add-todo (newItemEvent)="onAddTodo($event.content, $event.location)" />
-  @if (this.router.url !== '/calendar') {
-    <app-sort-todo />
-  }
+  <app-add-todo (newItemEvent)="onAddTodo($event.content, $event.location)" /> 
   <router-outlet />
 </section>

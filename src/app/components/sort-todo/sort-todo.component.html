@@ -1,9 +1,9 @@
 <section
-  class="mx-auto my-6 flex max-w-screen-md items-center justify-end gap-4"
+  class="flex items-center justify-end max-w-screen-md gap-4 mx-auto my-6"
 >
   @if (sortByArr && sortByArr.length > 0) {
     @for (criteria of sortByArr; track $index) {
-      <label class="flex cursor-pointer gap-2">
+      <label class="flex gap-2 cursor-pointer" (click)="onSortItem(criteria)">
         <input
           type="radio"
           name="sortBy"

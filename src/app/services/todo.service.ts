@@ -143,8 +143,9 @@ export class TodoService {
   onEditTodo(id: string, updatedContent: string) {
     const updatedTodos = this.todoListState.value.map((todo) => {
       if (todo.id !== id) return todo;
-      return { ...todo, todo: updatedContent };
+      return { ...todo, content: updatedContent };
     });
+
     this.todoListState.next(updatedTodos);
   }
 
@@ -154,20 +155,20 @@ export class TodoService {
         (a, b) =>
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
       );
-      this.todoListState.next(sortedTodos);
+      return sortedTodos
     }
-    if (criteria === '등록순') {
+    else if (criteria === '등록순') {
       const sortedTodos = this.todoListState.value.sort(
         (a, b) =>
           new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
       );
-      this.todoListState.next(sortedTodos);
+      return sortedTodos
     }
-    if (criteria === '가나다순') {
+    else {
       const sortedTodos = this.todoListState.value.sort((a, b) =>
         a.content.localeCompare(b.content),
       );
-      this.todoListState.next(sortedTodos);
+      return sortedTodos
     }
   }
 }
