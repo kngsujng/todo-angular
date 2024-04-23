@@ -143,7 +143,7 @@ export class TodoService {
   onEditTodo(id: string, updatedContent: string) {
     const updatedTodos = this.todoListState.value.map((todo) => {
       if (todo.id !== id) return todo;
-      return { ...todo, todo: updatedContent };
+      return { ...todo, content: updatedContent };
     });
     this.todoListState.next(updatedTodos);
   }
