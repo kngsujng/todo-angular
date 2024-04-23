@@ -40,7 +40,6 @@
           'font-extrabold text-[#00C471]':
             date.inCurrentMonth && isToday(date.date)
         }"
-        (click)="modalService.toggleModal()"
       >
         {{ date.date }}
         @for (calendarTodo of calendarTodos$ | async; track $index) {
