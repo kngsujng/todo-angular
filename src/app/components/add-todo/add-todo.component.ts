@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NewItemFactor } from 'src/app/model/todo';
 
 @Component({
   selector: 'app-add-todo',
@@ -9,13 +10,11 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './add-todo.component.scss',
 })
 export class AddTodoComponent {
+  @Output() newItemEvent = new EventEmitter<NewItemFactor>();
+  
   newTodoContentVal: string = '';
   isShow: boolean = false;
   newTodoLocationVal: string = '';
-  @Output() newItemEvent = new EventEmitter<{
-    content: string;
-    location: string;
-  }>();
   // 1. 자식 컴포넌트에서 부모 컴포넌트로 상태 전달 (Output)
   // 2. Output을 위한 EventEmitter 사용
 
@@ -36,5 +35,13 @@ export class AddTodoComponent {
 
   addNewItemLocation(): void {
     this.isShow = false;
+  }
+
+  showAddButton(inputVal: string){
+    return this.isShow || this.isDisabled(inputVal)
+  }
+
+  isDisabled(inputVal: string){
+    return inputVal.trim().length <= 0
   }
 }

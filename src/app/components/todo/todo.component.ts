@@ -10,13 +10,13 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './todo.component.scss',
 })
 export class TodoComponent {
-  isEditing = false;
-  editedInputVal: string = '';
-
   @Input() todo!: TodoItem;
   @Output() removeItemEvent = new EventEmitter<string>();
   @Output() toggleItemEvent = new EventEmitter<TodoStatus>();
   @Output() editItemEvent = new EventEmitter<string>();
+
+  isEditing = false;
+  editedInputVal: string = '';
 
   removeItem(id: string) {
     this.removeItemEvent.emit(id);
@@ -38,11 +38,20 @@ export class TodoComponent {
   }
 
   async copyTodoText(todoText: string) {
+    // TODO Toast 공통 컴포넌트 구현
     try {
       await navigator.clipboard.writeText(todoText);
       alert('클립보드에 링크가 복사되었습니다.');
     } catch (e) {
       alert('복사에 실패하였습니다');
     }
+  }
+
+  isDisabled(){
+    return this.editedInputVal.trim().length <= 0
+  }
+
+  editStatus(status: boolean){
+    return this.isEditing = status
   }
 }

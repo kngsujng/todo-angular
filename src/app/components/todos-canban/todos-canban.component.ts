@@ -33,16 +33,16 @@ export class TodosCanbanComponent implements OnInit {
   completedTodoList: TodoItem[] = [];
 
   ngOnInit() {
-    this.todoService.getTodoTodoList().subscribe((todoList: TodoItem[]) => {
+    this.todoService.getTodoList('TODO').subscribe((todoList: TodoItem[]) => {
       this.todoTodoList = todoList;
     });
     this.todoService
-      .getInProgressTodoList()
+      .getTodoList('INPROGRESS')
       .subscribe((todoList: TodoItem[]) => {
         this.inProgressTodoList = todoList;
       });
     this.todoService
-      .getCompletedTodoList()
+      .getTodoList('COMPLETED')
       .subscribe((todoList: TodoItem[]) => {
         this.completedTodoList = todoList;
       });

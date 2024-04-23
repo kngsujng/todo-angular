@@ -93,48 +93,32 @@ export class TodoService {
   // 클래스 외부에서 수정 못 하는 원본 초기 상태값
   // 상태변경은 오직 todoListState에 대한 접근 권한을 가진 클래스 내부의 메서드를 통해서만 가능
 
-  readonly todoList$ = this.todoListState.asObservable();
-  // todoList$는 'todoListState' BehaviorSubject의 observable을 반환
+  // todoList$ 'todoListState' BehaviorSubject의 observable을 반환
   // 위 원본 상태값을 변화시키기 위한 상태값
   // 클래스 외부에서는 todoList$를 통해 TodoItem[] 배열의 현재 상태를 구독만 가능, 배열 직접 변경/값 변경 불가
 
   getAllTodoList() {
-    return this.todoList$;
+    return this.todoListState;
   }
 
-  getTodoTodoList() {
-    return this.todoList$.pipe(
-      map((todoList) => todoList.filter((todo) => todo.status === 'TODO')),
-    );
-  }
-
-  getInProgressTodoList() {
-    return this.todoList$.pipe(
-      map((todoList) =>
-        todoList.filter((todo) => todo.status === 'INPROGRESS'),
-      ),
-    );
-  }
-
-  getCompletedTodoList() {
-    return this.todoList$.pipe(
-      map((todoList) => todoList.filter((todo) => todo.status === 'COMPLETED')),
+  getTodoList(status: TodoStatus) {
+    return this.todoListState.pipe(
+      map((todoList) => todoList.filter((todo) => todo.status === status)),
     );
   }
 
   onAddTodo(todo: string, location: string) {
-    if (todo.trim().length > 0) {
-      this.todoListState.next([
-        {
-          id: uuid(),
-          content: todo,
-          status: 'TODO',
-          createdAt: new Date(),
-          location,
-        },
-        ...this.todoListState.value,
-      ]);
-    }
+    if (todo.trim().length <= 0) return;
+    this.todoListState.next([
+      {
+        id: uuid(),
+        content: todo,
+        status: 'TODO',
+        createdAt: new Date(),
+        location,
+      },
+      ...this.todoListState.value,
+    ]);
   }
 
   onRemoveTodo(id: string) {
@@ -145,16 +129,14 @@ export class TodoService {
   }
 
   onChangeStatus(id: string, status: TodoStatus) {
-    const changeStatusTodos = this.todoListState.value.map((todo) => {
+    const changeStatusTodos = this.todoListState.value.map<TodoItem>((todo) => {
       if (todo.id !== id) return todo;
-      else {
-        if (status === 'TODO' || status === 'INPROGRESS') {
-          return { ...todo, status: 'COMPLETED' };
-        } else {
-          return { ...todo, status: 'TODO' };
-        }
+      const notCompletedStatus = status === 'TODO' || status === 'INPROGRESS'
+      if (notCompletedStatus) {
+        return { ...todo, status: 'COMPLETED' };
       }
-    }) as TodoItem[];
+      return { ...todo, status: 'TODO' };
+    })
     this.todoListState.next(changeStatusTodos);
   }
 

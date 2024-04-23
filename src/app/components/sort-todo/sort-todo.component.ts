@@ -14,7 +14,7 @@ export class SortTodoComponent {
 
   constructor(private readonly todoService: TodoService) {}
 
-  onSortTodo(sortType: string) {
+  onSortTodo(sortType : string) {
     this.todoService.onSortTodo(sortType);
   }
 }
