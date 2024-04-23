@@ -1,18 +1,18 @@
-<div class="flex gap-6 mx-14 h-5/6" cdkDropListGroup>
+<div class="mx-14 flex h-5/6 gap-6" cdkDropListGroup>
   <section>
-    <h2 class="mb-4 text-2xl font-bold text-center">To-Do</h2>
+    <h2 class="mb-4 text-center text-2xl font-bold">To-Do</h2>
     <ul
-      class="flex-1 h-[600px] max-w-screen-md min-w-[420px] mx-auto bg-[#F9F9F9] p-5 overflow-y-auto"
-      cdkDropList
       id="todo"
+      class="mx-auto h-[600px] min-w-[420px] max-w-screen-md flex-1 overflow-y-auto bg-[#F9F9F9] p-5"
+      cdkDropList
       [cdkDropListData]="todoTodoList"
       (cdkDropListDropped)="drop($event)"
     >
       @for (todoItem of todoTodoList; track $index) {
         <app-todo
           cdkDrag
-          [cdkDragData]="todoItem"
           [todo]="todoItem"
+          [cdkDragData]="todoItem"
           (removeItemEvent)="onRemoveTodo($event)"
           (toggleItemEvent)="onChangeStatus(todoItem.id, $event)"
           (editItemEvent)="onEditTodo(todoItem.id, $event)"
@@ -21,19 +21,19 @@
     </ul>
   </section>
   <section>
-    <h2 class="mb-4 text-2xl font-bold text-center">In-Progress</h2>
+    <h2 class="mb-4 text-center text-2xl font-bold">In-Progress</h2>
     <ul
-      class="flex-1 h-[600px] max-w-screen-md min-w-[420px] mx-auto bg-[#F9F9F9] p-5 overflow-y-auto"
-      cdkDropList
       id="inProgress"
+      class="mx-auto h-[600px] min-w-[420px] max-w-screen-md flex-1 overflow-y-auto bg-[#F9F9F9] p-5"
+      cdkDropList
       [cdkDropListData]="inProgressTodoList"
       (cdkDropListDropped)="drop($event)"
     >
       @for (todoItem of inProgressTodoList; track $index) {
         <app-todo
           cdkDrag
-          [cdkDragData]="todoItem"
           [todo]="todoItem"
+          [cdkDragData]="todoItem"
           (removeItemEvent)="onRemoveTodo($event)"
           (toggleItemEvent)="onChangeStatus(todoItem.id, $event)"
           (editItemEvent)="onEditTodo(todoItem.id, $event)"
@@ -42,19 +42,19 @@
     </ul>
   </section>
   <section>
-    <h2 class="mb-4 text-2xl font-bold text-center">Completed</h2>
+    <h2 class="mb-4 text-center text-2xl font-bold">Completed</h2>
     <ul
-      class="flex-1 h-[600px] max-w-screen-md min-w-[420px] mx-auto bg-[#F9F9F9] p-5 overflow-y-auto"
-      cdkDropList
       id="completed"
+      class="mx-auto h-[600px] min-w-[420px] max-w-screen-md flex-1 overflow-y-auto bg-[#F9F9F9] p-5"
+      cdkDropList
       [cdkDropListData]="completedTodoList"
       (cdkDropListDropped)="drop($event)"
     >
       @for (todoItem of completedTodoList; track $index) {
         <app-todo
+          [todo]="todoItem"
           cdkDrag
           [cdkDragData]="todoItem"
-          [todo]="todoItem"
           (removeItemEvent)="onRemoveTodo($event)"
           (toggleItemEvent)="onChangeStatus(todoItem.id, $event)"
           (editItemEvent)="onEditTodo(todoItem.id, $event)"

@@ -28,23 +28,6 @@ export class TodosCalendarComponent implements OnInit {
     this.loadTodoList();
   }
 
-  private loadTodoList(): void {
-    this.calendarTodos$ = this.todoService
-      .getAllTodoList()
-      .pipe(
-        map((todos) =>
-          todos.filter((todo) => this.isDateInCurrentMonth(todo.createdAt)),
-        ),
-      );
-  }
-
-  private isDateInCurrentMonth(date: Date): boolean {
-    return (
-      date.getFullYear() === this.today.getFullYear() &&
-      date.getMonth() === this.today.getMonth()
-    );
-  }
-
   isToday(date: number): boolean {
     const today = new Date();
     return (
@@ -56,22 +39,11 @@ export class TodosCalendarComponent implements OnInit {
     this.dates = this.CalendarService.getCalendarData(this.today);
   }
 
-  onChangePrevMonth = () => {
+  onChangeMonth = (few: number) => {
     // Angular가 today에 대한 참조 변경을 감지하고 연관된 뷰를 업데이트할 수 있도록 새로운 Date 객체 생성 및 할당 (객체 불변성)
     const newDate = new Date(
       this.today.getFullYear(),
-      this.today.getMonth() - 1,
-      1,
-    );
-    this.today = newDate;
-    this.refreshCalendar();
-  };
-
-  onChangeNextMonth = () => {
-    // Angular가 today에 대한 참조 변경을 감지하고 연관된 뷰를 업데이트할 수 있도록 새로운 Date 객체 생성 및 할당 (객체 불변성)
-    const newDate = new Date(
-      this.today.getFullYear(),
-      this.today.getMonth() + 1,
+      this.today.getMonth() + few,
       1,
     );
     this.today = newDate;
@@ -82,4 +54,23 @@ export class TodosCalendarComponent implements OnInit {
     this.loadDates();
     this.loadTodoList();
   }
+  
+  private loadTodoList(): void {
+    this.calendarTodos$ = this.todoService
+      .getAllTodoList()
+      .pipe(
+        map((todos) =>
+          todos.filter((todo) => this.isDateInCurrentMonth(todo.createdAt)),
+        ),
+      );
+  }
+  
+  private isDateInCurrentMonth(date: Date): boolean {
+    return (
+      date.getFullYear() === this.today.getFullYear() &&
+      date.getMonth() === this.today.getMonth()
+    );
+  }
 }
+
+

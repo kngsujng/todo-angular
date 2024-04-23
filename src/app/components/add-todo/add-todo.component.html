@@ -2,15 +2,15 @@
   <input
     type="text"
     placeholder="todo를 입력하세요"
-    [(ngModel)]="newTodoContentVal"
-    class="outline-none flex-1 p-4 bg-[#F6F6F6] rounded-lg"
     autofocus
+    class="flex-1 rounded-lg bg-[#F6F6F6] p-4 outline-none"
+    [(ngModel)]="newTodoContentVal"
   />
   <button
     type="button"
+    class="h-12 w-12 rounded-full bg-[#00C471] pb-1.5 text-4xl text-white disabled:opacity-30"
+    [disabled]="showAddButton(newTodoContentVal)"
     (click)="addNewItem()"
-    class="bg-[#00C471] w-12 h-12 text-4xl text-white rounded-full pb-1.5 disabled:opacity-30"
-    [disabled]="isShow || newTodoContentVal.trim().length <= 0"
   >
     +
   </button>
@@ -29,14 +29,14 @@
     <input
       type="text"
       placeholder="도로명 주소 또는 지번 주소를 입력하세요 (선택)"
+      class="flex-1 border-b-2 border-[#F6F6F6] p-2 outline-none"
       [(ngModel)]="newTodoLocationVal"
-      class="outline-none flex-1 p-2 border-b-2 border-[#F6F6F6]"
     />
     <button
       type="button"
-      (click)="addNewItemLocation()"
       class="disabled:opacity-30"
-      [disabled]="newTodoLocationVal.trim().length <= 0"
+      [disabled]="isDisabled(newTodoLocationVal)"
+      (click)="addNewItemLocation()"
     >
       ✔️
     </button>

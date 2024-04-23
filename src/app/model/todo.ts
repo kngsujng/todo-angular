@@ -9,3 +9,5 @@ export type TodoItem = {
 export type TodoStatus = 'TODO' | 'INPROGRESS' | 'COMPLETED';
 
 export type OrderBy = '최신순' | '등록순' | '가나다순';
+
+export type NewItemFactor = { content: string; location: string; }

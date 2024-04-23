@@ -1,11 +1,11 @@
 <div
-  class="my-6 max-w-screen-sm p-8 mx-auto border-[#00C471] border-2 shadow-lg rounded-xl"
+  class="mx-auto my-6 max-w-screen-sm rounded-xl border-2 border-[#00C471] p-8 shadow-lg"
 >
-  <div class="flex items-center justify-between mb-10">
+  <div class="mb-10 flex items-center justify-between">
     <button
       id="prevBtn"
       class="hover:text-[#00C471]"
-      (click)="onChangePrevMonth()"
+      (click)="onChangeMonth(-1)"
     >
       ◀
     </button>
@@ -15,13 +15,13 @@
     <button
       id="nextBtn"
       class="hover:text-[#00C471]"
-      (click)="onChangeNextMonth()"
+      (click)="onChangeMonth(1)"
     >
       ▶
     </button>
   </div>
   <div
-    class="grid grid-cols-7 pb-3 font-bold text-center border-b border-[#00C471] border-opacity-30"
+    class="grid grid-cols-7 border-b border-[#00C471] border-opacity-30 pb-3 text-center font-bold"
   >
     <div class="">일</div>
     <div class="">월</div>
@@ -34,12 +34,12 @@
   <div class="grid grid-cols-7 gap-2 py-3 text-center">
     @for (date of dates; track $index) {
       <div
+        class="relative cursor-pointer p-2 hover:rounded-full hover:bg-gray-100"
         [ngClass]="{
           'text-black text-opacity-40': !date.inCurrentMonth,
           'font-extrabold text-[#00C471]':
             date.inCurrentMonth && isToday(date.date)
         }"
-        class="relative p-2"
       >
         {{ date.date }}
         @for (calendarTodo of calendarTodos$ | async; track $index) {
@@ -48,7 +48,7 @@
             date.inCurrentMonth
           ) {
             <div
-              class="absolute top-0 w-1 h-1 bg-red-600 rounded-full right-5"
+              class="absolute right-5 top-0 h-1 w-1 rounded-full bg-red-600"
             ></div>
           }
         }

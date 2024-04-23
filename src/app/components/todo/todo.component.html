@@ -1,9 +1,9 @@
 <li
-  class="flex items-center gap-3 px-4 py-4 mb-3 border-2 border-[#00C471] text-md rounded-3xl shadow-md bg-white"
+  class="text-md mb-3 flex items-center gap-3 rounded-3xl border-2 border-[#00C471] bg-white px-4 py-4 shadow-md"
 >
   <button
+    class="h-8 w-8 rounded-full border-2 border-dotted border-gray-400 hover:border-[#00C471]"
     (click)="toggleItem(todo.status)"
-    class="w-8 h-8 border-2 border-gray-400 border-dotted rounded-full hover:border-[#00C471]"
   >
     @if (todo.status === 'COMPLETED') {
       <span>⭕</span>
@@ -21,8 +21,8 @@
     } @else {
       <input
         type="text"
-        [(ngModel)]="editedInputVal"
         class="flex-1 p-2 border-b outline-none"
+        [(ngModel)]="editedInputVal"
       />
     }
     @if (todo.location) {
@@ -37,12 +37,12 @@
   } @else {
     <button
       type="button"
-      (click)="editItem()"
-      [disabled]="editedInputVal.trim().length <= 0"
       class="disabled:opacity-20"
+      [disabled]="isDisabled()"
+      (click)="editItem()"
     >
       ✔️
     </button>
-    <button type="button" (click)="isEditing = false">🔁</button>
+    <button type="button" (click)="editStatus(false)">🔁</button>
   }
 </li>
