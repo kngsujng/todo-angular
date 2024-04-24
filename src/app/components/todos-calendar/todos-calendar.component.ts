@@ -3,24 +3,26 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarService } from '../../services/calendar.service';
 import { TodoService } from 'src/app/services/todo.service';
 import { TodoItem } from 'src/app/model/todo';
-import { Observable, map } from 'rxjs';
+import { map } from 'rxjs';
+import { Dialog, DialogModule } from '@angular/cdk/dialog';
+import { TodoModalComponent } from '../todo-modal/todo-modal.component';
 
 @Component({
   selector: 'app-todos-calendar',
   standalone: true,
-  imports: [DatePipe, CommonModule],
+  imports: [DatePipe, CommonModule, DialogModule],
   templateUrl: './todos-calendar.component.html',
   styleUrl: './todos-calendar.component.scss',
 })
 export class TodosCalendarComponent implements OnInit {
   today: Date = new Date();
   dates: { date: number; inCurrentMonth: boolean }[] = [];
-  allTodoList$: Observable<TodoItem[]> = this.todoService.getAllTodoList();
-  calendarTodos$!: Observable<TodoItem[]>;
+  calendarTodos!:TodoItem[]
 
   constructor(
     private CalendarService: CalendarService,
     private todoService: TodoService,
+    private dialog: Dialog
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +42,6 @@ export class TodosCalendarComponent implements OnInit {
   }
 
   onChangeMonth = (few: number) => {
-    // Angular가 today에 대한 참조 변경을 감지하고 연관된 뷰를 업데이트할 수 있도록 새로운 Date 객체 생성 및 할당 (객체 불변성)
     const newDate = new Date(
       this.today.getFullYear(),
       this.today.getMonth() + few,
@@ -50,19 +51,38 @@ export class TodosCalendarComponent implements OnInit {
     this.refreshCalendar();
   };
 
+  // 모달창 관련 함수 -------
+  openModalIfTodo(date: number){
+    const calenderTodo = this.calendarTodos.find(todo => todo.createdAt.getDate() === date )
+    if(calenderTodo){
+      this.dialog.open<TodoItem>(TodoModalComponent, { data: calenderTodo });
+    }
+  }
+
+  haveTodo(date: number) : boolean{
+    return !!this.calendarTodos.find(todo => todo.createdAt.getDate() === date ) 
+  }
+
+  // close Modal 
+  // dialogRef.closed.subscribe(result => {
+  //   console.log('The dialog was closed');
+  //   console.log(result)
+  // });
+  // -----------------------
+
   private refreshCalendar(): void {
     this.loadDates();
     this.loadTodoList();
   }
   
   private loadTodoList(): void {
-    this.calendarTodos$ = this.todoService
+    this.todoService
       .getAllTodoList()
       .pipe(
         map((todos) =>
           todos.filter((todo) => this.isDateInCurrentMonth(todo.createdAt)),
         ),
-      );
+      ).subscribe(value => this.calendarTodos = value);
   }
   
   private isDateInCurrentMonth(date: Date): boolean {
