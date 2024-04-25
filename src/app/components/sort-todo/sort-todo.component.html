@@ -1,15 +1,16 @@
 <section
-  class="flex items-center justify-end max-w-screen-md gap-4 mx-auto my-6"
+  class="mx-auto my-6 flex max-w-screen-md items-center justify-end gap-4"
 >
   @if (sortByArr && sortByArr.length > 0) {
     @for (criteria of sortByArr; track $index) {
-      <label class="flex gap-2 cursor-pointer" (click)="onSortItem(criteria)">
+      <label class="flex cursor-pointer gap-2">
         <input
           type="radio"
           name="sortBy"
           class="accent-[#00C471]"
           [defaultChecked]="criteria === '최신순'"
           [value]="criteria"
+          (change)="onSortTodo(criteria)"
         />
         {{ criteria }}
       </label>

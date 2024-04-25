@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TodoComponent } from '../todo/todo.component';
 import { TodoService } from '../../services/todo.service';
-import { BehaviorSubject, Observable, of, switchMap, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TodoItem, TodoStatus } from '../../model/todo';
 import { CommonModule } from '@angular/common';
 import { SortTodoComponent } from '../sort-todo/sort-todo.component';
@@ -14,43 +14,19 @@ import { SortTodoComponent } from '../sort-todo/sort-todo.component';
   styleUrl: './todos-list.component.scss',
 })
 export class TodosListComponent {
-  private todoList = new BehaviorSubject<TodoItem[]>([]);
-  todoList$: Observable<TodoItem[]> = this.todoList.asObservable();
-  criteria = '최신순'
+  allTodoList$: Observable<TodoItem[]> = this.todoService.getAllTodoList();
 
-  constructor(private readonly todoService: TodoService) { }
-
-  ngOnInit() {
-    this.getTodoList(this.criteria);
-  }
+  constructor(private readonly todoService: TodoService) {}
 
   onRemoveTodo(id: string) {
     this.todoService.onRemoveTodo(id);
-    this.getTodoList(this.criteria);
   }
 
   onChangeStatus(id: string, status: TodoStatus) {
     this.todoService.onChangeStatus(id, status);
-    this.getTodoList(this.criteria);
   }
 
   onEditTodo(id: string, updatedContent: string) {
-    this.todoService.onEditTodo(id, updatedContent)
-    this.getTodoList(this.criteria);
-  }
-
-  sortItem(criteria: string) {
-    this.criteria = criteria;
-    this.getTodoList(this.criteria);
-  }
-
-  getTodoList(criteria: string) {
-    this.todoService.getAllTodoList().pipe(
-      switchMap(() => {
-        return of(this.todoService.onSortTodo(criteria))
-      })
-    ).subscribe(todoList => {
-      this.todoList.next(todoList);
-    });
+    this.todoService.onEditTodo(id, updatedContent);
   }
 }

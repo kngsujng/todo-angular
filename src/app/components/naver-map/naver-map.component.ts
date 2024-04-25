@@ -22,7 +22,7 @@ export class NaverMapComponent implements OnInit {
   myLocation: { latitude: number; longitude: number } | string = '';
   todoListWithLocation: TodoItem[] = [];
 
-  constructor(private todoService: TodoService) { }
+  constructor(private todoService: TodoService) {}
 
   ngOnInit(): void {
     this.loadTodoList();
