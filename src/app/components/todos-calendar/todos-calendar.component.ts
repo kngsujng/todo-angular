@@ -55,19 +55,13 @@ export class TodosCalendarComponent implements OnInit {
   openModalIfTodo(date: number){
     const calenderTodo = this.calendarTodos.find(todo => todo.createdAt.getDate() === date )
     if(calenderTodo){
-      this.dialog.open<TodoItem>(TodoModalComponent, { data: calenderTodo });
+      this.dialog.open<TodoItem>(TodoModalComponent, { data: calenderTodo, panelClass:'app-todo-modal' });
     }
   }
 
   haveTodo(date: number) : boolean{
     return !!this.calendarTodos.find(todo => todo.createdAt.getDate() === date ) 
   }
-
-  // close Modal 
-  // dialogRef.closed.subscribe(result => {
-  //   console.log('The dialog was closed');
-  //   console.log(result)
-  // });
   // -----------------------
 
   private refreshCalendar(): void {
