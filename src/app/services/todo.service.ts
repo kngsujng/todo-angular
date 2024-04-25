@@ -9,7 +9,6 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class TodoService {
-  todoList!: TodoItem[]
   private readonly todoListState = new BehaviorSubject<TodoItem[]>([]);
   
   constructor(private http: HttpClient) {
@@ -19,7 +18,13 @@ export class TodoService {
   getDefaultTodoList() {
     return this.http.get<{ todoList: TodoItem[] }>(environment.MOCK_SERVER_URL + '/resource').subscribe(
       (data) => {
-        this.todoListState.next(data.todoList)
+        const todos = data.todoList.map(item => {
+          return {
+            ...item, 
+            createdAt: new Date(item.createdAt)
+          }
+        })
+        this.todoListState.next(todos)
       }, 
       (error) => {
         console.error('Failed to fetch default todo List', error)
