@@ -3,31 +3,65 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class CalendarService {
-  getCalendarData(date: Date) {
-    // 날짜 가져오기
-    const viewYear = date.getFullYear();
-    const viewMonth = date.getMonth(); // 0부터 시작하므로, 이번달을 구하려면 +1을 해줘야 함
-    const prevLast = new Date(viewYear, viewMonth, 0); // 2024 03 31 일
-    const thisLast = new Date(viewYear, viewMonth + 1, 0); // 2024 04 30 화
-    const PLDate = prevLast.getDate(); // 지난달 마지막 날 31일
-    const PLDay = prevLast.getDay(); // 지난달 마지막 요일 일요일(0)
-    const TLDate = thisLast.getDate(); // 이번달 마지막 날 30일
-    const TLDay = thisLast.getDay(); // 이번달 마지막 요일 화요일(2)
+export class CalendarService {  
+   today = new Date();
+   viewMonth = this.today.getMonth(); 
+   viewYear = this.today.getFullYear();
+  
+  initializeCalendar(): void{
+    const calendarDates = document.getElementById('calendarDates');
+    const currentMonthEl = document.getElementById('viewMonth');
+    
+    const firstDayOfMonth = new Date(this.viewYear, this.viewMonth, 1);
+    const daysInMonth = new Date(this.viewYear, this.viewMonth + 1, 0).getDate();
+    const startDayOfWeek = firstDayOfMonth.getDay();
 
-    // 지난달, 이번달, 다음달 달력 배열 만들고 합치기
-    const prevDates = [];
-    const thisDates = [...Array(TLDate + 1).keys()]
-      .slice(1)
-      .map((date) => ({ date, inCurrentMonth: true }));
-    const nextDates = [];
+    currentMonthEl!.textContent = `${this.viewYear}년 ${this.viewMonth + 1}월`;
+    calendarDates!.innerHTML = "";
 
-    for (let i = 0; i < PLDay + 1; i++) {
-      prevDates.unshift({ date: PLDate - i, inCurrentMonth: false });
+    // 이전 달 
+    for(let i = 0; i < startDayOfWeek; i++){
+      const emptyDate = document.createElement("div");
+      calendarDates?.appendChild(emptyDate);
     }
-    for (let i = 1; i < 7 - TLDay; i++) {
-      nextDates.push({ date: i, inCurrentMonth: false });
+
+    // 이번 달 
+    for (let i = 1; i <= daysInMonth; i++) {
+      const dateElement = document.createElement("div");
+      dateElement.setAttribute('id', 'date');
+      dateElement.classList.add("relative", "p-2"); // tailwind css
+      dateElement.textContent = i.toString();
+      calendarDates?.appendChild(dateElement);
+
+      if(this.isInViewMonth() && this.today.getDate() === i){
+        dateElement.classList.add("font-extrabold", "text-[#00C471]"); // tailwind css
+      }
     }
-    return prevDates.concat(thisDates, nextDates);
+  }  
+
+  onChangeMonth(few: -1 | 1){
+      if(few === -1){
+        this.viewMonth--;
+        if(this.viewMonth < 0){
+          this.viewMonth = 11;
+          this.viewYear--;
+        }
+      } else {
+        this.viewMonth++;
+        if(this.viewMonth > 11){
+          this.viewMonth = 0;
+          this.viewYear++;
+        }
+      }
+      this.initializeCalendar()
+  }
+
+  isInViewMonth(date?: Date) : boolean{
+      if(date){
+        // view 월과 date의 월이 같은지 비교 (ex. calendarTodo date 확인)
+        return this.viewYear === date.getFullYear() && this.viewMonth === date.getMonth()
+      }
+      // view의 월과 현재 월이 같은지 비교 
+      return this.today.getFullYear() === this.viewYear && this.today.getMonth() === this.viewMonth
   }
 }
