@@ -1,5 +1,8 @@
 <section class="relative flex h-full flex-col overflow-y-hidden bg-white pb-6">
   <app-todo-head />
   <app-add-todo (newItemEvent)="onAddTodo($event.content, $event.location)" />
-  <router-outlet />
+  <button (click)="handlePrint()">인쇄</button>
+  <div id="printArea">
+    <router-outlet />
+  </div>
 </section>
