@@ -1,5 +1,15 @@
 <section class="relative flex h-full flex-col overflow-y-hidden bg-white pb-6">
   <app-todo-head />
-  <app-add-todo (newItemEvent)="onAddTodo($event.content, $event.location)" />
-  <router-outlet />
+  <div>
+    <button
+      (click)="handlePrint()"
+      class="absolute right-5 m-5 rounded-full p-2 hover:bg-[#adf0d4]"
+    >
+      🖨
+    </button>
+    <app-add-todo (newItemEvent)="onAddTodo($event.content, $event.location)" />
+  </div>
+  <div id="printArea">
+    <router-outlet />
+  </div>
 </section>

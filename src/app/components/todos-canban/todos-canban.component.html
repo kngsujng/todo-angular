@@ -1,9 +1,9 @@
-<div class="mx-14 flex h-5/6 gap-6" cdkDropListGroup>
+<div class="mx-14 flex h-5/6 gap-6 print:flex-col" cdkDropListGroup>
   <section>
     <h2 class="mb-4 text-center text-2xl font-bold">To-Do</h2>
     <ul
       id="todo"
-      class="mx-auto h-[600px] min-w-[420px] max-w-screen-md flex-1 overflow-y-auto bg-[#F9F9F9] p-5"
+      class="mx-auto h-[600px] min-w-[420px] max-w-screen-md flex-1 overflow-y-auto bg-[#F9F9F9] p-5 print:h-full print:overflow-y-visible"
       cdkDropList
       [cdkDropListData]="todoTodoList"
       (cdkDropListDropped)="drop($event)"
@@ -24,7 +24,7 @@
     <h2 class="mb-4 text-center text-2xl font-bold">In-Progress</h2>
     <ul
       id="inProgress"
-      class="mx-auto h-[600px] min-w-[420px] max-w-screen-md flex-1 overflow-y-auto bg-[#F9F9F9] p-5"
+      class="mx-auto h-[600px] min-w-[420px] max-w-screen-md flex-1 overflow-y-auto bg-[#F9F9F9] p-5 print:h-full print:overflow-y-visible"
       cdkDropList
       [cdkDropListData]="inProgressTodoList"
       (cdkDropListDropped)="drop($event)"
@@ -45,7 +45,7 @@
     <h2 class="mb-4 text-center text-2xl font-bold">Completed</h2>
     <ul
       id="completed"
-      class="mx-auto h-[600px] min-w-[420px] max-w-screen-md flex-1 overflow-y-auto bg-[#F9F9F9] p-5"
+      class="mx-auto h-[600px] min-w-[420px] max-w-screen-md flex-1 overflow-y-auto bg-[#F9F9F9] p-5 print:h-full print:overflow-y-visible"
       cdkDropList
       [cdkDropListData]="completedTodoList"
       (cdkDropListDropped)="drop($event)"
