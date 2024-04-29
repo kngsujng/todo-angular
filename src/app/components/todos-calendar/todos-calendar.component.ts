@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { CalendarService } from '../../services/calendar.service';
 import { TodoService } from 'src/app/services/todo.service';
 import { TodoItem } from 'src/app/model/todo';
@@ -14,77 +14,57 @@ import { TodoModalComponent } from '../todo-modal/todo-modal.component';
   templateUrl: './todos-calendar.component.html',
   styleUrl: './todos-calendar.component.scss',
 })
-export class TodosCalendarComponent implements OnInit {
+export class TodosCalendarComponent implements OnInit, DoCheck {
   today: Date = new Date();
-  dates: { date: number; inCurrentMonth: boolean }[] = [];
   calendarTodos!:TodoItem[]
 
   constructor(
-    private CalendarService: CalendarService,
+    private calendarService: CalendarService,
     private todoService: TodoService,
     private dialog: Dialog
   ) {}
 
   ngOnInit(): void {
-    this.loadDates();
-    this.loadTodoList();
+    this.calendarService.initializeCalendar();
+    this.loadTodoList()
   }
 
-  isToday(date: number): boolean {
-    const today = new Date();
-    return (
-      today.getDate() === date && today.getMonth() === this.today.getMonth()
-    );
+  ngDoCheck(){
+    this.loadTodoList()
   }
 
-  loadDates(): void {
-    this.dates = this.CalendarService.getCalendarData(this.today);
-  }
-
-  onChangeMonth = (few: number) => {
-    const newDate = new Date(
-      this.today.getFullYear(),
-      this.today.getMonth() + few,
-      1,
-    );
-    this.today = newDate;
-    this.refreshCalendar();
+  onChangeMonth = (few: -1 | 1) => {
+    this.calendarService.onChangeMonth(few)
   };
-
-  // 모달창 관련 함수 -------
-  openModalIfTodo(date: number){
-    const calenderTodo = this.calendarTodos.find(todo => todo.createdAt.getDate() === date )
-    if(calenderTodo){
-      this.dialog.open<TodoItem>(TodoModalComponent, { data: calenderTodo, panelClass:'app-todo-modal' });
-    }
-  }
-
-  haveTodo(date: number) : boolean{
-    return !!this.calendarTodos.find(todo => todo.createdAt.getDate() === date ) 
-  }
-  // -----------------------
-
-  private refreshCalendar(): void {
-    this.loadDates();
-    this.loadTodoList();
-  }
   
   private loadTodoList(): void {
     this.todoService
       .getAllTodoList()
       .pipe(
         map((todos) =>
-          todos.filter((todo) => this.isDateInCurrentMonth(todo.createdAt)),
+          todos.filter((todo) => this.calendarService.isInViewMonth(todo.createdAt)),
         ),
-      ).subscribe(value => this.calendarTodos = value);
-  }
-  
-  private isDateInCurrentMonth(date: Date): boolean {
-    return (
-      date.getFullYear() === this.today.getFullYear() &&
-      date.getMonth() === this.today.getMonth()
-    );
+      ).subscribe(value => {
+        this.calendarTodos = value;
+        if (this.calendarTodos.length > 0) {
+          const dateArr = document.querySelectorAll('#date'); 
+          for (let calendarTodo of this.calendarTodos) {
+            dateArr.forEach(date => {
+              if(this.calendarService.isInViewMonth(calendarTodo.createdAt) && +date.innerHTML === calendarTodo.createdAt.getDate()){
+                // todo있는 날짜 우측 상단 빨간 점 표시 
+                const todoDateEl = document.createElement("div");
+                date.appendChild(todoDateEl);
+                todoDateEl.classList.add("absolute", "top-0", "right-5", "w-1", "h-1", "bg-red-600", "rounded-full"); // Tailwind CSS 클래스 추가
+
+                // todo있는 날짜 모달 버튼 추가 
+                date.addEventListener('click', ()=> {
+                  this.dialog.open<TodoItem>(TodoModalComponent, { data: calendarTodo, panelClass:'app-todo-modal' });
+                })
+                date.classList.add('cursor-pointer', 'hover:rounded-xl', 'hover:bg-gray-100')
+              }
+            })
+          }
+        }
+      });
   }
 }
-
-
