@@ -26,7 +26,6 @@ export class TodoHeadComponent {
     private router: Router,
   ) {
     const localUser = localStorage.getItem('loggedUser');
-    console.log(localUser)
     if(localUser != null) {
       this.loggedUser = JSON.parse(localUser);
     }
