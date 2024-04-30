@@ -1,0 +1,13 @@
+<app-todo-head />
+<div>
+  <button
+    (click)="handlePrint()"
+    class="absolute right-5 m-5 rounded-full p-2 hover:bg-[#adf0d4]"
+  >
+    🖨
+  </button>
+  <app-add-todo (newItemEvent)="onAddTodo($event.content, $event.location)" />
+</div>
+<div id="printArea">
+  <router-outlet />
+</div>
