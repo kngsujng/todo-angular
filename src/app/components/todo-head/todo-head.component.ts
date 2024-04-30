@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 import { TodoService } from '../../services/todo.service';
 import { Observable, map } from 'rxjs';
@@ -19,10 +19,18 @@ import { LocationStrategy,PathLocationStrategy} from '@angular/common';
 export class TodoHeadComponent {
   today: Date = new Date();
   allTodoList$: Observable<TodoItem[]> = this.todoService.getAllTodoList();
+  loggedUser: any;
 
   constructor(
     public todoService: TodoService,
-  ) {}
+    private router: Router,
+  ) {
+    const localUser = localStorage.getItem('loggedUser');
+    console.log(localUser)
+    if(localUser != null) {
+      this.loggedUser = JSON.parse(localUser);
+    }
+  }
 
   getCompletionRate(): Observable<number> {
     return this.allTodoList$.pipe(
@@ -38,5 +46,10 @@ export class TodoHeadComponent {
           
       }),
     );
+  }
+
+  onLogout(){
+    localStorage.removeItem('loggedUser');
+    this.router.navigateByUrl('/login')
   }
 }
