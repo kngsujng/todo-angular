@@ -1,0 +1,107 @@
+<section class="flex h-screen items-center justify-center">
+  @if (isLoginPage) {
+    <form
+      class="flex min-w-[500px] flex-col gap-6 rounded-3xl border-2 border-[#00C471] p-12 shadow-lg"
+    >
+      <h1 class="mb-4 text-3xl font-bold">Sign In</h1>
+      <label for="email" class="flex flex-col font-semibold">
+        이메일
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="loginObj.email"
+          placeholder="이메일을 입력해주세요."
+          class="mt-1 rounded-lg bg-gray-100 p-3 text-sm font-normal outline-none"
+        />
+      </label>
+      <label for="password" class="flex flex-col font-semibold">
+        비밀번호
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="loginObj.password"
+          placeholder="비밀번호를 입력해주세요."
+          class="mt-1 rounded-lg bg-gray-100 p-3 text-sm font-normal outline-none"
+        />
+      </label>
+      <button
+        (click)="onLogin()"
+        [disabled]="
+          loginObj.email.trim().length === 0 ||
+          loginObj.password.trim().length === 0
+        "
+        class="rounded-md bg-[#00C471] p-2 font-semibold text-white disabled:opacity-30"
+      >
+        로그인
+      </button>
+      <button
+        type="button"
+        (click)="togglePage()"
+        class="text-center hover:text-[#00C471]"
+      >
+        회원이 아니신가요?
+      </button>
+      <p class="text-red-700">{{ errorMsg }}</p>
+    </form>
+  } @else {
+    <form
+      class="flex min-w-[500px] flex-col gap-6 rounded-3xl border-2 border-[#00C471] p-12 shadow-lg"
+    >
+      <h1 class="mb-4 text-3xl font-bold">Sign Up</h1>
+      <label for="email" class="flex flex-col font-semibold">
+        이메일
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="signupObj.email"
+          placeholder="이메일을 입력해주세요."
+          class="mt-1 rounded-lg bg-gray-100 p-3 text-sm font-normal outline-none"
+        />
+      </label>
+      <label for="name" class="flex flex-col font-semibold">
+        아이디
+        <input
+          id="name"
+          type="name"
+          name="name"
+          [(ngModel)]="signupObj.name"
+          placeholder="아이디를 입력해주세요."
+          class="mt-1 rounded-lg bg-gray-100 p-3 text-sm font-normal outline-none"
+        />
+      </label>
+      <label for="password" class="flex flex-col font-semibold">
+        비밀번호
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="signupObj.password"
+          placeholder="비밀번호를 입력해주세요."
+          class="mt-1 rounded-lg bg-gray-100 p-3 text-sm font-normal outline-none"
+        />
+      </label>
+      <button
+        (click)="onRegister()"
+        [disabled]="
+          signupObj.email.trim().length === 0 ||
+          signupObj.name.trim().length === 0 ||
+          signupObj.password.trim().length === 0
+        "
+        class="rounded-md bg-[#00C471] p-2 font-semibold text-white disabled:opacity-30"
+      >
+        회원가입
+      </button>
+      <button
+        type="button"
+        (click)="togglePage()"
+        class="text-center hover:text-[#00C471]"
+      >
+        이미 회원이신가요?
+      </button>
+      <p class="text-red-700">{{ errorMsg }}</p>
+    </form>
+  }
+</section>

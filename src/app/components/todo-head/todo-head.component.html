@@ -3,10 +3,10 @@
 >
   <p class="text-2xl font-semibold">{{ today | date: 'M월 d일' }}</p>
   <nav>
-    <ul class="flex gap-4">
+    <ul class="flex items-center gap-4">
       <li>
         <a
-          routerLink="/"
+          routerLink="list"
           routerLinkActive="text-[#00C471]"
           [routerLinkActiveOptions]="{ exact: true }"
           ariaCurrentWhenActive="page"
@@ -40,6 +40,16 @@
           class="font-bold uppercase hover:text-[#00C471]"
           >map</a
         >
+      </li>
+      <li class="ml-6 flex items-center gap-2">
+        <p class="font-semibold">{{ loggedUser[0].name }}</p>
+        <button
+          class="rounded-md bg-green-500 p-2 text-sm text-white"
+          type="button"
+          (click)="onLogout()"
+        >
+          로그아웃
+        </button>
       </li>
     </ul>
   </nav>
