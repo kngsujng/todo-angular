@@ -1,0 +1,20 @@
+<div class="flex h-screen flex-col items-center justify-center">
+  <section class="flex flex-col gap-8 rounded-xl">
+    <img src="/assets/images/404.png" width="400" height="200" priority />
+    <p class="text-center text-2xl font-bold">페이지를 찾을 수 없습니다 !</p>
+    <div class="flex flex-col gap-2">
+      <button
+        class="rounded-xl bg-[#00C471] p-2 text-white hover:shadow-md"
+        (click)="onGoLoginPage()"
+      >
+        로그인 페이지로 이동
+      </button>
+      <button
+        class="rounded-xl bg-[#00C471] p-2 text-white hover:shadow-md"
+        (click)="onGoPrevPage()"
+      >
+        이전 페이지로 이동
+      </button>
+    </div>
+  </section>
+</div>

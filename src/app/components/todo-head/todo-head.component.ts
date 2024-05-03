@@ -5,6 +5,7 @@ import { TodoService } from '../../services/todo.service';
 import { Observable, map } from 'rxjs';
 import { TodoItem } from '../../model/todo';
 import { LocationStrategy,PathLocationStrategy} from '@angular/common';
+import { logout } from 'src/api/firebase';
 
 @Component({
   selector: 'app-todo-head',
@@ -19,16 +20,16 @@ import { LocationStrategy,PathLocationStrategy} from '@angular/common';
 export class TodoHeadComponent {
   today: Date = new Date();
   allTodoList$: Observable<TodoItem[]> = this.todoService.getAllTodoList();
-  loggedUser: any;
+  // loggedUser: any;
 
   constructor(
     public todoService: TodoService,
     private router: Router,
   ) {
-    const localUser = localStorage.getItem('loggedUser');
-    if(localUser != null) {
-      this.loggedUser = JSON.parse(localUser);
-    }
+    // const localUser = localStorage.getItem('loggedUser');
+    // if(localUser != null) {
+    //   this.loggedUser = JSON.parse(localUser);
+    // }
   }
 
   getCompletionRate(): Observable<number> {
@@ -48,7 +49,7 @@ export class TodoHeadComponent {
   }
 
   onLogout(){
-    localStorage.removeItem('loggedUser');
+    logout();
     this.router.navigateByUrl('/login')
   }
 }

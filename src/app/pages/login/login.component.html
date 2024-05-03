@@ -87,7 +87,7 @@
         (click)="onRegister()"
         [disabled]="
           signupObj.email.trim().length === 0 ||
-          signupObj.name.trim().length === 0 ||
+          signupObj.name?.trim()?.length === 0 ||
           signupObj.password.trim().length === 0
         "
         class="rounded-md bg-[#00C471] p-2 font-semibold text-white disabled:opacity-30"
