@@ -19,16 +19,16 @@ import { LocationStrategy,PathLocationStrategy} from '@angular/common';
 export class TodoHeadComponent {
   today: Date = new Date();
   allTodoList$: Observable<TodoItem[]> = this.todoService.getAllTodoList();
-  loggedUser: any;
+  // loggedUser: any;
 
   constructor(
     public todoService: TodoService,
     private router: Router,
   ) {
-    const localUser = localStorage.getItem('loggedUser');
-    if(localUser != null) {
-      this.loggedUser = JSON.parse(localUser);
-    }
+    // const localUser = localStorage.getItem('loggedUser');
+    // if(localUser != null) {
+    //   this.loggedUser = JSON.parse(localUser);
+    // }
   }
 
   getCompletionRate(): Observable<number> {
