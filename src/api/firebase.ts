@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { Auth } from "src/app/model/auth";
 import { environment } from "src/environments/environment";
 
@@ -32,3 +32,18 @@ export const signup = async ({email, name, password}: Auth) => {
 export const getUser = () => {
   return onAuthStateChanged(auth, (user) => user);
 }
+
+export const login = async({email, password}: Auth) => {
+  return await signInWithEmailAndPassword(auth, email, password)
+    .then((result) => {
+      const user = result.user
+      return {
+        ...user, 
+        email, 
+        password
+      }
+    })
+    .catch(error => error.code);
+}
+
+export const logout = () => signOut(auth);

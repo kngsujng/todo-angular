@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { signup } from 'src/api/firebase';
+import { login, signup } from 'src/api/firebase';
 import { Auth } from 'src/app/model/auth';
 
 @Component({
@@ -20,25 +20,20 @@ export class LoginComponent {
   
   constructor(private router: Router){}
 
-  onLogin() {
-    // const localUsers =  localStorage.getItem('angular-todo-user');
-
-    // if(localUsers === null) {
-    //   this.errorMsg = "회원정보를 찾을 수 없습니다."
-    //   setTimeout(()=>{this.errorMsg = ""}, 1500)
-    //   return;
-    // };
-
-    // const users =  JSON.parse(localUsers);
-    // const isUserPresent =  users.find( (user:SignUpModel)=> user.email == this.loginObj.email && user.password == this.loginObj.password);
-    // if(isUserPresent != undefined) {
-    //   localStorage.setItem('loggedUser', JSON.stringify(isUserPresent));
-    //   this.router.navigateByUrl('/list');
-    // } else {
-    //   this.errorMsg = "회원정보를 찾을 수 없습니다."
-    //   setTimeout(()=>{this.errorMsg = ""}, 1500)
-    // }
-
+  async onLogin() {
+    const result = await login(this.loginObj);
+    if(typeof result !== 'string'){
+      this.router.navigateByUrl('/list');
+    } else {
+      switch (result){
+        case 'auth/invalid-credential':
+          this.errorMsg = '이메일 혹은 비밀번호가 잘못되었습니다.'
+          break;
+        default:
+          this.errorMsg = `회원가입할 수 없습니다. 다시 시도해주세요. (Error: + ${result})`
+      }
+      setTimeout(()=>{this.errorMsg = ""}, 2000)
+    }
   }
 
   async onRegister(){

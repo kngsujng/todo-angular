@@ -5,6 +5,7 @@ import { TodoService } from '../../services/todo.service';
 import { Observable, map } from 'rxjs';
 import { TodoItem } from '../../model/todo';
 import { LocationStrategy,PathLocationStrategy} from '@angular/common';
+import { logout } from 'src/api/firebase';
 
 @Component({
   selector: 'app-todo-head',
@@ -48,7 +49,7 @@ export class TodoHeadComponent {
   }
 
   onLogout(){
-    localStorage.removeItem('loggedUser');
+    logout();
     this.router.navigateByUrl('/login')
   }
 }
