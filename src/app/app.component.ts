@@ -11,11 +11,6 @@ import { AuthGuardService } from './services/auth-guard.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  constructor(){
-    const localUsers = localStorage.getItem('loggedUser');
-    if(localUsers){
-    localStorage.removeItem('loggedUser');
-    }
-  }
+  constructor(){}
 }
  

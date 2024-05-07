@@ -7,9 +7,7 @@ import { getUser } from 'src/api/firebase';
 })
 export class AuthGuardService implements CanActivate {
   loggedUser = {email: '', name:''}
-  constructor(private router: Router) { }
-
-  canActivate(): boolean {
+  constructor(private router: Router) { 
     getUser(user => {
       if(user) {
         this.loggedUser = {
@@ -18,7 +16,9 @@ export class AuthGuardService implements CanActivate {
         }
       }
     })
+  }
 
+  canActivate(): boolean {
     if(this.loggedUser.email !== ''){
       return true
     }
