@@ -14,7 +14,7 @@ import { Auth } from 'src/app/model/auth';
 
 export class LoginComponent {
   loginObj: LoginModel  = new LoginModel();
-  signupObj :Auth = {email: '', name: '', password: ''};
+  signupObj :SignupModel = new SignupModel();
   isLoginPage: boolean = true;
   errorMsg : string = '';
   
@@ -69,6 +69,18 @@ export class LoginModel  {
 
   constructor() {
     this.email = ""; 
+    this.password= ""
+  }
+}
+
+export class SignupModel  { 
+  email: string;
+  name: string;
+  password: string;
+
+  constructor() {
+    this.email = ""; 
+    this.name = '';
     this.password= ""
   }
 }

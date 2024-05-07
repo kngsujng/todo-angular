@@ -6,16 +6,23 @@ import { getUser } from 'src/api/firebase';
   providedIn: 'root'
 })
 export class AuthGuardService implements CanActivate {
+  loggedUser = {email: '', name:''}
   constructor(private router: Router) { }
 
   canActivate(): boolean {
-    const result = getUser()
-    console.log(result)
-    return true
-    // if(typeof result !== 'string'){
-    //   return true;
-    // } 
-    // this.router.navigateByUrl('/')
-    // return false;
+    getUser(user => {
+      if(user) {
+        this.loggedUser = {
+          email: user.email || '',
+          name: user.displayName || '',
+        }
+      }
+    })
+
+    if(this.loggedUser.email !== ''){
+      return true
+    }
+    this.router.navigateByUrl('/')
+    return false;
   }
 }     
