@@ -1,9 +1,8 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, OnInit, effect } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { TodoItem, TodoStatus } from '../model/todo';
-import { environment } from 'src/environments/environment';
-import { v4 as uuid } from 'uuid';
-import { HttpClient } from '@angular/common/http';
+import { addTodo, getTodos, getUser } from 'src/api/firebase';
+import { AuthGuardService } from './auth-guard.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,25 +10,24 @@ import { HttpClient } from '@angular/common/http';
 export class TodoService {
   private readonly todoListState = new BehaviorSubject<TodoItem[]>([]);
   
-  constructor(private http: HttpClient) {
-    this.getDefaultTodoList()
+  constructor(private authService: AuthGuardService) {
+    this.getDefaultTodoList();
    }
 
   getDefaultTodoList() {
-    return this.http.get<{ todoList: TodoItem[] }>(environment.MOCK_SERVER_URL + '/resource').subscribe(
-      (data) => {
-        const todos = data.todoList.map(item => {
-          return {
-            ...item, 
-            createdAt: new Date(item.createdAt)
-          }
+    effect(async () => {
+      const userName = this.authService.loggedUser().name;
+      await getTodos(userName)
+        .then((data)=>{
+          const todos = data.map(item => {
+            return {
+              ...item, 
+              createdAt: new Date(item.createdAt)
+            }
+          })
+          this.todoListState.next(todos)
         })
-        this.todoListState.next(todos)
-      }, 
-      (error) => {
-        console.error('Failed to fetch default todo List', error)
-      }
-    )
+    })
   }
 
   getAllTodoList() {
@@ -44,16 +42,7 @@ export class TodoService {
 
   onAddTodo(todo: string, location: string) {
     if (todo.trim().length <= 0) return;
-    this.todoListState.next([
-      {
-        id: uuid(),
-        content: todo,
-        status: 'TODO',
-        createdAt: new Date(),
-        location,
-      },
-      ...this.todoListState.value,
-    ]);
+    addTodo(this.authService.loggedUser().name, todo, location)
   }
 
   onRemoveTodo(id: string) {

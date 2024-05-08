@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { getUser } from 'src/api/firebase';
 
@@ -6,20 +6,22 @@ import { getUser } from 'src/api/firebase';
   providedIn: 'root'
 })
 export class AuthGuardService implements CanActivate {
-  loggedUser = {email: '', name:''}
+  loggedUser = signal({email: '', name:''})
+  
+  
   constructor(private router: Router) { 
     getUser(user => {
       if(user) {
-        this.loggedUser = {
-          email: user.email || '',
-          name: user.displayName || '',
-        }
+        this.loggedUser.set({
+             email: user.email || '',
+             name: user.displayName || '',
+        })
       }
     })
   }
 
   canActivate(): boolean {
-    if(this.loggedUser.email !== ''){
+    if(this.loggedUser().email !== ''){
       return true
     }
     this.router.navigateByUrl('/')
