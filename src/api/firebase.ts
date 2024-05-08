@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { get, getDatabase, push, ref, set } from "firebase/database";
+import { get, getDatabase, push, ref, remove, set } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, User, updateProfile  } from "firebase/auth";
 import { LoginModel, SignupModel } from "src/app/pages/login/login.component";
 import { environment } from "src/environments/environment";
@@ -62,12 +62,16 @@ export const getTodos = async (userId: string): Promise<TodoItem[] | []> => {
 }
 
 export const addTodo = (userId: string, content: string, location: string) => {
-  const newTodoRef = push(ref(database, userId + '/todos'))
-  return set(newTodoRef, {
-    id: uuid(),
+  const todoId = uuid()
+  return set(ref(database, userId + `/todos/${todoId}`), {
+    id: todoId,
     content: content,
     status: 'TODO',
     createdAt: new Date().toString(),
     location,
   })
+}
+
+export const deleteTodo = (userId: string, todoId: string) => {
+  return remove(ref(database, userId + `/todos/${todoId}`))
 }

@@ -1,7 +1,7 @@
-import { Injectable, OnInit, effect } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { Injectable, effect } from '@angular/core';
+import { BehaviorSubject, map } from 'rxjs';
 import { TodoItem, TodoStatus } from '../model/todo';
-import { addTodo, getTodos, getUser } from 'src/api/firebase';
+import { addTodo, deleteTodo, getTodos } from 'src/api/firebase';
 import { AuthGuardService } from './auth-guard.service';
 
 @Injectable({
@@ -45,11 +45,12 @@ export class TodoService {
     addTodo(this.authService.loggedUser().name, todo, location)
   }
 
-  onRemoveTodo(id: string) {
+  onDeleteTodo(id: string) {
     const removedTodos = this.todoListState.value.filter(
       (item) => item.id !== id,
     );
     this.todoListState.next(removedTodos);
+    deleteTodo(this.authService.loggedUser().name, id)
   }
 
   onChangeStatus(id: string, status: TodoStatus) {

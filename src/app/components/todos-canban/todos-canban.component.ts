@@ -87,8 +87,8 @@ export class TodosCanbanComponent implements OnInit {
     }
   }
 
-  onRemoveTodo(id: string) {
-    this.todoService.onRemoveTodo(id);
+  onDeleteTodo(id: string) {
+    this.todoService.onDeleteTodo(id);
   }
 
   onChangeStatus(id: string, status: TodoStatus) {
