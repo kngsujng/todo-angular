@@ -1,26 +1,38 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { login, signup } from 'src/api/auth.api';
+import { Auth } from 'src/app/model/auth';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 
 export class LoginComponent {
-  loginObj: LoginModel  = new LoginModel();
-  signupObj :SignupModel = new SignupModel();
   isLoginPage: boolean = true;
   errorMsg : string = '';
   
+ private readonly initFormValues: Auth = {
+    email: '',
+    password: '' 
+  }
+
+  readonly formGroup = new FormGroup({
+    email: new FormControl(this.initFormValues.email),
+    username: new FormControl(this.initFormValues.username),
+    password: new FormControl(this.initFormValues.password)
+  })
+
   constructor(private router: Router){}
 
   async onLogin() {
-    const result = await login(this.loginObj);
+    const formData = this.formGroup.value as Auth;
+    this.formGroup.reset();
+    const result = await login(formData);
     if(typeof result !== 'string'){
       this.router.navigateByUrl('/list');
     } else {
@@ -36,7 +48,9 @@ export class LoginComponent {
   }
 
   async onRegister(){
-    const result = await signup(this.signupObj);
+    const formData = this.formGroup.value as Auth;
+    this.formGroup.reset();
+    const result = await signup(formData);
     if(typeof result !== 'string'){
       this.router.navigateByUrl('/list');
     } else {
@@ -60,26 +74,11 @@ export class LoginComponent {
   togglePage(){
     this.isLoginPage = !this.isLoginPage
   }
-}
 
-export class LoginModel  { 
-  email: string;
-  password: string;
-
-  constructor() {
-    this.email = ""; 
-    this.password= ""
-  }
-}
-
-export class SignupModel  { 
-  email: string;
-  name: string;
-  password: string;
-
-  constructor() {
-    this.email = ""; 
-    this.name = '';
-    this.password= ""
+  isDisabledBtn(): boolean {
+    const formData = this.formGroup.value as Auth;
+    return formData.email.trim().length === 0 ||
+    formData?.username?.trim().length === 0 ||
+    formData.password.trim().length === 0
   }
 }
