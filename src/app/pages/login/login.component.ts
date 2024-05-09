@@ -15,9 +15,9 @@ export class LoginComponent {
   isLoginPage: boolean = true;
   errorMsg : string = '';
   readonly formGroup = new FormGroup({
-    email: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.pattern('[a-z0-9]+@[a-z]+\.[a-z]{2,3}')]),
     username: new FormControl(''),
-    password: new FormControl('', Validators.minLength(6))
+    password: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
 
   constructor(private authService: AuthService){}
@@ -43,6 +43,7 @@ export class LoginComponent {
   }
 
   togglePage(){
-    this.isLoginPage = !this.isLoginPage
+    this.isLoginPage = !this.isLoginPage;
+    this.formGroup.reset();
   }
 }
