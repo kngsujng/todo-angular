@@ -5,8 +5,7 @@ import { TodoService } from '../../services/todo.service';
 import { Observable, map } from 'rxjs';
 import { TodoItem } from '../../model/todo';
 import { LocationStrategy,PathLocationStrategy} from '@angular/common';
-import { logout } from 'src/api/firebase';
-import { AuthGuardService } from 'src/app/services/auth-guard.service';
+import { logout } from 'src/api/auth.api';
 
 @Component({
   selector: 'app-todo-head',
@@ -25,7 +24,6 @@ export class TodoHeadComponent {
   constructor(
     public todoService: TodoService,
     private router: Router,
-    public authService : AuthGuardService
   ) {}
 
   getCompletionRate(): Observable<number> {

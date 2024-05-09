@@ -1,8 +1,7 @@
 import { Injectable, effect } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { TodoItem, TodoStatus } from '../model/todo';
-import { addTodo, deleteTodo, getTodos } from 'src/api/firebase';
-import { AuthGuardService } from './auth-guard.service';
+import { addTodo, deleteTodo, getTodos } from 'src/api/todo.api';
 
 @Injectable({
   providedIn: 'root',
@@ -10,24 +9,24 @@ import { AuthGuardService } from './auth-guard.service';
 export class TodoService {
   private readonly todoListState = new BehaviorSubject<TodoItem[]>([]);
   
-  constructor(private authService: AuthGuardService) {
+  constructor() {
     this.getDefaultTodoList();
    }
 
   getDefaultTodoList() {
-    effect(async () => {
-      const userName = this.authService.loggedUser().name;
-      await getTodos(userName)
-        .then((data)=>{
-          const todos = data.map(item => {
-            return {
-              ...item, 
-              createdAt: new Date(item.createdAt)
-            }
-          })
-          this.todoListState.next(todos)
-        })
-    })
+    // effect(async () => {
+    //   const userName = this.authService.loggedUser().name;
+    //   await getTodos(userName)
+    //     .then((data)=>{
+    //       const todos = data.map(item => {
+    //         return {
+    //           ...item, 
+    //           createdAt: new Date(item.createdAt)
+    //         }
+    //       })
+    //       this.todoListState.next(todos)
+    //     })
+    // })
   }
 
   getAllTodoList() {
@@ -42,7 +41,7 @@ export class TodoService {
 
   onAddTodo(todo: string, location: string) {
     if (todo.trim().length <= 0) return;
-    addTodo(this.authService.loggedUser().name, todo, location)
+    // addTodo(this.authService.loggedUser().name, todo, location)
   }
 
   onDeleteTodo(id: string) {
@@ -50,7 +49,7 @@ export class TodoService {
       (item) => item.id !== id,
     );
     this.todoListState.next(removedTodos);
-    deleteTodo(this.authService.loggedUser().name, id)
+    // deleteTodo(this.authService.loggedUser().name, id)
   }
 
   onChangeStatus(id: string, status: TodoStatus) {

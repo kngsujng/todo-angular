@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { login, signup } from 'src/api/firebase';
-import { Auth } from 'src/app/model/auth';
+import { login, signup } from 'src/api/auth.api';
 
 @Component({
   selector: 'app-login',
