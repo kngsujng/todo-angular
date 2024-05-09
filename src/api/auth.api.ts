@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { Auth } from "src/app/model/auth";
 import { environment } from "src/environments/environment";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, User, updateProfile  } from "firebase/auth";
+import { Auth } from "src/app/model/auth";
 
 const firebaseConfig = {
   apiKey: environment.FIREBASE_API_KEY,
@@ -13,24 +13,23 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export const signup = async ({email, name, password}: Auth) => {
+export const signup = async ({email, username, password}: Auth) => {
   return await createUserWithEmailAndPassword(auth, email, password)
-    .then(
-      result => {
+    .then(async (result) => {
+        const user = result.user
+        await updateProfile(user, { displayName: username });
         return { 
-          ...result,  
-          user : {
-            ...result.user, 
+            ...user,
             email,
-            displayName: name, 
+            displayName: username, 
             password
-        }}
+        }
     })
     .catch(error => error.code)
 }
 
-export const getUser = () => {
-  return onAuthStateChanged(auth, (user) => user);
+export const getUser = (callback: (user: User | null)=> void) => {
+  return onAuthStateChanged(auth, (user) => callback(user));
 }
 
 export const login = async({email, password}: Auth) => {

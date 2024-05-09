@@ -6,7 +6,7 @@
     @for (todoItem of allTodoList$ | async; track todoItem.id) {
       <app-todo
         [todo]="todoItem"
-        (removeItemEvent)="onRemoveTodo($event)"
+        (removeItemEvent)="onDeleteTodo($event)"
         (toggleItemEvent)="onChangeStatus(todoItem.id, $event)"
         (editItemEvent)="onEditTodo(todoItem.id, $event)"
       />

@@ -18,8 +18,8 @@ export class TodosListComponent {
 
   constructor(private readonly todoService: TodoService) {}
 
-  onRemoveTodo(id: string) {
-    this.todoService.onRemoveTodo(id);
+  onDeleteTodo(id: string) {
+    this.todoService.onDeleteTodo(id);
   }
 
   onChangeStatus(id: string, status: TodoStatus) {

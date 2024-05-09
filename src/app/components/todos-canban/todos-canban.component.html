@@ -13,7 +13,7 @@
           cdkDrag
           [todo]="todoItem"
           [cdkDragData]="todoItem"
-          (removeItemEvent)="onRemoveTodo($event)"
+          (removeItemEvent)="onDeleteTodo($event)"
           (toggleItemEvent)="onChangeStatus(todoItem.id, $event)"
           (editItemEvent)="onEditTodo(todoItem.id, $event)"
         />
@@ -34,7 +34,7 @@
           cdkDrag
           [todo]="todoItem"
           [cdkDragData]="todoItem"
-          (removeItemEvent)="onRemoveTodo($event)"
+          (removeItemEvent)="onDeleteTodo($event)"
           (toggleItemEvent)="onChangeStatus(todoItem.id, $event)"
           (editItemEvent)="onEditTodo(todoItem.id, $event)"
         />
@@ -55,7 +55,7 @@
           [todo]="todoItem"
           cdkDrag
           [cdkDragData]="todoItem"
-          (removeItemEvent)="onRemoveTodo($event)"
+          (removeItemEvent)="onDeleteTodo($event)"
           (toggleItemEvent)="onChangeStatus(todoItem.id, $event)"
           (editItemEvent)="onEditTodo(todoItem.id, $event)"
         />

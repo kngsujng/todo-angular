@@ -5,8 +5,8 @@ import { TodosCalendarComponent } from './components/todos-calendar/todos-calend
 import { NaverMapComponent } from './components/naver-map/naver-map.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { LoginComponent } from './pages/login/login.component';
-import { AuthGuardService } from './services/auth-guard.service';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -27,7 +27,7 @@ export const routes: Routes = [
       { path: 'calendar', component: TodosCalendarComponent },
       { path: 'map', component: NaverMapComponent },
     ], 
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuard]
   }, 
   {
     path: '**', 
