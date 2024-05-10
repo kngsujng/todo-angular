@@ -1,7 +1,6 @@
 import { Injectable, effect } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { TodoItem, TodoStatus } from '../model/todo';
-import { addTodo, deleteTodo, getTodos } from 'src/api/todo.api';
 
 @Injectable({
   providedIn: 'root',

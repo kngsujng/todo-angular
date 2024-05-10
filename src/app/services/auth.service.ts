@@ -1,16 +1,16 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { Auth } from "../model/auth";
 import { Router } from "@angular/router";
-import { login, signup } from "src/api/auth.api";
 import { getAccessToken, setAccessToken } from "../shared/jwt.storage";
+import { AuthApi } from "src/api/auth.api";
 
 @Injectable({
   providedIn: 'root',
 })
 
 export class AuthService {
-
-  constructor(private router: Router){}
+  private readonly router = inject(Router);
+  private readonly authApi = inject(AuthApi);
 
   isLoggedIn(): boolean {
     const accessToken = getAccessToken();
@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   async authenticateUser(dto: Auth): Promise<string | undefined>{
-    const result = await login(dto); // firebase login 기능 처리
+    const result = await this.authApi.login(dto); // firebase login 기능 처리
     if(typeof result !== 'string'){
       setAccessToken(result.accessToken);
       if(result.accessToken === getAccessToken()){
@@ -43,7 +43,7 @@ export class AuthService {
   }
 
   async registerUser(dto: Auth): Promise<string | undefined>{
-    const result = await signup(dto);
+    const result = await this.authApi.signup(dto);
     if(typeof result !== 'string'){
       this.router.navigateByUrl('/list');
       setAccessToken(result.accessToken);

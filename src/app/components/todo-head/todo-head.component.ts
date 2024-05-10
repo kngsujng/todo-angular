@@ -5,7 +5,7 @@ import { TodoService } from '../../services/todo.service';
 import { Observable, map } from 'rxjs';
 import { TodoItem } from '../../model/todo';
 import { LocationStrategy,PathLocationStrategy} from '@angular/common';
-import { logout } from 'src/api/auth.api';
+import { AuthApi } from 'src/api/auth.api';
 
 @Component({
   selector: 'app-todo-head',
@@ -24,6 +24,7 @@ export class TodoHeadComponent {
   constructor(
     public todoService: TodoService,
     private router: Router,
+    private authapi: AuthApi
   ) {}
 
   getCompletionRate(): Observable<number> {
@@ -43,7 +44,7 @@ export class TodoHeadComponent {
   }
 
   onLogout(){
-    logout();
+    this.authapi.logout();
     this.router.navigateByUrl('/login')
   }
 }
