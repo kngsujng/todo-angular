@@ -61,4 +61,8 @@ export class AuthService {
       }
     }
   }
+
+  logoutUser(){
+    this.authApi.logout();
+  }
 }

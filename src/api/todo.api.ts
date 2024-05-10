@@ -1,8 +1,12 @@
+import { Injectable } from "@angular/core";
 import { get, ref, remove, set } from "firebase/database";
 import { TodoItem } from "src/app/model/todo";
 import { database } from "src/app/shared/firebase";
 import { v4 as uuid } from 'uuid';
 
+@Injectable({
+  providedIn: 'root',
+})
 export class TodoApi {
   async getTodos(userId: string): Promise<TodoItem[] | []> {
     return await get((ref(database, `${userId}/todos`)))

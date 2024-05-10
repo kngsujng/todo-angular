@@ -1,8 +1,12 @@
+import { Injectable } from "@angular/core";
 import { User, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { Auth } from "src/app/model/auth";
 import { auth } from "src/app/shared/firebase";
 import { removeAccessToken } from "src/app/shared/jwt.storage";
 
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthApi {
   async login({email, password}: Auth) {
     return await signInWithEmailAndPassword(auth, email, password)
@@ -37,7 +41,7 @@ export class AuthApi {
     removeAccessToken()
   };
 
-  getUser (callback: (user: User | null)=> void) {
+  getUser (callback: (user: User | null) => User | undefined) {
     return onAuthStateChanged(auth, (user) => callback(user));
   }
 }

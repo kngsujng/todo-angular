@@ -1,11 +1,10 @@
+import { CommonModule, DatePipe, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { CommonModule, DatePipe } from '@angular/common';
-import { TodoService } from '../../services/todo.service';
 import { Observable, map } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { TodoItem } from '../../model/todo';
-import { LocationStrategy,PathLocationStrategy} from '@angular/common';
-import { AuthApi } from 'src/api/auth.api';
+import { TodoService } from '../../services/todo.service';
 
 @Component({
   selector: 'app-todo-head',
@@ -23,8 +22,8 @@ export class TodoHeadComponent {
 
   constructor(
     public todoService: TodoService,
+    private authService: AuthService,
     private router: Router,
-    private authapi: AuthApi
   ) {}
 
   getCompletionRate(): Observable<number> {
@@ -44,7 +43,7 @@ export class TodoHeadComponent {
   }
 
   onLogout(){
-    this.authapi.logout();
+    this.authService.logoutUser();
     this.router.navigateByUrl('/login')
   }
 }
