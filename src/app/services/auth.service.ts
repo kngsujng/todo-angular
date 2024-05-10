@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Auth } from "../model/auth";
 import { Router } from "@angular/router";
 import { login, signup } from "src/api/auth.api";
+import { getAccessToken, setAccessToken } from "../shared/jwt.storage";
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,24 @@ export class AuthService {
 
   constructor(private router: Router){}
 
+  isLoggedIn(): boolean {
+    const accessToken = getAccessToken();
+    if(!!accessToken){
+      return true;
+    } 
+    return false;
+  }
+
   async authenticateUser(dto: Auth): Promise<string | undefined>{
     const result = await login(dto); // firebase login 기능 처리
     if(typeof result !== 'string'){
-      this.router.navigateByUrl('/list');
-      return;
+      setAccessToken(result.accessToken);
+      if(result.accessToken === getAccessToken()){
+        this.router.navigateByUrl('/list');
+        return;
+      } else {
+        return 'Token 인증에 실패했습니다.'
+      }
     } else {
       switch (result){
         case 'auth/invalid-email':
@@ -32,6 +46,7 @@ export class AuthService {
     const result = await signup(dto);
     if(typeof result !== 'string'){
       this.router.navigateByUrl('/list');
+      setAccessToken(result.accessToken);
       return;
     } else {
       switch (result){

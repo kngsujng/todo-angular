@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { environment } from "src/environments/environment";
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, User, updateProfile  } from "firebase/auth";
+import { User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { Auth } from "src/app/model/auth";
+import { removeAccessToken } from "src/app/shared/jwt.storage";
+import { environment } from "src/environments/environment";
 
 const firebaseConfig = {
   apiKey: environment.FIREBASE_API_KEY,
@@ -45,4 +46,7 @@ export const login = async({email, password}: Auth) => {
     .catch(error => error.code);
 }
 
-export const logout = () => signOut(auth);
+export const logout = () => {
+  signOut(auth); 
+  removeAccessToken()
+};
