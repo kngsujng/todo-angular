@@ -1,8 +1,10 @@
 import { Injectable, inject } from "@angular/core";
-import { Auth } from "../model/auth";
 import { Router } from "@angular/router";
-import { getAccessToken, setAccessToken } from "../shared/jwt.storage";
+import { User } from "firebase/auth";
 import { AuthApi } from "src/api/auth.api";
+import { Auth } from "../model/auth";
+import { getAccessToken, setAccessToken } from "../shared/jwt.storage";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +13,7 @@ import { AuthApi } from "src/api/auth.api";
 export class AuthService {
   private readonly router = inject(Router);
   private readonly authApi = inject(AuthApi);
+  readonly currentUser = new BehaviorSubject<User | null>(null);
 
   isLoggedIn(): boolean {
     const accessToken = getAccessToken();
@@ -64,5 +67,12 @@ export class AuthService {
 
   logoutUser(){
     this.authApi.logout();
+  }
+
+  getUserInfo(){
+    this.authApi.getUser(user => {
+      this.currentUser.next(user)
+    });
+    return this.currentUser;
   }
 }

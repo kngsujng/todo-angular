@@ -5,6 +5,7 @@ import { Observable, map } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { TodoItem } from '../../model/todo';
 import { TodoService } from '../../services/todo.service';
+import { User } from 'firebase/auth';
 
 @Component({
   selector: 'app-todo-head',
@@ -19,12 +20,18 @@ import { TodoService } from '../../services/todo.service';
 export class TodoHeadComponent {
   today: Date = new Date();
   allTodoList$: Observable<TodoItem[]> = this.todoService.getAllTodoList();
+  currentUser$: Observable<User | null> = this.authService.getUserInfo();
+  username: string | null | undefined
 
   constructor(
     public todoService: TodoService,
     private authService: AuthService,
     private router: Router,
-  ) {}
+  ) {
+      this.currentUser$.subscribe(user => {
+      this.username = user?.displayName;
+    })
+  }
 
   getCompletionRate(): Observable<number> {
     return this.allTodoList$.pipe(

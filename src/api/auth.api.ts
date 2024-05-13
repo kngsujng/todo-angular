@@ -41,7 +41,7 @@ export class AuthApi {
     removeAccessToken()
   };
 
-  getUser (callback: (user: User | null) => User | undefined) {
+  getUser (callback: (user: User | null) => void) {
     return onAuthStateChanged(auth, (user) => callback(user));
   }
 }
