@@ -32,16 +32,6 @@ export class TodoItemComponent {
     this.editedInputVal = this.todo.content;
   }
 
-  async copyTodoText(todoText: string) {
-    // TODO Toast 공통 컴포넌트 구현
-    try {
-      await navigator.clipboard.writeText(todoText);
-      alert('클립보드에 링크가 복사되었습니다.');
-    } catch (e) {
-      alert('복사에 실패하였습니다');
-    }
-  }
-
   isDisabled(){
     return this.editedInputVal.trim().length <= 0
   }
