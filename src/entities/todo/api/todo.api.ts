@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { get, ref, remove, set } from "firebase/database";
+import { Observable } from "rxjs";
 import { TodoItem } from "src/entities/todo/models/todo";
 import { database } from "src/shared/libs/firebase";
 import { v4 as uuid } from 'uuid';
@@ -8,14 +9,18 @@ import { v4 as uuid } from 'uuid';
   providedIn: 'root',
 })
 export class TodoApi {
-  async getTodos(userId: string): Promise<TodoItem[] | []> {
-    return await get((ref(database, `${userId}/todos`)))
-      .then((snapshot)=> {
-        if(snapshot.exists()){
-          return Object.values(snapshot.val());
-        }
-        return []
-      })
+  getTodos(username: string){
+    return new Observable<TodoItem[]>(observer => {
+      get((ref(database, `${username}/todos`)))
+        .then((snapshot)=> {
+          if(snapshot.exists()){
+            observer.next(Object.values(snapshot.val()));
+          } else {
+            observer.next([]);
+           }
+           observer.complete();
+        })
+    })
   }
   
   addTodo(userId: string, content: string, location: string) {

@@ -13,8 +13,9 @@ export class RemoveTodoComponent {
   
   private readonly todoService = inject(TodoService);
 
-  removeItem(id: string) {
-    this.todoService.onDeleteTodo(id);
+  removeItem() {
+    this.todoService.onDeleteTodo(this.todo.id);
+    console.log('삭제')
   }
 
 }

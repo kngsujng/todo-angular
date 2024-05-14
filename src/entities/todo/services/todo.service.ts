@@ -1,35 +1,21 @@
-import { Injectable, effect } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { BehaviorSubject, map, tap } from 'rxjs';
+import { TodoApi } from '../api';
 import { TodoItem, TodoStatus } from '../models/todo';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
+  private readonly todoApi = inject(TodoApi);
   private readonly todoListState = new BehaviorSubject<TodoItem[]>([]);
   
-  constructor() {
-    this.getDefaultTodoList();
-   }
-
-  getDefaultTodoList() {
-    // effect(async () => {
-    //   const userName = this.authService.loggedUser().name;
-    //   await getTodos(userName)
-    //     .then((data)=>{
-    //       const todos = data.map(item => {
-    //         return {
-    //           ...item, 
-    //           createdAt: new Date(item.createdAt)
-    //         }
-    //       })
-    //       this.todoListState.next(todos)
-    //     })
-    // })
-  }
+  constructor() {}
 
   getAllTodoList() {
-    return this.todoListState;
+    return this.todoApi.getTodos('test').pipe(
+      tap(todos => this.todoListState.next(todos))
+    )
   }
 
   getTodoList(status: TodoStatus) {
