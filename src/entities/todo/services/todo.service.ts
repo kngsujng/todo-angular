@@ -8,7 +8,7 @@ import { TodoItem, TodoStatus } from '../models/todo';
 })
 export class TodoService {
   private readonly todoApi = inject(TodoApi);
-  private readonly todoListState = new BehaviorSubject<TodoItem[]>([]);
+  private todoListState = new BehaviorSubject<TodoItem[]>([]);
   
   constructor() {}
 
@@ -26,15 +26,19 @@ export class TodoService {
 
   onAddTodo(todo: string, location: string) {
     if (todo.trim().length <= 0) return;
-    // addTodo(this.authService.loggedUser().name, todo, location)
+    this.todoApi.addTodo('test', todo, location) // TODO 사용자이름 임의로 가져오지 말고 로그인한 사용자 정보에서 가져오기
+    .pipe(
+      tap(result => {
+        this.todoListState.value.push(result);
+      })
+    ).subscribe();
   }
 
-  onDeleteTodo(id: string) {
-    const removedTodos = this.todoListState.value.filter(
-      (item) => item.id !== id,
-    );
+  onDeleteTodo(todoId: string) {
+    // TODO 사용자이름 임의로 가져오지 말고 로그인한 사용자 정보에서 가져오기
+    this.todoApi.deleteTodo('test', todoId)
+    const removedTodos = this.todoListState.value.filter((todo) => todo.id !== todoId);
     this.todoListState.next(removedTodos);
-    // deleteTodo(this.authService.loggedUser().name, id)
   }
 
   onChangeStatus(id: string, status: TodoStatus) {
