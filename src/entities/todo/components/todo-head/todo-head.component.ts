@@ -1,11 +1,10 @@
 import { CommonModule, DatePipe, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { AuthService } from 'src/entities/auth/services/auth.service';
 import { TodoItem } from '../../models/todo';
 import { TodoService } from '../../services/todo.service';
-import { User } from 'firebase/auth';
 
 @Component({
   selector: 'app-todo-head',
@@ -20,7 +19,6 @@ import { User } from 'firebase/auth';
 export class TodoHeadComponent {
   today: Date = new Date();
   allTodoList$: Observable<TodoItem[]> = this.todoService.getAllTodoList();
-  currentUser$: Observable<User | null> = this.authService.getUserInfo();
   username: string | null | undefined
 
   constructor(
@@ -28,9 +26,13 @@ export class TodoHeadComponent {
     private authService: AuthService,
     private router: Router,
   ) {
-      this.currentUser$.subscribe(user => {
-      this.username = user?.displayName;
-    })
+    this.authService.checkAuthenticate().pipe(
+      tap((user) => {
+        if(user){
+          this.username = user.displayName
+        }
+      })
+    ).subscribe();
   }
 
   getCompletionRate(): Observable<number> {

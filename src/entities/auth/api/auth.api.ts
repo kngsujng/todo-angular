@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
-import { User, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
-import { Auth } from "src/entities/auth/models/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { Observable } from "rxjs";
+import { AuthModel, UserModel } from "src/entities/auth/models/auth";
 import { auth } from "src/shared/libs/firebase";
 import { removeAccessToken } from "src/shared/libs/jwt.storage";
 
@@ -8,7 +9,26 @@ import { removeAccessToken } from "src/shared/libs/jwt.storage";
   providedIn: 'root',
 })
 export class AuthApi {
-  async login({email, password}: Auth) {
+
+  checkAuthenticate() {
+    return new Observable<UserModel|null>(observer => {
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          observer.next(null);
+        } else {
+          observer.next({
+            uid: user.uid,
+            email: user.email!,
+            displayName: user.displayName!,
+            photoURL: user.photoURL!,
+          });
+        }
+        observer.complete();
+      });
+    });
+  }
+
+  async login({email, password}: AuthModel) {
     return await signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
         const user = result.user
@@ -21,7 +41,7 @@ export class AuthApi {
       .catch(error => error.code);
   }
 
-  async signup({email, username, password}: Auth) {
+  async signup({email, username, password}: AuthModel) {
     return await createUserWithEmailAndPassword(auth, email, password)
     .then(async (result) => {
       const user = result.user
@@ -41,7 +61,4 @@ export class AuthApi {
     removeAccessToken()
   };
 
-  getUser (callback: (user: User | null) => void) {
-    return onAuthStateChanged(auth, (user) => callback(user));
-  }
 }

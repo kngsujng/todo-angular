@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Auth } from 'src/entities/auth/models/auth';
+import { AuthModel } from 'src/entities/auth/models/auth';
 import { AuthService } from 'src/entities/auth/services/auth.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class LoginPage {
   constructor(private authService: AuthService){}
 
   async onLogin() {
-    const formData = this.formGroup.value as Auth;
+    const formData = this.formGroup.value as AuthModel;
     const result = await this.authService.authenticateUser(formData); // service에서 로그인관련 비즈니스 로직 처리
     if(typeof result === 'string') {
       this.errorMsg = result;
@@ -33,7 +33,7 @@ export class LoginPage {
   }
 
   async onRegister(){
-    const formData = this.formGroup.value as Auth;
+    const formData = this.formGroup.value as AuthModel;
     const result = await this.authService.registerUser(formData);
     if(typeof result === 'string') {
       this.errorMsg = result;

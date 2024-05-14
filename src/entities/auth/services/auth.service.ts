@@ -2,7 +2,7 @@ import { Injectable, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { User } from "firebase/auth";
 import { AuthApi } from "src/entities/auth/api/auth.api";
-import { Auth } from "../models/auth";
+import { AuthModel } from "../models/auth";
 import { getAccessToken, setAccessToken } from "../../../shared/libs/jwt.storage";
 import { BehaviorSubject } from "rxjs";
 
@@ -15,15 +15,11 @@ export class AuthService {
   private readonly authApi = inject(AuthApi);
   readonly currentUser = new BehaviorSubject<User | null>(null);
 
-  isLoggedIn(): boolean {
-    const accessToken = getAccessToken();
-    if(!!accessToken){
-      return true;
-    } 
-    return false;
+  checkAuthenticate() {
+    return this.authApi.checkAuthenticate();
   }
 
-  async authenticateUser(dto: Auth): Promise<string | undefined>{
+  async authenticateUser(dto: AuthModel): Promise<string | undefined>{
     const result = await this.authApi.login(dto); // firebase login 기능 처리
     if(typeof result !== 'string'){
       setAccessToken(result.accessToken);
@@ -45,7 +41,7 @@ export class AuthService {
     }
   }
 
-  async registerUser(dto: Auth): Promise<string | undefined>{
+  async registerUser(dto: AuthModel): Promise<string | undefined>{
     const result = await this.authApi.signup(dto);
     if(typeof result !== 'string'){
       this.router.navigateByUrl('/list');
@@ -69,10 +65,4 @@ export class AuthService {
     this.authApi.logout();
   }
 
-  getUserInfo(){
-    this.authApi.getUser(user => {
-      this.currentUser.next(user)
-    });
-    return this.currentUser;
-  }
 }
