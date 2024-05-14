@@ -1,0 +1,22 @@
+@if (allTodoList$) {
+  <app-sort-todo [todoList]="allTodoList$ | async" />
+  <ul
+    class="mx-auto h-[650px] max-w-screen-md flex-1 overflow-y-scroll bg-[#F9F9F9] p-5 print:overflow-y-visible"
+  >
+    @for (todoItem of allTodoList$ | async; track todoItem.id) {
+      <app-todo-item
+        [todo]="todoItem"
+        (toggleItemEvent)="onChangeStatus(todoItem.id, $event)"
+        (editItemEvent)="onEditTodo(todoItem.id, $event)"
+      >
+        <remove-todo-component slot="remove" [todo]="todoItem" />
+      </app-todo-item>
+    }
+  </ul>
+} @else {
+  <div
+    class="mx-auto flex h-[600px] max-w-screen-md flex-1 flex-col items-center justify-center border-2 border-dotted"
+  >
+    <p class="text-gray-500">등록된 투두 아이템이 없습니다.</p>
+  </div>
+}
