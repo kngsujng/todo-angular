@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { RemoveTodoComponent } from 'src/features/todo/components/remove-todo/remove-todo.component';
 import { TodoItemComponent } from '../../entities/todo/components/todo-item/todo-item.component';
 import { TodoItem, TodoStatus } from '../../entities/todo/models/todo';
@@ -15,12 +15,11 @@ import { SortTodoComponent } from '../../features/todo/components/sort-todo/sort
   styleUrl: './todo-list.widget.scss',
 })
 export class TodoListWidget {
-  allTodoList !: TodoItem[];
+  
+  allTodoList$!: Observable<TodoItem[]>;
 
   constructor(private todoService: TodoService) {
-    this.todoService.getAllTodoList().pipe(
-      tap(todos => this.allTodoList = todos)
-    ).subscribe()
+    this.allTodoList$ = this.todoService.todoListState$;
   }
 
   onChangeStatus(id: string, status: TodoStatus) {

@@ -1,4 +1,4 @@
-@if (allTodoList) {
+@if (allTodoList$ | async; as allTodoList) {
   <app-sort-todo [todoList]="allTodoList" />
   <ul class="mx-auto h-[650px] max-w-screen-md flex-1 overflow-y-scroll bg-[#F9F9F9] p-5 print:overflow-y-visible">
     @for (todoItem of allTodoList; track todoItem.id) {

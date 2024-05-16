@@ -1,11 +1,11 @@
-import { CommonModule, DatePipe } from '@angular/common';
-import { Component, DoCheck, OnInit } from '@angular/core';
-import { CalendarService } from '../../entities/todo/services/calendar.service';
-import { TodoService } from 'src/entities/todo/services/todo.service';
-import { TodoItem } from 'src/entities/todo/models/todo';
-import { map } from 'rxjs';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
-import { TodoModalComponent } from '../../entities/todo/components/todo-modal/todo-modal.component';
+import { CommonModule, DatePipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs';
+import { TodoModalComponent } from 'src/entities/todo';
+import { TodoItem } from 'src/entities/todo/models/todo';
+import { TodoService } from 'src/entities/todo/services/todo.service';
+import { CalendarService } from '../../entities/todo/services/calendar.service';
 
 @Component({
   selector: 'app-todo-calendar',
@@ -14,7 +14,7 @@ import { TodoModalComponent } from '../../entities/todo/components/todo-modal/to
   templateUrl: './todo-calendar.page.html',
   styleUrl: './todo-calendar.page.scss',
 })
-export class TodoCalendarPage implements OnInit, DoCheck {
+export class TodoCalendarPage implements OnInit {
   today: Date = new Date();
   calendarTodos!:TodoItem[]
 
@@ -29,21 +29,15 @@ export class TodoCalendarPage implements OnInit, DoCheck {
     this.loadTodoList()
   }
 
-  ngDoCheck(){
-    this.loadTodoList()
-  }
-
   onChangeMonth = (few: -1 | 1) => {
     this.calendarService.onChangeMonth(few)
   };
   
   private loadTodoList(): void {
-    this.todoService
-      .getAllTodoList()
+    this.todoService.todoListState$
       .pipe(
-        map((todos) =>
-          todos.filter((todo) => this.calendarService.isInViewMonth(todo.createdAt)),
-        ),
+        map((todos) => 
+          todos.filter((todo) => this.calendarService.isInViewMonth(todo.createdAt))),
       ).subscribe(value => {
         this.calendarTodos = value;
         if (this.calendarTodos.length > 0) {

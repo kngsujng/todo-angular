@@ -30,7 +30,7 @@ export class TodoMapPage implements OnInit {
   }
 
   private loadTodoList(): void {
-    this.todoService.getAllTodoList().subscribe((todos) => {
+    this.todoService.todoListState$.subscribe((todos) => {
       this.todoListWithLocation = todos.filter(
         (todo) => todo.location !== undefined,
       );

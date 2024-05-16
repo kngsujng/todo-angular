@@ -8,18 +8,19 @@ import { TodoItem, TodoStatus } from '../models/todo';
 })
 export class TodoService {
   private readonly todoApi = inject(TodoApi);
-  private todoListState = new BehaviorSubject<TodoItem[]>([]);
+  private readonly todoListState = new BehaviorSubject<TodoItem[]>([]);
+  todoListState$ = this.todoListState.asObservable();
   
   constructor() {}
 
-  getAllTodoList() {
+  initTodoList() {
     return this.todoApi.getTodos('test').pipe(
       tap(todos => this.todoListState.next(todos))
-    )
+    );
   }
 
   getTodoList(status: TodoStatus) {
-    return this.todoListState.pipe(
+    return this.todoListState$.pipe(
       map((todoList) => todoList.filter((todo) => todo.status === status)),
     );
   }
@@ -29,16 +30,20 @@ export class TodoService {
     this.todoApi.addTodo('test', todo, location) // TODO 사용자이름 임의로 가져오지 말고 로그인한 사용자 정보에서 가져오기
     .pipe(
       tap(result => {
-        this.todoListState.value.push(result);
+        const currentTodos = this.todoListState.value;
+        this.todoListState.next([result, ...currentTodos]);
       })
-    ).subscribe();
+    ).subscribe(() => this.initTodoList());
   }
 
   onDeleteTodo(todoId: string) {
     // TODO 사용자이름 임의로 가져오지 말고 로그인한 사용자 정보에서 가져오기
-    this.todoApi.deleteTodo('test', todoId)
-    const removedTodos = this.todoListState.value.filter((todo) => todo.id !== todoId);
-    this.todoListState.next(removedTodos);
+    this.todoApi.deleteTodo('test', todoId).pipe(
+      tap(()=> {
+        const removedTodos = this.todoListState.value.filter((todo) => todo.id !== todoId);
+        this.todoListState.next(removedTodos);
+      })
+    ).subscribe(() => this.initTodoList());
   }
 
   onChangeStatus(id: string, status: TodoStatus) {

@@ -1,11 +1,13 @@
 import { inject } from "@angular/core";
 import { CanActivateFn, Router } from "@angular/router";
-import { AuthService } from "../../entities/auth/services/auth.service";
 import { map } from "rxjs";
+import { TodoService } from "src/entities/todo";
+import { AuthService } from "../../entities/auth/services/auth.service";
 
 export const AuthGuard:CanActivateFn = () => {
   const router = inject(Router);
   const authService = inject(AuthService);
+  const todoService = inject(TodoService);
 
   return authService.checkAuthenticate().pipe(
     map((user) => {
@@ -15,6 +17,7 @@ export const AuthGuard:CanActivateFn = () => {
         return false; 
       }
 
+      todoService.initTodoList().subscribe();
       return true;
     })
   )

@@ -18,14 +18,15 @@ import { TodoService } from '../../services/todo.service';
 })
 export class TodoHeadComponent {
   today: Date = new Date();
-  allTodoList$: Observable<TodoItem[]> = this.todoService.getAllTodoList();
-  username: string | null | undefined
+  allTodoList$ !: Observable<TodoItem[]>;
+  username: string | null | undefined;
 
   constructor(
     public todoService: TodoService,
     private authService: AuthService,
     private router: Router,
   ) {
+    // TODO 사용자 username 전역관리
     this.authService.checkAuthenticate().pipe(
       tap((user) => {
         if(user){
@@ -33,6 +34,7 @@ export class TodoHeadComponent {
         }
       })
     ).subscribe();
+    this.allTodoList$ = this.todoService.todoListState$;
   }
 
   getCompletionRate(): Observable<number> {
