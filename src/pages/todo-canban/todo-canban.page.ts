@@ -14,6 +14,7 @@ import { ToggleStatusComponent } from 'src/features/todo/components/toggle-statu
 import { TodoItemComponent } from '../../entities/todo/components/todo-item/todo-item.component';
 import { TodoItem } from '../../entities/todo/models/todo';
 import { TodoService } from '../../entities/todo/services/todo.service';
+import { EditTodoComponent } from 'src/features/todo/components/edit-todo';
 
 @Component({
   selector: 'app-todo-canban',
@@ -26,7 +27,8 @@ import { TodoService } from '../../entities/todo/services/todo.service';
     CommonModule,
     RemoveTodoComponent, 
     CopyTodoComponent, 
-    ToggleStatusComponent
+    ToggleStatusComponent, 
+    EditTodoComponent
   ],
   templateUrl: './todo-canban.page.html',
   styleUrl: './todo-canban.page.scss',

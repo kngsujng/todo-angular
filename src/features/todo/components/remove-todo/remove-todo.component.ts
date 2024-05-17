@@ -1,5 +1,5 @@
 import { Component, Input, inject } from '@angular/core';
-import { TodoItem, TodoService } from 'src/entities/todo';
+import { TodoService } from 'src/entities/todo';
 
 @Component({
   selector: 'remove-todo-component',
@@ -9,13 +9,12 @@ import { TodoItem, TodoService } from 'src/entities/todo';
   styleUrl: './remove-todo.component.scss'
 })
 export class RemoveTodoComponent {
-  @Input() todo!: TodoItem;
+  @Input() todoId!: string;
   
   private readonly todoService = inject(TodoService);
 
   removeItem() {
-    this.todoService.onDeleteTodo(this.todo.id);
-    console.log('삭제')
+    this.todoService.onDeleteTodo(this.todoId);
   }
 
 }

@@ -1,25 +1,22 @@
-<li class="text-md mb-3 flex items-center gap-3 rounded-3xl border-2 border-[#00C471] bg-white px-4 py-4 shadow-md">
+<li class="text-md mb-3 flex items-center gap-2 rounded-3xl border-2 border-[#00C471] bg-white px-4 py-4 shadow-md">
   <ng-content select="[slot='toggle']"></ng-content>
-  <div class="flex-1 p-2">
+  <div class="flex-1 pl-2">
     @if (!isEditing) {
-      @if (todo.status === 'COMPLETED') {
-        <p class="flex-1 text-gray-400 line-through">{{ todo.content }}</p>
-      } @else {
-        <p class="flex-1">{{ todo.content }}</p>
-      }
+      <div class="flex gap-2">
+        <div class="flex-1">
+          <p [ngClass]="{ 'text-gray-400 line-through': todo.status === 'COMPLETED' }">
+            {{ todo.content }}
+          </p>
+          <p [ngClass]="{ 'text-xs text-gray-600': todo.location }">{{ todo.location && '📍 ' + todo.location }}</p>
+        </div>
+        <div class="my-auto">
+          <ng-content select="[slot='remove']"></ng-content>
+        </div>
+        <button type="button" (click)="changeEditMode()">✏️</button>
+      </div>
     } @else {
-      <input type="text" class="w-full flex-1 border-b p-2 outline-none" [(ngModel)]="editedInputVal" />
-    }
-    @if (todo.location) {
-      <p class="text-xs text-gray-600">📍 {{ todo.location }}</p>
+      <ng-container *ngTemplateOutlet="editTemplate; context: { isEditing, changeEditMode }"></ng-container>
     }
   </div>
   <ng-content select="[slot='copy']"></ng-content>
-  @if (!isEditing) {
-    <button type="button" (click)="changeEditMode()">✏️</button>
-    <ng-content select="[slot='remove']"></ng-content>
-  } @else {
-    <button type="button" class="disabled:opacity-20" [disabled]="isDisabled()" (click)="editItem()">✔️</button>
-    <button type="button" (click)="editStatus(false)">🔁</button>
-  }
 </li>

@@ -8,11 +8,12 @@ import { TodoItemComponent } from '../../entities/todo/components/todo-item/todo
 import { TodoItem } from '../../entities/todo/models/todo';
 import { TodoService } from '../../entities/todo/services/todo.service';
 import { SortTodoComponent } from '../../features/todo/components/sort-todo/sort-todo.component';
+import { EditTodoComponent } from 'src/features/todo/components/edit-todo';
 
 @Component({
   selector: 'todo-list-widget',
   standalone: true,
-  imports: [TodoItemComponent, CommonModule, SortTodoComponent, RemoveTodoComponent, CopyTodoComponent, ToggleStatusComponent],
+  imports: [TodoItemComponent, CommonModule, SortTodoComponent, RemoveTodoComponent, CopyTodoComponent, ToggleStatusComponent, EditTodoComponent],
   templateUrl: './todo-list.widget.html',
   styleUrl: './todo-list.widget.scss',
 })
@@ -24,7 +25,4 @@ export class TodoListWidget {
     this.allTodoList$ = this.todoService.todoListState$;
   }
 
-  onEditTodo(id: string, updatedContent: string) {
-    this.todoService.onEditTodo(id, updatedContent);
-  }
 }

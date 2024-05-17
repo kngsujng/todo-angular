@@ -9,15 +9,11 @@
       (cdkDropListDropped)="drop($event)"
     >
       @for (todoItem of todoTodoList; track $index) {
-        <app-todo-item
-          [todo]="todoItem"
-          cdkDrag
-          [cdkDragData]="todoItem"
-          (editItemEvent)="onEditTodo(todoItem.id, $event)"
-        >
+        <app-todo-item [todo]="todoItem" cdkDrag [cdkDragData]="todoItem">
+          <edit-todo-component slot="edit" [todo]="todoItem" />
           <toggle-status-component slot="toggle" [todo]="todoItem" />
-          <remove-todo-component slot="remove" [todo]="todoItem" />
-          <copy-todo-component slot="copy" [todo]="todoItem" />
+          <remove-todo-component slot="remove" [todoId]="todoItem.id" />
+          <copy-todo-component slot="copy" [content]="todoItem.content" />
         </app-todo-item>
       }
     </ul>
@@ -32,15 +28,11 @@
       (cdkDropListDropped)="drop($event)"
     >
       @for (todoItem of inProgressTodoList; track $index) {
-        <app-todo-item
-          [todo]="todoItem"
-          cdkDrag
-          [cdkDragData]="todoItem"
-          (editItemEvent)="onEditTodo(todoItem.id, $event)"
-        >
+        <app-todo-item [todo]="todoItem" cdkDrag [cdkDragData]="todoItem">
+          <edit-todo-component slot="edit" [todo]="todoItem" />
           <toggle-status-component slot="toggle" [todo]="todoItem" />
-          <remove-todo-component slot="remove" [todo]="todoItem" />
-          <copy-todo-component slot="copy" [todo]="todoItem" />
+          <remove-todo-component slot="remove" [todoId]="todoItem.id" />
+          <copy-todo-component slot="copy" [content]="todoItem.content" />
         </app-todo-item>
       }
     </ul>
@@ -55,15 +47,11 @@
       (cdkDropListDropped)="drop($event)"
     >
       @for (todoItem of completedTodoList; track $index) {
-        <app-todo-item
-          [todo]="todoItem"
-          cdkDrag
-          [cdkDragData]="todoItem"
-          (editItemEvent)="onEditTodo(todoItem.id, $event)"
-        >
+        <app-todo-item [todo]="todoItem" cdkDrag [cdkDragData]="todoItem">
+          <edit-todo-component slot="edit" [todo]="todoItem" />
           <toggle-status-component slot="toggle" [todo]="todoItem" />
-          <remove-todo-component slot="remove" [todo]="todoItem" />
-          <copy-todo-component slot="copy" [todo]="todoItem" />
+          <remove-todo-component slot="remove" [todoId]="todoItem.id" />
+          <copy-todo-component slot="copy" [content]="todoItem.content" />
         </app-todo-item>
       }
     </ul>

@@ -1,37 +1,24 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
 import { type TodoItem } from '../../models/todo';
 
 @Component({
   selector: 'app-todo-item',
   standalone: true,
-  imports: [FormsModule],
+  imports: [CommonModule],
   templateUrl: './todo-item.component.html',
   styleUrl: './todo-item.component.scss',
 })
 export class TodoItemComponent {
   @Input() todo!: TodoItem;
-  @Output() editItemEvent = new EventEmitter<string>();
-
-  isEditing = false;
-  editedInputVal: string = '';
-
-  editItem() {
-    this.editItemEvent.emit(this.editedInputVal);
-    this.isEditing = false;
-    this.editedInputVal = '';
-  }
+  isEditing :boolean = false;
+  @Input() onTodoUpdated !: () => void;
+  
+  @ContentChild('edit') editTemplate!: TemplateRef<any>;
 
   changeEditMode() {
-    this.isEditing = true;
-    this.editedInputVal = this.todo.content;
+    this.isEditing = !this.isEditing;
   }
 
-  isDisabled(){
-    return this.editedInputVal.trim().length <= 0
-  }
-
-  editStatus(status: boolean){
-    return this.isEditing = status
-  }
+  
 }

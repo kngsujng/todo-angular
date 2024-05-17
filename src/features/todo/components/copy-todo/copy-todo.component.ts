@@ -9,7 +9,7 @@ import { TodoItem } from 'src/entities/todo';
   styleUrl: './copy-todo.component.scss',
 })
 export class CopyTodoComponent {  
-  @Input() todo!: TodoItem;
+  @Input() content!: string;
   
   async copyTodoText(todoText: string) {
     // TODO Toast 공통 컴포넌트 구현
