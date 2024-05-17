@@ -1,5 +1,3 @@
-import { Component, OnInit } from '@angular/core';
-import { TodoItemComponent } from '../../entities/todo/components/todo-item/todo-item.component';
 import {
   CdkDrag,
   CdkDragDrop,
@@ -8,10 +6,14 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { TodoItem, TodoStatus } from '../../entities/todo/models/todo';
-import { TodoService } from '../../entities/todo/services/todo.service';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { CopyTodoComponent } from 'src/features';
 import { RemoveTodoComponent } from 'src/features/todo/components/remove-todo/remove-todo.component';
+import { ToggleStatusComponent } from 'src/features/todo/components/toggle-status';
+import { TodoItemComponent } from '../../entities/todo/components/todo-item/todo-item.component';
+import { TodoItem } from '../../entities/todo/models/todo';
+import { TodoService } from '../../entities/todo/services/todo.service';
 
 @Component({
   selector: 'app-todo-canban',
@@ -22,7 +24,9 @@ import { RemoveTodoComponent } from 'src/features/todo/components/remove-todo/re
     CdkDrag,
     CdkDropListGroup,
     CommonModule,
-    RemoveTodoComponent
+    RemoveTodoComponent, 
+    CopyTodoComponent, 
+    ToggleStatusComponent
   ],
   templateUrl: './todo-canban.page.html',
   styleUrl: './todo-canban.page.scss',
@@ -85,14 +89,6 @@ export class TodoCanbanPage implements OnInit {
         }
       });
     }
-  }
-
-  onDeleteTodo(id: string) {
-    this.todoService.onDeleteTodo(id);
-  }
-
-  onChangeStatus(id: string, status: TodoStatus) {
-    this.todoService.onChangeStatus(id, status);
   }
 
   onEditTodo(id: string, updatedContent: string) {

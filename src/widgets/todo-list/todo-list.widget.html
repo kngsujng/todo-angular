@@ -2,12 +2,10 @@
   <app-sort-todo [todoList]="allTodoList" />
   <ul class="mx-auto h-[650px] max-w-screen-md flex-1 overflow-y-scroll bg-[#F9F9F9] p-5 print:overflow-y-visible">
     @for (todoItem of allTodoList; track todoItem.id) {
-      <app-todo-item
-        [todo]="todoItem"
-        (toggleItemEvent)="onChangeStatus(todoItem.id, $event)"
-        (editItemEvent)="onEditTodo(todoItem.id, $event)"
-      >
+      <app-todo-item [todo]="todoItem" (editItemEvent)="onEditTodo(todoItem.id, $event)">
+        <toggle-status-component slot="toggle" [todo]="todoItem" />
         <remove-todo-component slot="remove" [todo]="todoItem" />
+        <copy-todo-component slot="copy" [todo]="todoItem" />
       </app-todo-item>
     }
   </ul>

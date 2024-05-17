@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TodoStatus, type TodoItem } from '../../models/todo';
 import { FormsModule } from '@angular/forms';
+import { type TodoItem } from '../../models/todo';
 
 @Component({
   selector: 'app-todo-item',
@@ -11,15 +11,10 @@ import { FormsModule } from '@angular/forms';
 })
 export class TodoItemComponent {
   @Input() todo!: TodoItem;
-  @Output() toggleItemEvent = new EventEmitter<TodoStatus>();
   @Output() editItemEvent = new EventEmitter<string>();
 
   isEditing = false;
   editedInputVal: string = '';
-  
-  toggleItem(status: TodoStatus) {
-    this.toggleItemEvent.emit(status);
-  }
 
   editItem() {
     this.editItemEvent.emit(this.editedInputVal);

@@ -46,16 +46,18 @@ export class TodoService {
     ).subscribe(() => this.initTodoList());
   }
 
-  onChangeStatus(id: string, status: TodoStatus) {
-    const changeStatusTodos = this.todoListState.value.map<TodoItem>((todo) => {
-      if (todo.id !== id) return todo;
-      const notCompletedStatus = status === 'TODO' || status === 'INPROGRESS'
-      if (notCompletedStatus) {
-        return { ...todo, status: 'COMPLETED' };
-      }
-      return { ...todo, status: 'TODO' };
-    })
-    this.todoListState.next(changeStatusTodos);
+  onChangeStatus(todoId: string, status: TodoStatus) {
+    const todo = this.todoListState.value.find(todo => todo.id === todoId);
+    if(!todo) return;
+    const updatedStatus = status === 'TODO' || status === 'INPROGRESS' ? 'COMPLETED' : 'TODO';
+    const newTodo = { ...todo, status: updatedStatus as TodoStatus };
+    
+    this.todoApi.toggleStatus('test', newTodo).pipe(
+      tap(() => {
+        const todos = this.todoListState.value.map(todo => (todo.id === todoId? newTodo: todo));
+        this.todoListState.next([...todos]);
+      })
+    ).subscribe(() => this.initTodoList());
   }
 
   onEditTodo(id: string, updatedContent: string) {

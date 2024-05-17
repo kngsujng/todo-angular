@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { get, ref, remove, set } from "firebase/database";
+import { get, ref, remove, set, update } from "firebase/database";
 import { Observable, from } from "rxjs";
 import { TodoItem, TodoStatus } from "src/entities/todo/models/todo";
 import { database } from "src/shared/libs/firebase";
@@ -46,6 +46,14 @@ export class TodoApi {
 
   deleteTodo(userId: string, todoId: string) {
     const promise = remove(ref(database, userId + `/todos/${todoId}`));
+    return from(promise);
+  }
+
+  toggleStatus(userId: string, todo: TodoItem){
+    const { id : todoId } = todo;
+    const newTodo: Record<string, Partial<TodoItem>> = {};
+    newTodo[`${userId}/todos/${todoId}`] = todo
+    const promise = update(ref(database), newTodo)
     return from(promise);
   }
 }
