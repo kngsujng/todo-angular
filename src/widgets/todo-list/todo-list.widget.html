@@ -4,13 +4,6 @@
     @for (todoItem of allTodoList; track todoItem.id) {
       <app-todo-item [todo]="todoItem">
         <toggle-status-component slot="toggle" [todo]="todoItem" />
-        <ng-template #edit let-isEditing="isEditing" let-changeEditMode="changeEditMode">
-          <edit-todo-component
-            [todo]="todoItem"
-            [isEditing]="isEditing"
-            [changeEditMode]="changeEditMode"
-          ></edit-todo-component>
-        </ng-template>
         <remove-todo-component slot="remove" [todoId]="todoItem.id" />
         <copy-todo-component slot="copy" [content]="todoItem.content" />
       </app-todo-item>

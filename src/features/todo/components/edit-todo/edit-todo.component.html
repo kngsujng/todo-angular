@@ -1,6 +1,5 @@
 <form class="flex gap-2">
   <input type="text" name="content" class="w-full flex-1 border-b p-2 outline-none" [(ngModel)]="editedInputVal" />
-  <button type="button" class="disabled:opacity-20" [disabled]="isDisabled()" (click)="editItem()">✔️</button>
-  <button type="button" (click)="changeEditMode()">🔁</button>
-  {{ isEditing }}
+  <button type="button" class="disabled:opacity-20" [disabled]="isDisabled()" (click)="onSave()">✔️</button>
+  <button type="button" (click)="onCancel()">🔁</button>
 </form>

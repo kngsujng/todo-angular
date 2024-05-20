@@ -15,7 +15,7 @@
         <button type="button" (click)="changeEditMode()">✏️</button>
       </div>
     } @else {
-      <ng-container *ngTemplateOutlet="editTemplate; context: { isEditing, changeEditMode }"></ng-container>
+      <edit-todo-component [todo]="todo" (toggleEvent)="changeEditMode()" />
     }
   </div>
   <ng-content select="[slot='copy']"></ng-content>

@@ -1,24 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { EditTodoComponent } from 'src/features/todo/components/edit-todo';
 import { type TodoItem } from '../../models/todo';
 
 @Component({
   selector: 'app-todo-item',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, EditTodoComponent],
   templateUrl: './todo-item.component.html',
   styleUrl: './todo-item.component.scss',
 })
 export class TodoItemComponent {
   @Input() todo!: TodoItem;
-  isEditing :boolean = false;
-  @Input() onTodoUpdated !: () => void;
-  
-  @ContentChild('edit') editTemplate!: TemplateRef<any>;
+  isEditing: boolean = false;
 
-  changeEditMode() {
+  changeEditMode(){
     this.isEditing = !this.isEditing;
   }
-
-  
-}
+} 

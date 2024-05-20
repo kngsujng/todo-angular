@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TodoItem, TodoService } from 'src/entities/todo';
 
@@ -11,9 +11,7 @@ import { TodoItem, TodoService } from 'src/entities/todo';
 })
 export class EditTodoComponent implements OnInit {
   @Input() todo!: TodoItem;
-  @Input() isEditing!: boolean;
-  @Input() changeEditMode!: () => void;
-
+  @Output() toggleEvent = new EventEmitter<void>();
   editedInputVal: string = '';
   
   private readonly todoService = inject(TodoService);
@@ -22,10 +20,14 @@ export class EditTodoComponent implements OnInit {
     this.editedInputVal = this.todo.content;
   }
 
-  editItem() {
+  onSave() {
     this.todoService.onEditTodo(this.todo.id, this.editedInputVal);
-    this.changeEditMode();
-    // this.editedInputVal = '';
+    this.toggleEvent.emit();
+    this.editedInputVal = '';
+  }
+
+  onCancel(){
+    this.toggleEvent.emit();
   }
 
   isDisabled(){
