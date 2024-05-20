@@ -49,7 +49,7 @@ export class TodoApi {
     return from(promise);
   }
 
-  toggleStatus(userId: string, todo: TodoItem){
+  editTodo(userId: string, todo: TodoItem){
     const { id : todoId } = todo;
     const newTodo: Record<string, Partial<TodoItem>> = {};
     newTodo[`${userId}/todos/${todoId}`] = todo

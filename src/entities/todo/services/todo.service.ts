@@ -46,13 +46,17 @@ export class TodoService {
     ).subscribe(() => this.initTodoList());
   }
 
-  onChangeStatus(todoId: string, status: TodoStatus) {
+  onChangeTodo(todoId: string, updates: {content?: string; status?: TodoStatus}){
     const todo = this.todoListState.value.find(todo => todo.id === todoId);
     if(!todo) return;
-    const updatedStatus = status === 'TODO' || status === 'INPROGRESS' ? 'COMPLETED' : 'TODO';
-    const newTodo = { ...todo, status: updatedStatus as TodoStatus };
-    
-    this.todoApi.toggleStatus('test', newTodo).pipe(
+
+    const newTodo = { 
+      ...todo, 
+      content: updates.content !== undefined ? updates.content : todo.content, 
+      status: updates.status  !== undefined ? updates.status : todo.status
+     };
+
+    this.todoApi.editTodo('test', newTodo).pipe(
       tap(() => {
         const todos = this.todoListState.value.map(todo => (todo.id === todoId? newTodo: todo));
         this.todoListState.next([...todos]);
@@ -60,11 +64,12 @@ export class TodoService {
     ).subscribe(() => this.initTodoList());
   }
 
-  onEditTodo(id: string, updatedContent: string) {
-    const updatedTodos = this.todoListState.value.map((todo) => {
-      if (todo.id !== id) return todo;
-      return { ...todo, content: updatedContent };
-    });
-    this.todoListState.next(updatedTodos);
+  onChangeStatus(todoId: string, status: TodoStatus) {
+    const updatedStatus = status === 'TODO' || status === 'INPROGRESS' ? 'COMPLETED' : 'TODO';
+    this.onChangeTodo(todoId, {status: updatedStatus})
+  }
+
+  onEditTodo(todoId: string, updatedContent: string) {
+    this.onChangeTodo(todoId, {content: updatedContent})
   }
 }
