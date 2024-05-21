@@ -1,3 +1,9 @@
 <section class="relative flex h-full flex-col overflow-y-hidden bg-white pb-6">
-  <router-outlet />
+  <section class="relative flex h-full flex-col overflow-y-hidden bg-white pb-6">
+    @if (loadedCredentials) {
+      <router-outlet />
+    } @else {
+      <div>인증 정보 확인중 ... 😅</div>
+    }
+  </section>
 </section>

@@ -1,23 +1,20 @@
 import { inject } from "@angular/core";
 import { CanActivateFn, Router } from "@angular/router";
-import { map } from "rxjs";
 import { AuthService } from "../../features/auth/services/auth.service";
-import { TodoService } from "src/features/todo/services";
+import { map } from "rxjs";
 
-export const AuthGuard:CanActivateFn = () => {
+export const LoginGuard:CanActivateFn = () => {
   const router = inject(Router);
   const authService = inject(AuthService);
-  const todoService = inject(TodoService);
 
+  // 로그인된 사용자는 login 페이지 못 가는 Guard 
   return authService.checkAuthenticate().pipe(
     map((user) => {
-      if(!user){
-        window.alert('인증이 필요한 페이지입니다.');
-        router.navigateByUrl('/login');
+      if(user){
+        router.navigateByUrl('/list');
         return false; 
       }
 
-      todoService.initTodoList().subscribe();
       return true;
     })
   )

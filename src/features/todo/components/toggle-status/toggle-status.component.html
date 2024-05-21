@@ -1,0 +1,10 @@
+<button
+  class="h-8 w-8 rounded-full border-2 border-dotted border-gray-400 hover:border-[#00C471]"
+  (click)="toggleItem(todo.id, todo.status)"
+>
+  @if (todo.status === 'COMPLETED') {
+    <span>⭕</span>
+  } @else {
+    <span></span>
+  }
+</button>

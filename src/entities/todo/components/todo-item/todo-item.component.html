@@ -1,0 +1,22 @@
+<li class="text-md mb-3 flex items-center gap-2 rounded-3xl border-2 border-[#00C471] bg-white px-4 py-4 shadow-md">
+  <ng-content select="[slot='toggle']"></ng-content>
+  <div class="flex-1 pl-2">
+    @if (!isEditing) {
+      <div class="flex gap-2">
+        <div class="flex-1">
+          <p [ngClass]="{ 'text-gray-400 line-through': todo.status === 'COMPLETED' }">
+            {{ todo.content }}
+          </p>
+          <p [ngClass]="{ 'text-xs text-gray-600': todo.location }">{{ todo.location && '📍 ' + todo.location }}</p>
+        </div>
+        <div class="my-auto">
+          <ng-content select="[slot='remove']"></ng-content>
+        </div>
+        <button type="button" (click)="changeEditMode()">✏️</button>
+      </div>
+    } @else {
+      <edit-todo-component [todo]="todo" (toggleEvent)="changeEditMode()" />
+    }
+  </div>
+  <ng-content select="[slot='copy']"></ng-content>
+</li>

@@ -1,0 +1,1 @@
+export type NewTodo = { content: string; location: string; }

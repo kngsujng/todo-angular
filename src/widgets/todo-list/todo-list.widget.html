@@ -1,0 +1,18 @@
+@if (allTodoList$ | async; as allTodoList) {
+  <app-sort-todo [todoList]="allTodoList" />
+  <ul class="mx-auto h-[650px] max-w-screen-md flex-1 overflow-y-scroll bg-[#F9F9F9] p-5 print:overflow-y-visible">
+    @for (todoItem of allTodoList; track todoItem.id) {
+      <app-todo-item [todo]="todoItem">
+        <toggle-status-component slot="toggle" [todo]="todoItem" />
+        <remove-todo-component slot="remove" [todoId]="todoItem.id" />
+        <copy-todo-component slot="copy" [content]="todoItem.content" />
+      </app-todo-item>
+    }
+  </ul>
+} @else {
+  <div
+    class="mx-auto flex h-[600px] max-w-screen-md flex-1 flex-col items-center justify-center border-2 border-dotted"
+  >
+    <p class="text-gray-500">등록된 투두 아이템이 없습니다.</p>
+  </div>
+}
