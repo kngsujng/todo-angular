@@ -1,27 +1,26 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { Observable } from "rxjs";
-import { AuthModel, UserModel } from "src/entities/auth/models/auth";
+import { AuthModel } from "src/entities/auth/models/auth";
 import { auth } from "src/shared/libs/firebase";
 import { removeAccessToken } from "src/shared/libs/jwt.storage";
+import { ProfileState } from "../state";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthApi {
 
+  private readonly profileState = inject(ProfileState);
+
   checkAuthenticate() {
-    return new Observable<UserModel|null>(observer => {
+    return new Observable<boolean>(observer => {
       onAuthStateChanged(auth, (user) => {
         if (!user) {
-          observer.next(null);
+          observer.next(false);
         } else {
-          observer.next({
-            uid: user.uid,
-            email: user.email!,
-            displayName: user.displayName!,
-            photoURL: user.photoURL!,
-          });
+          this.profileState.initByFirebaseUser(user);
+          observer.next(true);
         }
         observer.complete();
       });

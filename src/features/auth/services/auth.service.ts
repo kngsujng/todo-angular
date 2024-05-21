@@ -2,7 +2,7 @@ import { Injectable, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { User } from "firebase/auth";
 import { AuthApi } from "src/entities/auth/api/auth.api";
-import { AuthModel } from "../models/auth";
+import { AuthModel } from "../../../entities/auth/models/auth";
 import { getAccessToken, setAccessToken } from "../../../shared/libs/jwt.storage";
 import { BehaviorSubject } from "rxjs";
 

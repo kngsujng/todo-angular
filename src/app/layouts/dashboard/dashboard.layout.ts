@@ -3,11 +3,12 @@ import { Router, RouterOutlet } from '@angular/router';
 import { AddTodoComponent } from 'src/features/todo/components/add-todo/add-todo.component';
 import { TodoHeadComponent } from 'src/entities/todo/components/todo-head/todo-head.component';
 import { TodoService } from 'src/entities/todo/services/todo.service';
+import { LogoutButtonComponent } from 'src/features/todo/components/logout-button/logout-button.component';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-    imports: [RouterOutlet, TodoHeadComponent, AddTodoComponent],
+    imports: [RouterOutlet, TodoHeadComponent, AddTodoComponent, LogoutButtonComponent],
   templateUrl: './dashboard.layout.html',
   styleUrl: './dashboard.layout.scss'
 })

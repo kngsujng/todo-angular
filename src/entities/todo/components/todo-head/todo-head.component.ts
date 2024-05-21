@@ -1,8 +1,8 @@
 import { CommonModule, DatePipe, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { Observable, map, tap } from 'rxjs';
-import { AuthService } from 'src/entities/auth/services/auth.service';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Observable, map } from 'rxjs';
+import { ProfileState } from 'src/entities/auth';
 import { TodoItem } from '../../models/todo';
 import { TodoService } from '../../services/todo.service';
 
@@ -23,17 +23,9 @@ export class TodoHeadComponent {
 
   constructor(
     public todoService: TodoService,
-    private authService: AuthService,
-    private router: Router,
+    private profileState : ProfileState,
   ) {
-    // TODO 사용자 username 전역관리
-    this.authService.checkAuthenticate().pipe(
-      tap((user) => {
-        if(user){
-          this.username = user.displayName
-        }
-      })
-    ).subscribe();
+    this.username = this.profileState.getUsername();
     this.allTodoList$ = this.todoService.todoListState$;
   }
 
@@ -51,10 +43,5 @@ export class TodoHeadComponent {
           
       }),
     );
-  }
-
-  onLogout(){
-    this.authService.logoutUser();
-    this.router.navigateByUrl('/login')
   }
 }

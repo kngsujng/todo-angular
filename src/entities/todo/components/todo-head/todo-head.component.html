@@ -41,9 +41,7 @@
       </li>
       <li class="ml-6 flex items-center gap-2">
         <p class="font-semibold">{{ username }}</p>
-        <button class="rounded-md bg-green-500 p-2 text-sm text-white" type="button" (click)="onLogout()">
-          로그아웃
-        </button>
+        <ng-content select="[slot='logout']"></ng-content>
       </li>
     </ul>
   </nav>
