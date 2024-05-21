@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TodoItem, TodoService } from 'src/entities/todo';
+import { TodoItem } from 'src/entities/todo';
+import { TodoService } from '../../services';
 
 @Component({
   selector: 'edit-todo-component',

@@ -1,5 +1,5 @@
 import { Component, Input, inject } from '@angular/core';
-import { TodoService } from 'src/entities/todo';
+import { TodoService } from '../../services';
 
 @Component({
   selector: 'remove-todo-component',

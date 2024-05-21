@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { TodoItem } from 'src/entities/todo/models/todo';
-import { TodoService } from 'src/entities/todo/services/todo.service';
+import { TodoService } from 'src/features/todo/services';
 import { environment } from 'src/shared/environments/environment';
 import { TodoListWidget } from 'src/widgets';
 

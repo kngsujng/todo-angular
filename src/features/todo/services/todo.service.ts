@@ -1,22 +1,30 @@
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, map, tap } from 'rxjs';
-import { TodoApi } from '../api';
-import { TodoItem, TodoStatus } from '../models/todo';
+import { ProfileState } from 'src/entities/auth';
+import { TodoApi, TodoItem, TodoState, TodoStatus } from 'src/entities/todo';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
   private readonly todoApi = inject(TodoApi);
+  private readonly profileState = inject(ProfileState);
+  private readonly todoState = inject(TodoState);
   private readonly todoListState = new BehaviorSubject<TodoItem[]>([]);
   todoListState$ = this.todoListState.asObservable();
-  
-  constructor() {}
+  private readonly username !: string ;
 
+  constructor(){
+    this.username = this.profileState.getUsername()
+  }
+  
   initTodoList() {
-    return this.todoApi.getTodos('test').pipe(
-      tap(todos => this.todoListState.next(todos))
-    );
+    return this.todoApi.getTodos(this.username).pipe(
+      tap(todos => {
+        this.todoListState.next(todos);
+        this.todoState.initByFirebaseTodos(this.todoListState.value);
+      })
+    )
   }
 
   getTodoList(status: TodoStatus) {
@@ -27,7 +35,7 @@ export class TodoService {
 
   onAddTodo(todo: string, location: string) {
     if (todo.trim().length <= 0) return;
-    this.todoApi.addTodo('test', todo, location) // TODO 사용자이름 임의로 가져오지 말고 로그인한 사용자 정보에서 가져오기
+    this.todoApi.addTodo(this.username, todo, location)
     .pipe(
       tap(result => {
         const currentTodos = this.todoListState.value;
@@ -37,8 +45,7 @@ export class TodoService {
   }
 
   onDeleteTodo(todoId: string) {
-    // TODO 사용자이름 임의로 가져오지 말고 로그인한 사용자 정보에서 가져오기
-    this.todoApi.deleteTodo('test', todoId).pipe(
+    this.todoApi.deleteTodo(this.username, todoId).pipe(
       tap(()=> {
         const removedTodos = this.todoListState.value.filter((todo) => todo.id !== todoId);
         this.todoListState.next(removedTodos);
@@ -56,7 +63,7 @@ export class TodoService {
       status: updates.status  !== undefined ? updates.status : todo.status
      };
 
-    this.todoApi.editTodo('test', newTodo).pipe(
+    this.todoApi.editTodo(this.username, newTodo).pipe(
       tap(() => {
         const todos = this.todoListState.value.map(todo => (todo.id === todoId? newTodo: todo));
         this.todoListState.next([...todos]);

@@ -1,8 +1,8 @@
 import { inject } from "@angular/core";
 import { CanActivateFn, Router } from "@angular/router";
 import { map } from "rxjs";
-import { TodoService } from "src/entities/todo";
 import { AuthService } from "../../features/auth/services/auth.service";
+import { TodoService } from "src/features/todo/services";
 
 export const AuthGuard:CanActivateFn = () => {
   const router = inject(Router);

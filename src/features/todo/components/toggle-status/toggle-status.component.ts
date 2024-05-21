@@ -1,5 +1,6 @@
 import { Component, Input, inject } from '@angular/core';
-import { TodoItem, TodoService, TodoStatus } from 'src/entities/todo';
+import { TodoService } from '../../services';
+import { TodoItem, TodoStatus } from 'src/entities/todo';
 
 @Component({
   selector: 'toggle-status-component',

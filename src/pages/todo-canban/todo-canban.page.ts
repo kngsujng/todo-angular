@@ -13,8 +13,8 @@ import { RemoveTodoComponent } from 'src/features/todo/components/remove-todo/re
 import { ToggleStatusComponent } from 'src/features/todo/components/toggle-status';
 import { TodoItemComponent } from '../../entities/todo/components/todo-item/todo-item.component';
 import { TodoItem } from '../../entities/todo/models/todo';
-import { TodoService } from '../../entities/todo/services/todo.service';
 import { EditTodoComponent } from 'src/features/todo/components/edit-todo';
+import { TodoService } from 'src/features/todo/services';
 
 @Component({
   selector: 'app-todo-canban',

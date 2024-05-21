@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { AddTodoComponent } from 'src/features/todo/components/add-todo/add-todo.component';
 import { TodoHeadComponent } from 'src/entities/todo/components/todo-head/todo-head.component';
-import { TodoService } from 'src/entities/todo/services/todo.service';
 import { LogoutButtonComponent } from 'src/features/todo/components/logout-button/logout-button.component';
+import { TodoService } from 'src/features/todo/services';
 
 @Component({
   selector: 'app-layout',

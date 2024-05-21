@@ -4,8 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
 import { TodoModalComponent } from 'src/entities/todo';
 import { TodoItem } from 'src/entities/todo/models/todo';
-import { TodoService } from 'src/entities/todo/services/todo.service';
-import { CalendarService } from '../../entities/todo/services/calendar.service';
+import { CalendarService, TodoService } from 'src/features/todo/services';
 
 @Component({
   selector: 'app-todo-calendar',
@@ -19,8 +18,8 @@ export class TodoCalendarPage implements OnInit {
   calendarTodos!:TodoItem[]
 
   constructor(
-    private calendarService: CalendarService,
     private todoService: TodoService,
+    private calendarService : CalendarService,
     private dialog: Dialog
   ) {}
 
